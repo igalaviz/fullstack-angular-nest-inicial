@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "projects": {
+    "kolibri": {
+      "projectType": "application",
+      "root": "apps/kolibri",
+      "sourceRoot": "apps/kolibri/src",
+      "prefix": "fullstack-angular-nest",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/kolibri",
+            "index": "apps/kolibri/src/index.html",
+            "main": "apps/kolibri/src/main.ts",
+            "polyfills": "apps/kolibri/src/polyfills.ts",
+            "tsConfig": "apps/kolibri/tsconfig.app.json",
+            "assets": [
+              "apps/kolibri/src/favicon.ico",
+              "apps/kolibri/src/assets"
+            ],
+            "styles": ["apps/kolibri/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/kolibri/src/environments/environment.ts",
+                  "with": "apps/kolibri/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "kolibri:build:production"
+            },
+            "development": {
+              "browserTarget": "kolibri:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "kolibri:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/kolibri/src/**/*.ts",
+              "apps/kolibri/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/kolibri"],
+          "options": {
+            "jestConfig": "apps/kolibri/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "kolibri-e2e": {
+      "root": "apps/kolibri-e2e",
+      "sourceRoot": "apps/kolibri-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/kolibri-e2e/cypress.json",
+            "devServerTarget": "kolibri:serve:development",
+            "tsConfig": "apps/kolibri-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "kolibri:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/kolibri-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["kolibri"]
+    }
+  }
+}
