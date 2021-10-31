@@ -1,6 +1,58 @@
 {
   "version": 1,
   "projects": {
+    "appnest": {
+      "root": "apps/appnest",
+      "sourceRoot": "apps/appnest/src",
+      "projectType": "application",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/appnest",
+            "main": "apps/appnest/src/main.ts",
+            "tsConfig": "apps/appnest/tsconfig.app.json",
+            "assets": ["apps/appnest/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/appnest/src/environments/environment.ts",
+                  "with": "apps/appnest/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "appnest:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/appnest/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/appnest"],
+          "options": {
+            "jestConfig": "apps/appnest/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "kolibri": {
       "projectType": "application",
       "root": "apps/kolibri",
@@ -122,6 +174,55 @@
       },
       "tags": [],
       "implicitDependencies": ["kolibri"]
+    },
+    "products": {
+      "root": "libs/products",
+      "sourceRoot": "libs/products/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["libs/products/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/products"],
+          "options": {
+            "jestConfig": "libs/products/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "user-interfaz": {
+      "projectType": "library",
+      "root": "libs/user-interfaz",
+      "sourceRoot": "libs/user-interfaz/src",
+      "prefix": "fullstack-angular-nest",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/user-interfaz"],
+          "options": {
+            "jestConfig": "libs/user-interfaz/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/user-interfaz/src/**/*.ts",
+              "libs/user-interfaz/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
     }
   }
 }

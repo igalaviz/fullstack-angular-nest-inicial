@@ -1,0 +1,276 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model cat_ant_patologicos_paciente {
+  id_paciente               String @db.VarChar(20)
+  id_antecedente_patologico String @db.VarChar(5)
+  descripcion               String @db.VarChar(300)
+
+  @@id([id_paciente, id_antecedente_patologico])
+}
+
+model cat_aplicadores {
+  id_aplicador      String @id @db.VarChar(5)
+  id_tipo_aplicador String @db.VarChar(5)
+  numero            String @db.VarChar(5)
+  color             String @db.VarChar(30)
+}
+
+model cat_catalogos_simples {
+  nombre_campo      String @db.VarChar(50)
+  valor_campo       String @db.VarChar(5)
+  status_valor      String @db.VarChar(1)
+  nombre_valor      String @db.VarChar(100)
+  descripcion_valor String @db.VarChar(300)
+
+  @@id([nombre_campo, valor_campo])
+}
+
+model cat_consumibles {
+  id_consumible       String    @id @db.VarChar(20)
+  nombre              String    @db.VarChar(100)
+  id_tipo_consumible  String    @db.VarChar(5)
+  id_laboratorio      String    @db.VarChar(20)
+  costo_actual        Decimal   @db.Decimal(10, 2)
+  fecha_ult_act_costo DateTime? @db.Date
+}
+
+model cat_consumibles_procedimiento {
+  id_procedimiento String @db.VarChar(20)
+  id_consumible    String @db.VarChar(20)
+
+  @@id([id_procedimiento, id_consumible])
+}
+
+model cat_diagnosticos_medicos {
+  id_diagnostico String @id @db.VarChar(5)
+  id_zona        String @db.VarChar(5)
+  id_estigma     String @db.VarChar(5)
+  nombre         String @db.VarChar(100)
+  niveles        String @db.VarChar(1)
+  orden          Int    @db.SmallInt
+}
+
+model cat_estigmas {
+  id_estigma     String @id @db.VarChar(5)
+  nombre         String @db.VarChar(100)
+  puntos_totales Int    @db.SmallInt
+}
+
+model cat_fotos_paciente {
+  id_paciente String @db.VarChar(20)
+  id_foto     String @db.VarChar(50)
+  foto        Bytes? @db.Blob
+
+  @@id([id_paciente, id_foto])
+}
+
+model cat_laboratorios {
+  id_laboratorio  String @id @db.VarChar(20)
+  nombre          String @db.VarChar(100)
+  nombre_contacto String @db.VarChar(100)
+  direccion       String @db.VarChar(300)
+  telefono1       String @db.VarChar(20)
+  telefono2       String @db.VarChar(20)
+}
+
+model cat_lotes_consumible {
+  id_consumible                String    @db.VarChar(20)
+  id_lote                      String    @db.VarChar(20)
+  fecha_caducidad              DateTime? @db.Date
+  id_forma_farmaceutica        String    @db.VarChar(5)
+  id_funcion_inyectable        String    @db.VarChar(5)
+  id_envase_compra             String    @db.VarChar(5)
+  unidades_inv_x_envase_compra Int       @db.SmallInt
+  status_lote                  String    @db.VarChar(1)
+  unidades_adm_x_unidad_inv    Int       @db.SmallInt
+  id_unidad_administracion     String    @db.VarChar(5)
+  comentarios                  String    @db.VarChar(1000)
+
+  @@id([id_consumible, id_lote])
+}
+
+model cat_musculos {
+  id_musculo String @id @db.VarChar(5)
+  nombre     String @db.VarChar(100)
+  html_id    String @db.VarChar(100)
+}
+
+model cat_pacientes {
+  id_paciente            String    @id @db.VarChar(20)
+  nombre                 String    @db.VarChar(100)
+  email                  String    @db.VarChar(100)
+  telefono_movil         String    @db.VarChar(20)
+  telefono_fijo          String    @db.VarChar(20)
+  fecha_nacimiento       DateTime? @db.Date
+  deportista             String    @db.VarChar(1)
+  fumador                String    @db.VarChar(1)
+  alcohol                String    @db.VarChar(1)
+  grosor_piel            String    @db.VarChar(30)
+  intensidad_grosor_piel String    @db.VarChar(30)
+  color_piel             String    @db.VarChar(30)
+  intensidad_color_piel  String    @db.VarChar(30)
+  enviar_notificaciones  String    @db.VarChar(1)
+  enfermedades_piel      String    @db.VarChar(300)
+  motivacion_tratamiento String    @db.VarChar(300)
+}
+
+model cat_procedimientos {
+  id_procedimiento      String @id @db.VarChar(20)
+  id_tipo_procedimiento String @db.VarChar(5)
+  nombre                String @db.VarChar(100)
+}
+
+model cat_procedimientos_diagnostico {
+  id_diagnostico   String @db.VarChar(5)
+  id_procedimiento String @db.VarChar(20)
+  primario         String @db.VarChar(1)
+
+  @@id([id_diagnostico, id_procedimiento])
+}
+
+model cat_signos_sintomas {
+  id_sigo_sintoma String @id @db.VarChar(5)
+  id_zona         String @db.VarChar(5)
+  id_estigma      String @db.VarChar(5)
+  id_diagnostico  String @db.VarChar(5)
+  nombre          String @db.VarChar(100)
+  orden           Int    @db.SmallInt
+}
+
+model cat_subzonas {
+  id_subzona String @id @db.VarChar(5)
+  nombre     String @db.VarChar(100)
+  html_id    String @db.VarChar(100)
+}
+
+model cat_usuarios {
+  id_usuario String @id @db.VarChar(20)
+  id_rol     String @db.VarChar(20)
+  nombre     String @db.VarChar(100)
+  email      String @db.VarChar(100)
+}
+
+model cfg_parametros {
+  unidad_negocio    String @id @db.VarChar(10)
+  nombre            String @db.VarChar(100)
+  metodo_costeo_inv String @db.VarChar(5)
+  idioma            String @db.VarChar(5)
+  nombre_contacto   String @db.VarChar(100)
+}
+
+model tra_consultas {
+  id_consulta        String    @id @db.VarChar(20)
+  id_tipo_consulta   String    @db.VarChar(5)
+  id_paciente        String    @db.VarChar(20)
+  status_consulta    String    @db.VarChar(5)
+  fecha              DateTime? @db.DateTime(0)
+  programada         String    @db.VarChar(1)
+  fecha_programacion DateTime? @db.DateTime(0)
+  comentarios        String    @db.VarChar(1000)
+}
+
+model tra_consumibles_consulta {
+  id_consulta      String @db.VarChar(20)
+  id_procedimiento String @db.VarChar(20)
+  id_consumible    String @db.VarChar(20)
+  id_aplicador     String @db.VarChar(5)
+  id_musculo       String @db.VarChar(5)
+  id_subzona       String @db.VarChar(5)
+  cantidad         Int
+
+  @@id([id_consulta, id_procedimiento, id_consumible])
+}
+
+model tra_diagnosticos_consulta {
+  id_consulta    String @db.VarChar(20)
+  id_diagnostico String @db.VarChar(5)
+  id_nivel       String @db.VarChar(5)
+
+  @@id([id_consulta, id_diagnostico])
+}
+
+model tra_entradas_inv {
+  id_entrada        String    @db.VarChar(20)
+  id_consumible     String    @db.VarChar(20)
+  id_lote           String    @db.VarChar(20)
+  id_tipo_entrada   String    @db.VarChar(5)
+  fecha_entrada     DateTime? @db.Date
+  id_unidad_entrada String    @db.VarChar(5)
+  cantidad          Int
+  precio            Decimal   @db.Decimal(10, 2)
+  id_laboratorio    String    @db.VarChar(20)
+  documento_entrada String    @db.VarChar(20)
+  fecha_doc_entrada DateTime? @db.Date
+  factura           String    @db.VarChar(20)
+  fecha_factura     DateTime? @db.Date
+  id_usuario        String    @db.VarChar(20)
+
+  @@id([id_consumible, id_lote, id_entrada])
+}
+
+model tra_fotos_consulta {
+  id_consulta String @db.VarChar(20)
+  id_foto     String @db.VarChar(50)
+  foto        Bytes? @db.Blob
+
+  @@id([id_consulta, id_foto])
+}
+
+model tra_inventario {
+  id_consumible       String @db.VarChar(20)
+  id_lote             String @db.VarChar(20)
+  cantidad            Int
+  cantidad_disponible Int
+
+  @@id([id_consumible, id_lote])
+}
+
+model tra_procedimientos_consulta {
+  id_consulta          String @db.VarChar(20)
+  id_procedimiento     String @db.VarChar(20)
+  status_procedimiento String @db.VarChar(1)
+  num_apariciones      Int    @db.SmallInt
+  propuesto_por        String @db.VarChar(1)
+  comentarios          String @db.VarChar(1000)
+
+  @@id([id_consulta, id_procedimiento])
+}
+
+model tra_salidas_inv {
+  id_salida        String    @db.VarChar(20)
+  id_consumible    String    @db.VarChar(20)
+  id_lote          String    @db.VarChar(20)
+  id_tipo_salida   String    @db.VarChar(5)
+  fecha_salida     DateTime? @db.Date
+  id_unidad_salida String    @db.VarChar(5)
+  cantidad         Int
+  id_consulta      String    @db.VarChar(20)
+  documento_salida String    @db.VarChar(20)
+  id_usuario       String    @db.VarChar(20)
+
+  @@id([id_consumible, id_lote, id_salida])
+}
+
+model tra_signos_sintomas_consulta {
+  id_consulta      String @db.VarChar(20)
+  id_signo_sintoma String @db.VarChar(5)
+
+  @@id([id_consulta, id_signo_sintoma])
+}
+
+// Modelo para prueba, no es de la app
+model Product {
+  id          String @id @default(cuid())
+  name        String
+  description String
+  image       String
+  price       Int
+  sku         String
+}
