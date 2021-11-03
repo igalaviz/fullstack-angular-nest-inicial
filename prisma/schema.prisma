@@ -50,9 +50,9 @@ model cat_consumibles_procedimiento {
 
 model cat_diagnosticos_medicos {
   id_diagnostico String @id @db.VarChar(5)
+  nombre         String @db.VarChar(100)
   id_zona        String @db.VarChar(5)
   id_estigma     String @db.VarChar(5)
-  nombre         String @db.VarChar(100)
   niveles        String @db.VarChar(1)
   orden          Int    @db.SmallInt
 }
@@ -136,12 +136,19 @@ model cat_procedimientos_diagnostico {
 }
 
 model cat_signos_sintomas {
-  id_sigo_sintoma String @id @db.VarChar(5)
-  id_zona         String @db.VarChar(5)
-  id_estigma      String @db.VarChar(5)
-  id_diagnostico  String @db.VarChar(5)
-  nombre          String @db.VarChar(100)
-  orden           Int    @db.SmallInt
+  id_signo_sintoma String  @id @db.VarChar(5)
+  nombre           String  @db.VarChar(100)
+  id_zona          String? @db.VarChar(5)
+  id_estigma       String? @db.VarChar(5)
+  orden            Int     @db.SmallInt
+}
+
+model cat_signos_sintomas_disgnostico {
+  id_signo_sintoma String @db.VarChar(5)
+  id_diagnostico   String @db.VarChar(5)
+  orden            Int    @db.SmallInt
+
+  @@id([id_signo_sintoma, id_diagnostico])
 }
 
 model cat_subzonas {

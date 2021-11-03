@@ -158,14 +158,22 @@ CREATE TABLE `cat_procedimientos_diagnostico` (
 
 -- CreateTable
 CREATE TABLE `cat_signos_sintomas` (
-    `id_sigo_sintoma` VARCHAR(5) NOT NULL,
-    `id_zona` VARCHAR(5) NOT NULL,
-    `id_estigma` VARCHAR(5) NOT NULL,
-    `id_diagnostico` VARCHAR(5) NOT NULL,
+    `id_signo_sintoma` VARCHAR(5) NOT NULL,
     `nombre` VARCHAR(100) NOT NULL,
+    `id_zona` VARCHAR(5) NULL,
+    `id_estigma` VARCHAR(5) NULL,
     `orden` SMALLINT NOT NULL,
 
-    PRIMARY KEY (`id_sigo_sintoma`)
+    PRIMARY KEY (`id_signo_sintoma`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `cat_signos_sintomas_disgnostico` (
+    `id_signo_sintoma` VARCHAR(5) NOT NULL,
+    `id_diagnostico` VARCHAR(5) NOT NULL,
+    `orden` SMALLINT NOT NULL,
+
+    PRIMARY KEY (`id_signo_sintoma`, `id_diagnostico`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
@@ -319,4 +327,4 @@ CREATE TABLE `Product` (
     `sku` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
-) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
