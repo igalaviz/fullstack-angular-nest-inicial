@@ -15,6 +15,12 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@fullstack-angular-nest/nueva-consulta/data-access": [
+        "libs/nueva-consulta/data-access/src/index.ts"
+      ],
+      "@fullstack-angular-nest/nueva-consulta/feature": [
+        "libs/nueva-consulta/feature/src/index.ts"
+      ],
       "@fullstack-angular-nest/products": ["libs/products/src/index.ts"],
       "@fullstack-angular-nest/user-interfaz": [
         "libs/user-interfaz/src/index.ts"

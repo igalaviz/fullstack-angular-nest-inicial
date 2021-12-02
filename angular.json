@@ -175,6 +175,58 @@
       "tags": [],
       "implicitDependencies": ["kolibri"]
     },
+    "nueva-consulta-data-access": {
+      "projectType": "library",
+      "root": "libs/nueva-consulta/data-access",
+      "sourceRoot": "libs/nueva-consulta/data-access/src",
+      "prefix": "fullstack-angular-nest",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/nueva-consulta/data-access"],
+          "options": {
+            "jestConfig": "libs/nueva-consulta/data-access/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/nueva-consulta/data-access/src/**/*.ts",
+              "libs/nueva-consulta/data-access/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "nueva-consulta-feature": {
+      "projectType": "library",
+      "root": "libs/nueva-consulta/feature",
+      "sourceRoot": "libs/nueva-consulta/feature/src",
+      "prefix": "fullstack-angular-nest",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/nueva-consulta/feature"],
+          "options": {
+            "jestConfig": "libs/nueva-consulta/feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/nueva-consulta/feature/src/**/*.ts",
+              "libs/nueva-consulta/feature/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "products": {
       "root": "libs/products",
       "sourceRoot": "libs/products/src",
