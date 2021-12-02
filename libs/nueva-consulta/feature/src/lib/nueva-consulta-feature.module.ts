@@ -8,6 +8,8 @@ import { DiagnosticoInicialComponent } from './diagnostico-inicial/diagnostico-i
 import { DiagnosticoExpPanelComponent } from './diagnostico-inicial/diagnostico-exp-panel/diagnostico-exp-panel.component';
 import { MaterialModule } from '@fullstack-angular-nest/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ColumnaPacienteComponent } from './diagnostico-inicial/columna-paciente/columna-paciente.component';
+import { NuevaConsultaDataAccessModule} from '@fullstack-angular-nest/nueva-consulta/data-access';
 
 @NgModule({
   imports: [
@@ -18,11 +20,13 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ),
     EffectsModule.forFeature([ConsultasEffects]),
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NuevaConsultaDataAccessModule
   ],
   declarations: [
     DiagnosticoInicialComponent,
     DiagnosticoExpPanelComponent,
+    ColumnaPacienteComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
