@@ -5,6 +5,9 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromConsultas from './state/consultas/consultas.reducer';
 import { ConsultasEffects } from './state/consultas/consultas.effects';
 import { DiagnosticoInicialComponent } from './diagnostico-inicial/diagnostico-inicial.component';
+import { DiagnosticoExpPanelComponent } from './diagnostico-inicial/diagnostico-exp-panel/diagnostico-exp-panel.component';
+import { MaterialModule } from '@fullstack-angular-nest/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [
@@ -14,9 +17,15 @@ import { DiagnosticoInicialComponent } from './diagnostico-inicial/diagnostico-i
       fromConsultas.reducer
     ),
     EffectsModule.forFeature([ConsultasEffects]),
+    MaterialModule,
+    FlexLayoutModule
   ],
   declarations: [
     DiagnosticoInicialComponent,
+    DiagnosticoExpPanelComponent,
   ],
+  exports: [
+    DiagnosticoInicialComponent
+  ]
 })
 export class NuevaConsultaFeatureModule {}

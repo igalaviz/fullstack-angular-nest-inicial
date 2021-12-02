@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@fullstack-angular-nest/material": ["libs/material/src/index.ts"],
       "@fullstack-angular-nest/nueva-consulta/data-access": [
         "libs/nueva-consulta/data-access/src/index.ts"
       ],

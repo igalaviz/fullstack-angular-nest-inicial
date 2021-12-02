@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'fullstack-angular-nest-diagnostico-inicial',
+  selector: 'consultas-diagnostico-inicial',
   templateUrl: './diagnostico-inicial.component.html',
   styleUrls: ['./diagnostico-inicial.component.css']
 })
-export class DiagnosticoInicialComponent implements OnInit {
+export class DiagnosticoInicialComponent{
+  
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
 }
