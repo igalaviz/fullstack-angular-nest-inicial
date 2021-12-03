@@ -1,20 +1,43 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 
+interface SignoSintoma {
+  id: string,
+  nombre: string,
+  nivel: 1 | 2 | 3
+}
+
+interface DiagnosticoMedico {
+  id: string,
+  nombre: string,
+  nivel: 1 | 2 | 3
+}
+
 export interface OpcionesSignosSintomas {
   zona: string,
-  opciones: string[]
+  opciones: SignoSintoma[]
 }
 
 export interface OpcionesDiagnosticoMedico {
   zona: string,
-  opciones: string[]
+  opciones: DiagnosticoMedico[]
 }
 
 const signosSintomas: OpcionesSignosSintomas[] = [
   {
     zona: "Cara",
-    opciones: []
+    opciones: [
+      {
+        id: "a",
+        nombre: "Cara alargada",
+        nivel: 3
+      },
+      {
+        id: "b",
+        nombre: "Cara redonda",
+        nivel: 3
+      }
+    ]
   },
   {
     zona: "Tercio Superior",
@@ -29,7 +52,18 @@ const signosSintomas: OpcionesSignosSintomas[] = [
 const diagnosticos: OpcionesDiagnosticoMedico[] = [
   {
     zona: "Cara",
-    opciones: []
+    opciones: [
+      {
+        id: "a",
+        nombre: "Cara larga",
+        nivel: 1
+      },
+      {
+        id: "b",
+        nombre: "Cara en luna llena",
+        nivel: 1
+      }
+    ]
   },
   {
     zona: "Tercio Superior",

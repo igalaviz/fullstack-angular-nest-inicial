@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 
-interface OpcionDiagnostico {
+export interface OpcionDiagnostico {
   nombre: string,
   nivel: 1 | 2 | 3,
   selected: boolean
 }
 
-interface ZonaOpciones {
+export interface ZonaOpciones {
   zona: string,
   opciones: OpcionDiagnostico[]
 }
@@ -17,7 +17,7 @@ interface ZonaOpciones {
   styleUrls: ['./diagnostico-exp-panel.component.css']
 })
 export class DiagnosticoExpPanelComponent {
-  @Input() enableLevels = true;
+  @Input() enableLevels = false;
   @Input() zonaOpciones: ZonaOpciones = {
     zona: "Cara",
     opciones: [

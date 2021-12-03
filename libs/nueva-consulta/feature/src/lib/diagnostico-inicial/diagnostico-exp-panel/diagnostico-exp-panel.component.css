@@ -1,8 +1,13 @@
 .mat-expansion-panel-header-title {
-  font-size: 1.25em;
+  font-size: 1.15em;
   font-weight: 500;
 }
 
 ::ng-deep .mat-list-item-content {
   width: 100%;
+}
+
+::ng-deep .mat-button-toggle-label-content {
+  line-height: 30px !important;
+  font-size: 0.8em;
 }
