@@ -12,6 +12,7 @@ import { ColumnaPacienteComponent } from './diagnostico-inicial/columna-paciente
 import { NuevaConsultaDataAccessModule} from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { ColumnaMedicoComponent } from './diagnostico-inicial/columna-medico/columna-medico.component';
 import { ComentariosComponent } from './diagnostico-inicial/comentarios/comentarios.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -23,7 +24,9 @@ import { ComentariosComponent } from './diagnostico-inicial/comentarios/comentar
     EffectsModule.forFeature([ConsultasEffects]),
     MaterialModule,
     FlexLayoutModule,
-    NuevaConsultaDataAccessModule
+    NuevaConsultaDataAccessModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   declarations: [
     DiagnosticoInicialComponent,
