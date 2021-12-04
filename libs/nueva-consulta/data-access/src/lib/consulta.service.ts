@@ -4,13 +4,13 @@ import { of } from 'rxjs';
 interface SignoSintoma {
   id: string,
   nombre: string,
-  nivel: 1 | 2 | 3
+  nivel: number
 }
 
 interface DiagnosticoMedico {
   id: string,
   nombre: string,
-  nivel: 1 | 2 | 3
+  nivel: number
 }
 
 export interface OpcionesSignosSintomas {

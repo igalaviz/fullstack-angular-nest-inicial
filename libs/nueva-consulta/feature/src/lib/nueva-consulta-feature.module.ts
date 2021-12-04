@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ColumnaPacienteComponent } from './diagnostico-inicial/columna-paciente/columna-paciente.component';
 import { NuevaConsultaDataAccessModule} from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { ColumnaMedicoComponent } from './diagnostico-inicial/columna-medico/columna-medico.component';
+import { ComentariosComponent } from './diagnostico-inicial/comentarios/comentarios.component';
 
 @NgModule({
   imports: [
@@ -29,6 +30,7 @@ import { ColumnaMedicoComponent } from './diagnostico-inicial/columna-medico/col
     DiagnosticoExpPanelComponent,
     ColumnaPacienteComponent,
     ColumnaMedicoComponent,
+    ComentariosComponent,
   ],
   exports: [
     DiagnosticoInicialComponent

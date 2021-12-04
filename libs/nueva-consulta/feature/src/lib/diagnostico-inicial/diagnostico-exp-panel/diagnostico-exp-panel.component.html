@@ -1,6 +1,6 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>{{this.zonaOpciones.zona}}</mat-panel-title>
+        <mat-panel-title>{{this.zonaOpciones.zona}}<span class="check-count">(0)</span></mat-panel-title>
     </mat-expansion-panel-header>
     <mat-list>
         <mat-list-item *ngFor="let opcion of this.zonaOpciones.opciones; let i = index;" fxLayout="row" width="100%">
@@ -8,8 +8,8 @@
                 <mat-checkbox [checked]="opcion.selected" (change)="onCheckChanged(i, $event.checked)">{{opcion.nombre}}</mat-checkbox>
             </div>
             <div fxFlex="50%" fxLayoutAlign="end">
-                <mat-button-toggle-group  name="nivel" [disabled]="!opcion.selected" [value]="opcion.nivel">
-                    <mat-button-toggle [value]="1" matTooltip="Leve">L</mat-button-toggle>
+                <mat-button-toggle-group *ngIf="enableLevels" name="nivel" (change)="onLevelChanged(i, $event.value)">
+                    <mat-button-toggle [value]="1" matTooltip="Leve" >L</mat-button-toggle>
                     <mat-button-toggle [value]="2" matTooltip="Medio">M</mat-button-toggle>
                     <mat-button-toggle [value]="3" matTooltip="Severo">S</mat-button-toggle>
                 </mat-button-toggle-group>

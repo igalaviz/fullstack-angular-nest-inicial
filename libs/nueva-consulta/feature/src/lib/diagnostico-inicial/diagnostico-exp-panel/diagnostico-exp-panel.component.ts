@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 
 export interface OpcionDiagnostico {
   nombre: string,
-  nivel: 1 | 2 | 3,
+  nivel: number,
   selected: boolean
 }
 
@@ -31,5 +31,10 @@ export class DiagnosticoExpPanelComponent {
 
   onCheckChanged(index: number, checked: boolean){
     this.zonaOpciones.opciones[index].selected = checked;
+  }
+
+  onLevelChanged(index: number, level: number){
+    this.zonaOpciones.opciones[index].nivel = level;
+    console.log(level, this.zonaOpciones.opciones[index].nivel);
   }
 }
