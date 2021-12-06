@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultaService, OpcionesDiagnosticoMedico } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { ZonaOpciones } from '../diagnostico-exp-panel/diagnostico-exp-panel.component';
+import { addDiagnosticoMedico, ConsultasState, deleteDiagnosticoMedico, updateDiagnosticoMedico } from '../../..';
+import { OpcionDiagnostico, ZonaOpciones } from '../diagnostico-exp-panel/diagnostico-exp-panel.component';
 
 @Component({
   selector: 'consultas-columna-medico',
@@ -12,7 +14,7 @@ export class ColumnaMedicoComponent implements OnInit {
   diagnosticos$!: Observable<OpcionesDiagnosticoMedico[]>;
   opciones: ZonaOpciones[] = [];
 
-  constructor(private consultaService: ConsultaService) { }
+  constructor(private consultaService: ConsultaService, private store: Store<ConsultasState>) { }
 
   ngOnInit(): void {
     this.diagnosticos$ = this.consultaService.getOpcionesDiagnosticoMedico();
@@ -24,4 +26,15 @@ export class ColumnaMedicoComponent implements OnInit {
     })
   }
 
+  onCheckChanged(opcion: OpcionDiagnostico){
+    if(opcion.selected){
+      this.store.dispatch(addDiagnosticoMedico({diagnosticoMedico: opcion.diagnostico}));
+    }else {
+      this.store.dispatch(deleteDiagnosticoMedico({diagnosticoMedico: opcion.diagnostico}))
+    }
+  }
+
+  onLevelChanged(opcion: OpcionDiagnostico){
+    this.store.dispatch(updateDiagnosticoMedico({diagnosticoMedico: opcion.diagnostico}))
+  }
 }

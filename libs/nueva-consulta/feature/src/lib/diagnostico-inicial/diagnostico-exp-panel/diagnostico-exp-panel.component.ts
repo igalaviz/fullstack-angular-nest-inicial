@@ -42,8 +42,7 @@ export class DiagnosticoExpPanelComponent {
   }
 
   onLevelChanged(index: number, level: number){
-    this.zonaOpciones.opciones[index].diagnostico.nivel = level;
-    console.log(level, this.zonaOpciones.opciones[index].diagnostico.nivel);
+    this.zonaOpciones.opciones[index].diagnostico = Object.assign({}, {...this.zonaOpciones.opciones[index].diagnostico, nivel: level})
     this.levelChange.emit(this.zonaOpciones.opciones[index])
   }
 }
