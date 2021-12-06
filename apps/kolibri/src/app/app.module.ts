@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //TODO: don't import this here. lazy-load it.
 import { NuevaConsultaFeatureModule } from '@fullstack-angular-nest/nueva-consulta/feature';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,8 @@ import { NuevaConsultaFeatureModule } from '@fullstack-angular-nest/nueva-consul
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     BrowserAnimationsModule,
-    NuevaConsultaFeatureModule
+    NuevaConsultaFeatureModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent],

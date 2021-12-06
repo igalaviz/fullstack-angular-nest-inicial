@@ -14,6 +14,8 @@ import { ColumnaMedicoComponent } from './diagnostico-inicial/columna-medico/col
 import { ComentariosComponent } from './diagnostico-inicial/comentarios/comentarios.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FotosComponent } from './diagnostico-inicial/fotos/fotos.component';
+import { TratamientosRecomendadosComponent } from './tratamientos-recomendados/tratamientos-recomendados.component';
+import { FeatureConsultasRoutingModule } from './nueva-consulta-routing.module';
 
 @NgModule({
   imports: [
@@ -27,7 +29,8 @@ import { FotosComponent } from './diagnostico-inicial/fotos/fotos.component';
     FlexLayoutModule,
     NuevaConsultaDataAccessModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    FeatureConsultasRoutingModule
   ],
   declarations: [
     DiagnosticoInicialComponent,
@@ -36,6 +39,7 @@ import { FotosComponent } from './diagnostico-inicial/fotos/fotos.component';
     ColumnaMedicoComponent,
     ComentariosComponent,
     FotosComponent,
+    TratamientosRecomendadosComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
