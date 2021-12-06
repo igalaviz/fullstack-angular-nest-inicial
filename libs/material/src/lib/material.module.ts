@@ -6,6 +6,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 const modules = [
   MatExpansionModule,
@@ -15,6 +16,7 @@ const modules = [
   MatTooltipModule,
   MatFormFieldModule,
   MatInputModule,
+  MatButtonModule
 ]
 
 @NgModule({
