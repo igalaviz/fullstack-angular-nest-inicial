@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SignoSintoma, DiagnosticoMedico } from '@fullstack-angular-nest/nueva-consulta/data-access'
-import { Store } from '@ngrx/store';
-import { ConsultasState } from '../../..';
+
 
 export interface OpcionDiagnostico {
   diagnostico: SignoSintoma | DiagnosticoMedico
@@ -34,18 +33,17 @@ export class DiagnosticoExpPanelComponent {
       }
     ]
   };
-
-  constructor(private store: Store<ConsultasState>){
-    
-  }
+  @Output() checkChange = new EventEmitter<OpcionDiagnostico>();
+  @Output() levelChange = new EventEmitter<OpcionDiagnostico>();
 
   onCheckChanged(index: number, checked: boolean){
     this.zonaOpciones.opciones[index].selected = checked;
-    console.log(this.zonaOpciones.opciones[index].selected);
+    this.checkChange.emit(this.zonaOpciones.opciones[index])
   }
 
   onLevelChanged(index: number, level: number){
     this.zonaOpciones.opciones[index].diagnostico.nivel = level;
     console.log(level, this.zonaOpciones.opciones[index].diagnostico.nivel);
+    this.levelChange.emit(this.zonaOpciones.opciones[index])
   }
 }
