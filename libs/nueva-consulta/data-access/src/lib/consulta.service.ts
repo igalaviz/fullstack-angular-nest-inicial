@@ -3,12 +3,14 @@ import { of } from 'rxjs';
 
 export interface SignoSintoma {
   id: string,
+  zona: string,
   nombre: string,
   nivel: number
 }
 
 export interface DiagnosticoMedico {
   id: string,
+  zona: string,
   nombre: string,
   nivel: number
 }
@@ -29,11 +31,13 @@ const signosSintomas: OpcionesSignosSintomas[] = [
     opciones: [
       {
         id: "a",
+        zona: "Cara",
         nombre: "Cara alargada",
         nivel: 3
       },
       {
         id: "b",
+        zona: "Cara",
         nombre: "Cara redonda",
         nivel: 3
       }
@@ -55,11 +59,13 @@ const diagnosticos: OpcionesDiagnosticoMedico[] = [
     opciones: [
       {
         id: "a",
+        zona: "Cara",
         nombre: "Cara larga",
         nivel: 1
       },
       {
         id: "b",
+        zona: "Cara",
         nombre: "Cara en luna llena",
         nivel: 1
       }

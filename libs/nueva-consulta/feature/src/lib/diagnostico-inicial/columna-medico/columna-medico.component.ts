@@ -19,7 +19,7 @@ export class ColumnaMedicoComponent implements OnInit {
     this.diagnosticos$.subscribe(value => {
       this.opciones = value.map(s => Object.assign({}, {
         zona: s.zona, 
-        opciones: s.opciones.map(o => Object.assign({}, {nombre: o.nombre, nivel: o.nivel, selected: false}))
+        opciones: s.opciones.map(o => Object.assign({}, {diagnostico: o, selected: false}))
       }))
     })
   }

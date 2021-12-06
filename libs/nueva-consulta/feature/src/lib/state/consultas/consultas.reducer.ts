@@ -5,10 +5,11 @@ import * as ConsultasActions from './consultas.actions';
 import { ConsultasEntity } from './consultas.models';
 
 import { DiagnosticoMedico, SignoSintoma } from '@fullstack-angular-nest/nueva-consulta/data-access'
+import { state } from '@angular/animations';
 
 export const CONSULTAS_FEATURE_KEY = 'consultas';
 
-export interface State extends EntityState<ConsultasEntity> {
+export interface ConsultasState extends EntityState<ConsultasEntity> {
   error?: string | null; // last known error (if any)
   comentarios: string;
   selectedId: string;
@@ -18,13 +19,13 @@ export interface State extends EntityState<ConsultasEntity> {
 }
 
 export interface ConsultasPartialState {
-  readonly [CONSULTAS_FEATURE_KEY]: State;
+  readonly [CONSULTAS_FEATURE_KEY]: ConsultasState;
 }
 
 export const consultasAdapter: EntityAdapter<ConsultasEntity> =
   createEntityAdapter<ConsultasEntity>();
 
-export const initialState: State = consultasAdapter.getInitialState({
+export const initialState: ConsultasState = consultasAdapter.getInitialState({
   // set initial required properties
   loaded: false,
   comentarios: '',
@@ -32,6 +33,18 @@ export const initialState: State = consultasAdapter.getInitialState({
   diagnosticoPacienteSeleccionados: [],
   diagnosticoMedicoSeleccionados: []
 });
+
+// HELPER FUNCTIONS
+const addSignoSintoma = (signosSintomas: SignoSintoma[], signoSintoma: SignoSintoma) => [...signosSintomas, signoSintoma];
+const addDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnosticoMedico: DiagnosticoMedico) => [...diagnosticos, diagnosticoMedico];  
+const updateSignoSintoma = (signosSintomas: SignoSintoma[], signoSintoma: SignoSintoma) => signosSintomas.map(s => {
+  return s.id === signoSintoma.id ? Object.assign({}, signoSintoma) : s;  
+});
+const updateDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnosticoMedico: DiagnosticoMedico) => diagnosticos.map(d => {
+  return d.id === diagnosticoMedico.id ? Object.assign({}, diagnosticoMedico) : d; 
+});
+const deleteSignoSintoma = (signosSintomas: SignoSintoma[], signoSintoma: SignoSintoma) => signosSintomas.filter(w => signoSintoma.id !== w.id); 
+const deleteDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnostico: DiagnosticoMedico) => diagnosticos.filter(w => diagnostico.id !== w.id);  
 
 const consultasReducer = createReducer(
   initialState,
@@ -51,16 +64,32 @@ const consultasReducer = createReducer(
     ...state,
     comentarios
   })),
-  on(ConsultasActions.setSignosSintomas, (state, { signosSintomas }) => ({
+  on(ConsultasActions.addSignoSintoma, (state, { signoSintoma }) => ({
     ...state,
-    signosSintomas
+    diagnosticoPacienteSeleccionados: addSignoSintoma(state.diagnosticoPacienteSeleccionados, signoSintoma)
   })),
-  on(ConsultasActions.setDiagnosticoMedico, (state, { diagnosticoMedico }) => ({
+  on(ConsultasActions.addDiagnosticoMedico, (state, { diagnosticoMedico }) => ({
     ...state,
-    diagnosticoMedico
+    diagnosticoMedicoSeleccionados: addDiagnosticoMedico(state.diagnosticoMedicoSeleccionados, diagnosticoMedico)
+  })),
+  on(ConsultasActions.updateSignoSintoma, (state, { signoSintoma }) => ({
+    ...state,
+    diagnosticoPacienteSeleccionados: updateSignoSintoma(state.diagnosticoPacienteSeleccionados, signoSintoma)
+  })),
+  on(ConsultasActions.updateDiagnosticoMedico, (state, { diagnosticoMedico }) => ({
+    ...state,
+    diagnosticoMedicoSeleccionados: updateDiagnosticoMedico(state.diagnosticoMedicoSeleccionados, diagnosticoMedico)
+  })),
+  on(ConsultasActions.deleteSignoSintoma, (state, { signoSintoma }) => ({
+    ...state,
+    diagnosticoPacienteSeleccionados: deleteSignoSintoma(state.diagnosticoPacienteSeleccionados, signoSintoma)
+  })),
+  on(ConsultasActions.deleteDiagnosticoMedico, (state, { diagnosticoMedico }) => ({
+    ...state, 
+    diagnosticoMedicoSeleccionados: deleteDiagnosticoMedico(state.diagnosticoMedicoSeleccionados, diagnosticoMedico)
   }))
 );
 
-export function reducer(state: State | undefined, action: Action) {
+export function reducer(state: ConsultasState | undefined, action: Action) {
   return consultasReducer(state, action);
 }

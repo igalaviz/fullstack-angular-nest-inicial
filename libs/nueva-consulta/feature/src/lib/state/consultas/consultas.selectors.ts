@@ -1,12 +1,12 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   CONSULTAS_FEATURE_KEY,
-  State,
+  ConsultasState,
   consultasAdapter,
 } from './consultas.reducer';
 
 // Lookup the 'Consultas' feature state managed by NgRx
-export const getConsultasState = createFeatureSelector<State>(
+export const getConsultasState = createFeatureSelector<ConsultasState>(
   CONSULTAS_FEATURE_KEY
 );
 
@@ -14,27 +14,27 @@ const { selectAll, selectEntities } = consultasAdapter.getSelectors();
 
 export const getConsultasLoaded = createSelector(
   getConsultasState,
-  (state: State) => state.loaded
+  (state: ConsultasState) => state.loaded
 );
 
 export const getConsultasError = createSelector(
   getConsultasState,
-  (state: State) => state.error
+  (state: ConsultasState) => state.error
 );
 
 export const getAllConsultas = createSelector(
   getConsultasState,
-  (state: State) => selectAll(state)
+  (state: ConsultasState) => selectAll(state)
 );
 
 export const getConsultasEntities = createSelector(
   getConsultasState,
-  (state: State) => selectEntities(state)
+  (state: ConsultasState) => selectEntities(state)
 );
 
 export const getSelectedId = createSelector(
   getConsultasState,
-  (state: State) => state.selectedId
+  (state: ConsultasState) => state.selectedId
 );
 
 export const getSelected = createSelector(
@@ -45,15 +45,15 @@ export const getSelected = createSelector(
 
 export const getComentarios = createSelector(
   getConsultasState,
-  (state: State) => state.comentarios
+  (state: ConsultasState) => state.comentarios
 )
 
 export const getSignosSintomas = createSelector(
   getConsultasState,
-  (state: State) => state.diagnosticoPacienteSeleccionados
+  (state: ConsultasState) => state.diagnosticoPacienteSeleccionados
 )
 
 export const getDiagnosticoMedico = createSelector(
   getConsultasState,
-  (state: State) => state.diagnosticoMedicoSeleccionados
+  (state: ConsultasState) => state.diagnosticoMedicoSeleccionados
 )

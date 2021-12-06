@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { SignoSintoma, DiagnosticoMedico } from '@fullstack-angular-nest/nueva-consulta/data-access'
+import { Store } from '@ngrx/store';
+import { ConsultasState } from '../../..';
 
 export interface OpcionDiagnostico {
-  nombre: string,
-  nivel: number,
+  diagnostico: SignoSintoma | DiagnosticoMedico
   selected: boolean
 }
 
@@ -22,12 +24,20 @@ export class DiagnosticoExpPanelComponent {
     zona: "Cara",
     opciones: [
       {
-        nombre: "Asimetría facial",
-        nivel: 3,
+        diagnostico: {
+          id: "a",
+          zona: "Cara",
+          nombre: "Asimetría facial",
+          nivel: 3,
+        },
         selected: false
       }
     ]
   };
+
+  constructor(private store: Store<ConsultasState>){
+    
+  }
 
   onCheckChanged(index: number, checked: boolean){
     this.zonaOpciones.opciones[index].selected = checked;
@@ -35,7 +45,7 @@ export class DiagnosticoExpPanelComponent {
   }
 
   onLevelChanged(index: number, level: number){
-    this.zonaOpciones.opciones[index].nivel = level;
-    console.log(level, this.zonaOpciones.opciones[index].nivel);
+    this.zonaOpciones.opciones[index].diagnostico.nivel = level;
+    console.log(level, this.zonaOpciones.opciones[index].diagnostico.nivel);
   }
 }

@@ -4,8 +4,12 @@ import { ConsultasEntity } from './consultas.models';
 
 export enum ConsultasActionTypes {
   SetComentarios = '[Consultas] Set comments data',
-  SetSignosSintomas = '[Consultas] Set signos-sintomas data',
-  SetDiagnosticoMedico = '[Consultas] Set diagnosico medico data'
+  AddSignosSintomas = '[Consultas] Added a selected signo-sintoma',
+  AddDiagnosticoMedico = '[Consultas] Added a selected diagnostico medico',
+  UpdateSignosSintomas = "[Consultas] Updated a selected signo-sintoma",
+  UpdateDiagnosticoMedico = "[Consultas] Updated a selected diagnostico medico",
+  DeleteSignosSintomas = "[Consultas] Removed a selected signo-sintoma",
+  DeleteDiagnosticoMedico = "[Consultas] Removed a selected diagnostico medico"
 }
 
 export const init = createAction('[Consultas Page] Init');
@@ -25,12 +29,32 @@ export const setComentarios = createAction(
   props<{ comentarios: string }>()
 )
 
-export const setSignosSintomas = createAction(
-  ConsultasActionTypes.SetSignosSintomas,
-  props<{ signosSintomas: SignoSintoma[] }>()
+export const addSignoSintoma = createAction(
+  ConsultasActionTypes.AddSignosSintomas,
+  props<{ signoSintoma: SignoSintoma }>()
 )
 
-export const setDiagnosticoMedico = createAction(
-  ConsultasActionTypes.SetDiagnosticoMedico,
-  props<{ diagnosticoMedico: DiagnosticoMedico[] }>()
+export const addDiagnosticoMedico = createAction(
+  ConsultasActionTypes.AddDiagnosticoMedico,
+  props<{ diagnosticoMedico: DiagnosticoMedico }>()
+)
+
+export const updateSignoSintoma = createAction(
+  ConsultasActionTypes.UpdateSignosSintomas,
+  props<{ signoSintoma: SignoSintoma }>()
+)
+
+export const updateDiagnosticoMedico = createAction(
+  ConsultasActionTypes.UpdateDiagnosticoMedico,
+  props<{ diagnosticoMedico: DiagnosticoMedico }>()
+)
+
+export const deleteSignoSintoma = createAction(
+  ConsultasActionTypes.DeleteSignosSintomas,
+  props<{ signoSintoma: SignoSintoma }>()
+)
+
+export const deleteDiagnosticoMedico = createAction(
+  ConsultasActionTypes.DeleteDiagnosticoMedico,
+  props<{ diagnosticoMedico: DiagnosticoMedico }>()
 )

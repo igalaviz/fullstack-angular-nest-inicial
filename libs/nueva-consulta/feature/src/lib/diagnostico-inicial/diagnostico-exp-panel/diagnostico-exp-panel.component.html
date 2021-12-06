@@ -5,7 +5,7 @@
     <mat-list>
         <mat-list-item *ngFor="let opcion of this.zonaOpciones.opciones; let i = index;" fxLayout="row" width="100%">
             <div fxFlex="50%">
-                <mat-checkbox [checked]="opcion.selected" (change)="onCheckChanged(i, $event.checked)">{{opcion.nombre}}</mat-checkbox>
+                <mat-checkbox [checked]="opcion.selected" (change)="onCheckChanged(i, $event.checked)">{{opcion.diagnostico.nombre}}</mat-checkbox>
             </div>
             <div fxFlex="50%" fxLayoutAlign="end">
                 <mat-button-toggle-group *ngIf="enableLevels" name="nivel" (change)="onLevelChanged(i, $event.value)" [disabled]="!opcion.selected">
