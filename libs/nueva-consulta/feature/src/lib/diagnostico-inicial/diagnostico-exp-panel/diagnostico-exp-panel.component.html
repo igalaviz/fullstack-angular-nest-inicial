@@ -1,6 +1,6 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>{{this.zonaOpciones.zona}}<span class="check-count">(0)</span></mat-panel-title>
+        <mat-panel-title>{{this.zonaOpciones.zona}}<span class="check-count">({{ this.count }})</span></mat-panel-title>
     </mat-expansion-panel-header>
     <mat-list>
         <mat-list-item *ngFor="let opcion of this.zonaOpciones.opciones; let i = index;" fxLayout="row" width="100%">

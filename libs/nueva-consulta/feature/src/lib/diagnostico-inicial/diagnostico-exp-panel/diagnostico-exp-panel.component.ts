@@ -36,9 +36,16 @@ export class DiagnosticoExpPanelComponent {
   @Output() checkChange = new EventEmitter<OpcionDiagnostico>();
   @Output() levelChange = new EventEmitter<OpcionDiagnostico>();
 
+  count = 0;
+
   onCheckChanged(index: number, checked: boolean){
     this.zonaOpciones.opciones[index].selected = checked;
     this.checkChange.emit(this.zonaOpciones.opciones[index])
+    if(checked){
+      this.count++;
+    }else{
+      this.count--;
+    }
   }
 
   onLevelChanged(index: number, level: number){
