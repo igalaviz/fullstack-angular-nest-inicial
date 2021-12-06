@@ -13,6 +13,7 @@ import { NuevaConsultaDataAccessModule} from '@fullstack-angular-nest/nueva-cons
 import { ColumnaMedicoComponent } from './diagnostico-inicial/columna-medico/columna-medico.component';
 import { ComentariosComponent } from './diagnostico-inicial/comentarios/comentarios.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FotosComponent } from './diagnostico-inicial/fotos/fotos.component';
 
 @NgModule({
   imports: [
@@ -34,6 +35,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ColumnaPacienteComponent,
     ColumnaMedicoComponent,
     ComentariosComponent,
+    FotosComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
