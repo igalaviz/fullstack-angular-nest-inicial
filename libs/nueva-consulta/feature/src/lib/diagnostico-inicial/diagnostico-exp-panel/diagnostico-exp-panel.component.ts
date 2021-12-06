@@ -31,6 +31,7 @@ export class DiagnosticoExpPanelComponent {
 
   onCheckChanged(index: number, checked: boolean){
     this.zonaOpciones.opciones[index].selected = checked;
+    console.log(this.zonaOpciones.opciones[index].selected);
   }
 
   onLevelChanged(index: number, level: number){

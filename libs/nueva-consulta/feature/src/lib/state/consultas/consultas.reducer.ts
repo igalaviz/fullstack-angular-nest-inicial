@@ -4,12 +4,17 @@ import { createReducer, on, Action } from '@ngrx/store';
 import * as ConsultasActions from './consultas.actions';
 import { ConsultasEntity } from './consultas.models';
 
+import { DiagnosticoMedico, SignoSintoma } from '@fullstack-angular-nest/nueva-consulta/data-access'
+
 export const CONSULTAS_FEATURE_KEY = 'consultas';
 
 export interface State extends EntityState<ConsultasEntity> {
-  selectedId?: string | number; // which Consultas record has been selected
-  loaded: boolean; // has the Consultas list been loaded
   error?: string | null; // last known error (if any)
+  comentarios: string;
+  selectedId: string;
+  loaded: boolean;
+  diagnosticoPacienteSeleccionados: SignoSintoma[];
+  diagnosticoMedicoSeleccionados: DiagnosticoMedico[];
 }
 
 export interface ConsultasPartialState {
@@ -22,6 +27,10 @@ export const consultasAdapter: EntityAdapter<ConsultasEntity> =
 export const initialState: State = consultasAdapter.getInitialState({
   // set initial required properties
   loaded: false,
+  comentarios: '',
+  selectedId: '',
+  diagnosticoPacienteSeleccionados: [],
+  diagnosticoMedicoSeleccionados: []
 });
 
 const consultasReducer = createReducer(
@@ -37,6 +46,18 @@ const consultasReducer = createReducer(
   on(ConsultasActions.loadConsultasFailure, (state, { error }) => ({
     ...state,
     error,
+  })),
+  on(ConsultasActions.setComentarios, (state, { comentarios }) => ({
+    ...state,
+    comentarios
+  })),
+  on(ConsultasActions.setSignosSintomas, (state, { signosSintomas }) => ({
+    ...state,
+    signosSintomas
+  })),
+  on(ConsultasActions.setDiagnosticoMedico, (state, { diagnosticoMedico }) => ({
+    ...state,
+    diagnosticoMedico
   }))
 );
 

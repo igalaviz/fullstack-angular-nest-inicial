@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 
-interface SignoSintoma {
+export interface SignoSintoma {
   id: string,
   nombre: string,
   nivel: number
 }
 
-interface DiagnosticoMedico {
+export interface DiagnosticoMedico {
   id: string,
   nombre: string,
   nivel: number

@@ -42,3 +42,18 @@ export const getSelected = createSelector(
   getSelectedId,
   (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
 );
+
+export const getComentarios = createSelector(
+  getConsultasState,
+  (state: State) => state.comentarios
+)
+
+export const getSignosSintomas = createSelector(
+  getConsultasState,
+  (state: State) => state.diagnosticoPacienteSeleccionados
+)
+
+export const getDiagnosticoMedico = createSelector(
+  getConsultasState,
+  (state: State) => state.diagnosticoMedicoSeleccionados
+)
