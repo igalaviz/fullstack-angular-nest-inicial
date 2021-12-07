@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
  
 const modules = [
   MatExpansionModule,
@@ -22,7 +23,8 @@ const modules = [
   MatButtonModule,
   MatSlideToggleModule,
   MatChipsModule,
-  MatIconModule
+  MatIconModule,
+  MatSelectModule
 ]
 
 @NgModule({

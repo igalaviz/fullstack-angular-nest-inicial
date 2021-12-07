@@ -54,7 +54,37 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
       signosSintomas: []
     }
   ],
-  estigmas: [],
+  estigmas: [
+    {
+      estigma: {
+        id: "a",
+        nombre: "Consunción",
+        puntosTotales: 10
+      },
+      percentage: 33,
+      diagnosticos: [
+        {
+          id: "a",
+          nombre: "Hipotrofia temporal",
+          zona: "Cara",
+          nivel: 3, 
+          tratamientos: [
+            {
+              id: "a",
+              nombre: "Contorno en F's",
+              primario: true,
+              area: {
+                id: "a",
+                nombre: ""
+              },
+              diagnosticos: [],
+              signosSintomas: []
+            }
+          ]
+        }
+      ]
+    }
+  ],
   tratamientosPorZona: [],
   usarRecomendacion: true,
   loadedEstigmas: false,

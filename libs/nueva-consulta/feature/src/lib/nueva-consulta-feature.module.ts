@@ -17,6 +17,8 @@ import { FotosComponent } from './diagnostico-inicial/fotos/fotos.component';
 import { TratamientosRecomendadosComponent } from './tratamientos-recomendados/tratamientos-recomendados.component';
 import { FeatureConsultasRoutingModule } from './nueva-consulta-routing.module';
 import { TratamientosSeleccionadosComponent } from './tratamientos-recomendados/tratamientos-seleccionados/tratamientos-seleccionados.component';
+import { ExpPanelTratamientosRecomendadosComponent } from './tratamientos-recomendados/exp-panel-tratamientos-recomendados/exp-panel-tratamientos-recomendados.component';
+import { ColumnaTratamientosComponent } from './tratamientos-recomendados/columna-tratamientos/columna-tratamientos.component';
 
 @NgModule({
   imports: [
@@ -42,6 +44,8 @@ import { TratamientosSeleccionadosComponent } from './tratamientos-recomendados/
     FotosComponent,
     TratamientosRecomendadosComponent,
     TratamientosSeleccionadosComponent,
+    ExpPanelTratamientosRecomendadosComponent,
+    ColumnaTratamientosComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
