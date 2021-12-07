@@ -8,6 +8,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
  
 const modules = [
   MatExpansionModule,
@@ -18,7 +20,9 @@ const modules = [
   MatFormFieldModule,
   MatInputModule,
   MatButtonModule,
-  MatSlideToggleModule
+  MatSlideToggleModule,
+  MatChipsModule,
+  MatIconModule
 ]
 
 @NgModule({

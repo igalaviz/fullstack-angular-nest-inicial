@@ -41,7 +41,19 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
   selectedId: '',
   diagnosticoPacienteSeleccionados: [],
   diagnosticoMedicoSeleccionados: [],
-  tratamientosSeleccionados: [],
+  tratamientosSeleccionados: [
+    {
+      id: "a",
+      nombre: "Contorno en F's",
+      primario: true,
+      area: {
+        id: "a",
+        nombre: "Cara"
+      },
+      diagnosticos: [],
+      signosSintomas: []
+    }
+  ],
   estigmas: [],
   tratamientosPorZona: [],
   usarRecomendacion: true,

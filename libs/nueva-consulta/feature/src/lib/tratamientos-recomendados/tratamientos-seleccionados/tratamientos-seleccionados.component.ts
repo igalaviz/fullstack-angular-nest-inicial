@@ -1,15 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { ConsultasState, deleteTratamiento, getTratamientosSeleccionados } from '@fullstack-angular-nest/nueva-consulta/feature';
+import { select, Store } from '@ngrx/store';
 
 @Component({
-  selector: 'fullstack-angular-nest-tratamientos-seleccionados',
+  selector: 'consultas-tratamientos-seleccionados',
   templateUrl: './tratamientos-seleccionados.component.html',
   styleUrls: ['./tratamientos-seleccionados.component.css']
 })
 export class TratamientosSeleccionadosComponent implements OnInit {
+  tratamientosSeleccionados!: Tratamiento[];
 
-  constructor() { }
+  constructor(private store: Store<ConsultasState>) {
+    store.pipe(select(getTratamientosSeleccionados)).subscribe((value) => {
+      this.tratamientosSeleccionados = value;
+    })
+  }
 
   ngOnInit(): void {
+  }
+
+  onTratamientoRemoved(tratamiento: Tratamiento){
+    this.store.dispatch(deleteTratamiento({tratamiento: tratamiento}));
   }
 
 }
