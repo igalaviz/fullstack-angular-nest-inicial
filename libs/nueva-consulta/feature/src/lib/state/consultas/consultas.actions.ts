@@ -1,15 +1,28 @@
-import { DiagnosticoMedico, SignoSintoma } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { DiagnosticoMedico, OpcionesDiagnosticoMedico, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { EstigmaPerc } from '@fullstack-angular-nest/nueva-consulta/feature';
 import { createAction, props } from '@ngrx/store';
 import { ConsultasEntity } from './consultas.models';
 
 export enum ConsultasActionTypes {
+  // FIRST STEP (DIAGNOSTICO INICIAL)
   SetComentarios = '[Consultas] Set comments data',
   AddSignosSintomas = '[Consultas] Added a selected signo-sintoma',
   AddDiagnosticoMedico = '[Consultas] Added a selected diagnostico medico',
   UpdateSignosSintomas = "[Consultas] Updated a selected signo-sintoma",
   UpdateDiagnosticoMedico = "[Consultas] Updated a selected diagnostico medico",
   DeleteSignosSintomas = "[Consultas] Removed a selected signo-sintoma",
-  DeleteDiagnosticoMedico = "[Consultas] Removed a selected diagnostico medico"
+  DeleteDiagnosticoMedico = "[Consultas] Removed a selected diagnostico medico",
+
+  // SECOND STEP (TRATAMIENTOS RECOMENDADOS Y ESTIGMAS)
+  AddTratamiento = "[Consultas] Added a tratamiento",
+  DeleteTratamiento = "[Consultas] Removed a tratamiento",
+  UpdateUsarRecomendacion = "[Consultas] Updated the use recommendation preference",
+  LoadEstigmas = "[Consultas] Fetching calculated estigmas...",
+  LoadEstigmasSuccess = "[Consultas] Successfuly fethced calculated estigmas",
+  LoadEstigmasFailure = "[Consultas] Failed in fetching calculated estigmas",
+  LoadTratsByZona = "[Consultas] Fetching tratamientos by zona...",
+  LoadTratsByZonaSuccess = "[Consultas] Successfuly fethced tratamientos by zona",
+  LoadTratsByZonaFailure = "[Consultas] Failed in fetching tratamientos by zona",
 }
 
 export const init = createAction('[Consultas Page] Init');
@@ -57,4 +70,43 @@ export const deleteSignoSintoma = createAction(
 export const deleteDiagnosticoMedico = createAction(
   ConsultasActionTypes.DeleteDiagnosticoMedico,
   props<{ diagnosticoMedico: DiagnosticoMedico }>()
+)
+
+export const addTratamiento = createAction(
+  ConsultasActionTypes.AddTratamiento,
+  props<{ tratamiento: Tratamiento }>()
+)
+
+export const deleteTratamiento = createAction(
+  ConsultasActionTypes.DeleteTratamiento,
+  props<{ tratamiento: Tratamiento }>()
+)
+
+export const updateUsarRecomendacion = createAction(
+  ConsultasActionTypes.UpdateUsarRecomendacion,
+  props<{ usarRecomendacion: boolean }>()
+)
+
+export const loadEstigmas = createAction(ConsultasActionTypes.LoadEstigmas)
+
+export const loadEstigmasSuccess = createAction(
+  ConsultasActionTypes.LoadEstigmasSuccess,
+  props<{ estigmas: EstigmaPerc[] }>()
+)
+
+export const loadEstigmasFailure = createAction(
+  ConsultasActionTypes.LoadEstigmasFailure,
+  props<{ error: any }>()
+)
+
+export const loadTratsByZona = createAction(ConsultasActionTypes.LoadTratsByZona)
+
+export const loadTratsByZonaSuccess = createAction(
+  ConsultasActionTypes.LoadTratsByZonaSuccess,
+  props<{ estigmas: OpcionesDiagnosticoMedico[] }>()
+)
+
+export const loadTratsByZonaFailure = createAction(
+  ConsultasActionTypes.LoadTratsByZonaFailure,
+  props<{ error: any }>()
 )

@@ -2,20 +2,26 @@ import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { createReducer, on, Action } from '@ngrx/store';
 
 import * as ConsultasActions from './consultas.actions';
-import { ConsultasEntity } from './consultas.models';
+import { ConsultasEntity, EstigmaPerc } from './consultas.models';
 
-import { DiagnosticoMedico, SignoSintoma } from '@fullstack-angular-nest/nueva-consulta/data-access'
+import { DiagnosticoMedico, OpcionesDiagnosticoMedico, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access'
 import { state } from '@angular/animations';
 
 export const CONSULTAS_FEATURE_KEY = 'consultas';
 
 export interface ConsultasState extends EntityState<ConsultasEntity> {
   error?: string | null; // last known error (if any)
-  comentarios: string;
   selectedId: string;
   loaded: boolean;
+
+  comentarios: string;
   diagnosticoPacienteSeleccionados: SignoSintoma[];
   diagnosticoMedicoSeleccionados: DiagnosticoMedico[];
+
+  tratamientosSeleccionados: Tratamiento[];
+  estigmas: EstigmaPerc[];
+  tratamientosPorZona: OpcionesDiagnosticoMedico[];
+  usarRecomendacion: boolean;
 }
 
 export interface ConsultasPartialState {
@@ -31,7 +37,11 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
   comentarios: '',
   selectedId: '',
   diagnosticoPacienteSeleccionados: [],
-  diagnosticoMedicoSeleccionados: []
+  diagnosticoMedicoSeleccionados: [],
+  tratamientosSeleccionados: [],
+  estigmas: [],
+  tratamientosPorZona: [],
+  usarRecomendacion: true
 });
 
 // HELPER FUNCTIONS
