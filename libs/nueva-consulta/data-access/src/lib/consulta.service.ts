@@ -1,29 +1,6 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
-
-export interface SignoSintoma {
-  id: string,
-  zona: string,
-  nombre: string,
-  nivel: number
-}
-
-export interface DiagnosticoMedico {
-  id: string,
-  zona: string,
-  nombre: string,
-  nivel: number
-}
-
-export interface OpcionesSignosSintomas {
-  zona: string,
-  opciones: SignoSintoma[]
-}
-
-export interface OpcionesDiagnosticoMedico {
-  zona: string,
-  opciones: DiagnosticoMedico[]
-}
+import {  OpcionesDiagnosticoMedico, OpcionesSignosSintomas } from './consulta.models';
 
 const signosSintomas: OpcionesSignosSintomas[] = [
   {

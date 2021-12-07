@@ -1,2 +1,3 @@
 export { NuevaConsultaDataAccessModule } from './lib/nueva-consulta-data-access.module';
-export { ConsultaService, OpcionesSignosSintomas, OpcionesDiagnosticoMedico, SignoSintoma, DiagnosticoMedico } from './lib/consulta.service';
+export { ConsultaService } from './lib/consulta.service';
+export * from './lib/consulta.models';

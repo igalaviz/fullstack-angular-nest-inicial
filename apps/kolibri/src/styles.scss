@@ -18,3 +18,11 @@ body {
 .ko-screen-content {
   padding: 16px;
 }
+
+.ko-action-bar {
+  border-bottom: lightgray solid 1px;
+  padding: 4px;
+  background-color: white;
+  display: flex;
+  justify-content: end;
+}

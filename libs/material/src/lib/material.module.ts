@@ -7,7 +7,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+ 
 const modules = [
   MatExpansionModule,
   MatCheckboxModule,
@@ -16,7 +17,8 @@ const modules = [
   MatTooltipModule,
   MatFormFieldModule,
   MatInputModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSlideToggleModule
 ]
 
 @NgModule({
