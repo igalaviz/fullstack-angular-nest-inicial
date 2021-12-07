@@ -6,6 +6,7 @@ import { ConsultasEntity, EstigmaPerc } from './consultas.models';
 
 import { DiagnosticoMedico, OpcionesDiagnosticoMedico, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access'
 import { state } from '@angular/animations';
+import { ConsultasActionTypes } from '@fullstack-angular-nest/nueva-consulta/feature';
 
 export const CONSULTAS_FEATURE_KEY = 'consultas';
 
@@ -22,6 +23,8 @@ export interface ConsultasState extends EntityState<ConsultasEntity> {
   estigmas: EstigmaPerc[];
   tratamientosPorZona: OpcionesDiagnosticoMedico[];
   usarRecomendacion: boolean;
+  loadedEstigmas: boolean;
+  loadedTratsByZona: boolean;
 }
 
 export interface ConsultasPartialState {
@@ -41,7 +44,9 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
   tratamientosSeleccionados: [],
   estigmas: [],
   tratamientosPorZona: [],
-  usarRecomendacion: true
+  usarRecomendacion: true,
+  loadedEstigmas: false,
+  loadedTratsByZona: false
 });
 
 // HELPER FUNCTIONS
@@ -55,6 +60,9 @@ const updateDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnosticoM
 });
 const deleteSignoSintoma = (signosSintomas: SignoSintoma[], signoSintoma: SignoSintoma) => signosSintomas.filter(w => signoSintoma.id !== w.id); 
 const deleteDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnostico: DiagnosticoMedico) => diagnosticos.filter(w => diagnostico.id !== w.id);  
+
+const addItem = (items: any[], item: any) => [...items, item];
+const deleteItem = (items: any[], item: any) => items.filter(i => item.id !== i.id);
 
 const consultasReducer = createReducer(
   initialState,
@@ -97,6 +105,44 @@ const consultasReducer = createReducer(
   on(ConsultasActions.deleteDiagnosticoMedico, (state, { diagnosticoMedico }) => ({
     ...state, 
     diagnosticoMedicoSeleccionados: deleteDiagnosticoMedico(state.diagnosticoMedicoSeleccionados, diagnosticoMedico)
+  })),
+  on(ConsultasActions.addTratamiento, (state, { tratamiento }) => ({
+    ...state,
+    tratamientosSeleccionados: addItem(state.tratamientosSeleccionados, tratamiento)
+  })),
+  on(ConsultasActions.deleteTratamiento, (state, { tratamiento }) => ({
+    ...state,
+    tratamientosSeleccionados: deleteItem(state.tratamientosSeleccionados, tratamiento)
+  })),
+  on(ConsultasActions.updateUsarRecomendacion, (state, { usarRecomendacion }) => ({
+    ...state,
+    usarRecomendacion
+  })),
+  on(ConsultasActions.loadEstigmas, (state) => ({
+    ...state,
+    loadedEstigmas: false
+  })),
+  on(ConsultasActions.loadEstigmasFailure, (state, { error }) => ({
+    ...state,
+    error
+  })),
+  on(ConsultasActions.loadEstigmasSuccess, (state, { estigmas }) => ({
+    ...state,
+    loadedEstigmas: true,
+    estigmas
+  })),
+  on(ConsultasActions.loadTratsByZona, (state) => ({
+    ...state,
+    loadedTratsByZona: false
+  })),
+  on(ConsultasActions.loadTratsByZonaFailure, (state, { error  }) => ({
+    ...state,
+    error
+  })),
+  on(ConsultasActions.loadTratsByZonaSuccess, (state, { tratsByZona }) => ({
+    ...state,
+    tratamientosPorZona: tratsByZona,
+    loadedTratsByZona: true
   }))
 );
 

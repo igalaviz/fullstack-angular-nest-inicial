@@ -103,7 +103,7 @@ export const loadTratsByZona = createAction(ConsultasActionTypes.LoadTratsByZona
 
 export const loadTratsByZonaSuccess = createAction(
   ConsultasActionTypes.LoadTratsByZonaSuccess,
-  props<{ estigmas: OpcionesDiagnosticoMedico[] }>()
+  props<{ tratsByZona: OpcionesDiagnosticoMedico[] }>()
 )
 
 export const loadTratsByZonaFailure = createAction(

@@ -57,3 +57,23 @@ export const getDiagnosticoMedico = createSelector(
   getConsultasState,
   (state: ConsultasState) => state.diagnosticoMedicoSeleccionados
 )
+
+export const getTratamientosSeleccionados = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.tratamientosSeleccionados
+)
+
+export const getUsarRecomendacion = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.usarRecomendacion
+)
+
+export const getEstigmas = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.estigmas
+)
+
+export const getTratamientosPorZona = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.tratamientosPorZona
+)

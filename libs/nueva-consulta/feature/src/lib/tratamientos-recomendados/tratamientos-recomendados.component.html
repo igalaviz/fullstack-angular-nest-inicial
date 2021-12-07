@@ -9,5 +9,5 @@
 
 <div class="ko-action-bar">
     <span>Usar tratamientos recomendados?</span>
-    <mat-slide-toggle></mat-slide-toggle>
+    <mat-slide-toggle [checked]="usarRecomendacion" (change)="onUsarRecomendacionChanged($event.checked)"></mat-slide-toggle>
 </div>

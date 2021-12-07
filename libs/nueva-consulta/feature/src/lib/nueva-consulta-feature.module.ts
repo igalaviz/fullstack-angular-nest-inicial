@@ -16,6 +16,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FotosComponent } from './diagnostico-inicial/fotos/fotos.component';
 import { TratamientosRecomendadosComponent } from './tratamientos-recomendados/tratamientos-recomendados.component';
 import { FeatureConsultasRoutingModule } from './nueva-consulta-routing.module';
+import { TratamientosSeleccionadosComponent } from './tratamientos-recomendados/tratamientos-seleccionados/tratamientos-seleccionados.component';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { FeatureConsultasRoutingModule } from './nueva-consulta-routing.module';
     ComentariosComponent,
     FotosComponent,
     TratamientosRecomendadosComponent,
+    TratamientosSeleccionadosComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
