@@ -10,6 +10,12 @@ export interface Estigma {
     puntosTotales: number,
 }
 
+export interface EstigmaPerc {
+    estigma: Estigma,
+    percentage: number,
+    diagnosticos: DiagnosticoMedico[]
+}
+
 export interface Tratamiento {
     id: string,
     nombre: string,

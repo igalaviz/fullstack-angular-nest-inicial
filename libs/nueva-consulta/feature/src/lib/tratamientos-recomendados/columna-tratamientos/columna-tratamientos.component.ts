@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { OpcionesDiagnosticoMedico, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { addTratamiento, ConsultasState, deleteTratamiento, EstigmaPerc, getEstigmas, getTratamientosPorZona } from '@fullstack-angular-nest/nueva-consulta/feature';
 import { select, Store } from '@ngrx/store';
@@ -8,7 +8,7 @@ import { select, Store } from '@ngrx/store';
   templateUrl: './columna-tratamientos.component.html',
   styleUrls: ['./columna-tratamientos.component.css']
 })
-export class ColumnaTratamientosComponent implements OnInit {
+export class ColumnaTratamientosComponent {
   categorizacion: 'estigmas' | 'zonas' = 'estigmas'; 
   estigmas!: EstigmaPerc[];
   tratamientosPorZona!: OpcionesDiagnosticoMedico[];
@@ -21,9 +21,6 @@ export class ColumnaTratamientosComponent implements OnInit {
     store.pipe(select(getTratamientosPorZona)).subscribe((value) => {
       this.tratamientosPorZona = value;
     })
-  }
-
-  ngOnInit(): void {
   }
 
   onTratamientoChecked(tratamiento: Tratamiento, checked: boolean){

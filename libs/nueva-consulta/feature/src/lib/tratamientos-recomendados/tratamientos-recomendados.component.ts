@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { ConsultasState, getUsarRecomendacion, updateUsarRecomendacion } from '../..';
+import { combineLatest, Observable } from 'rxjs';
+import { mergeMap, tap } from 'rxjs/operators';
+import { ConsultasState, getTratamientosSeleccionados, getUsarRecomendacion, updateUsarRecomendacion } from '../..';
 
 @Component({
   selector: 'consultas-tratamientos-recomendados',
@@ -9,15 +11,28 @@ import { ConsultasState, getUsarRecomendacion, updateUsarRecomendacion } from '.
 })
 export class TratamientosRecomendadosComponent implements OnInit {
   usarRecomendacion! : boolean;
+  enableNext = false;
 
   constructor(private store: Store<ConsultasState>) {
-    store.pipe(select(getUsarRecomendacion)).subscribe((value) => {
-      this.usarRecomendacion = value;
-    })
+    combineLatest([store.pipe(select(getUsarRecomendacion)), store.pipe(select(getTratamientosSeleccionados))]).pipe(tap(([usarRecomendacion, tratamientosSeleccionados]) => {
+      this.usarRecomendacion = usarRecomendacion;
+
+      if(tratamientosSeleccionados.length === 0 && this.usarRecomendacion){
+        this.enableNext = false;
+        console.log("first")
+      }else if(tratamientosSeleccionados.length === 0 && !this.usarRecomendacion) {
+        this.enableNext = true;
+        console.log("second")
+      }else{
+        this.enableNext = true;
+        console.log("third")
+      }
+    })).subscribe();
     
   }
 
   ngOnInit(): void {
+    
   }
 
   onUsarRecomendacionChanged(checked: boolean){

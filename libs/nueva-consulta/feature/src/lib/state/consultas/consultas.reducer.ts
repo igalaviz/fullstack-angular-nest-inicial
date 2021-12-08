@@ -5,8 +5,6 @@ import * as ConsultasActions from './consultas.actions';
 import { ConsultasEntity, EstigmaPerc } from './consultas.models';
 
 import { DiagnosticoMedico, OpcionesDiagnosticoMedico, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access'
-import { state } from '@angular/animations';
-import { ConsultasActionTypes } from '@fullstack-angular-nest/nueva-consulta/feature';
 
 export const CONSULTAS_FEATURE_KEY = 'consultas';
 
@@ -41,50 +39,8 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
   selectedId: '',
   diagnosticoPacienteSeleccionados: [],
   diagnosticoMedicoSeleccionados: [],
-  tratamientosSeleccionados: [
-    {
-      id: "a",
-      nombre: "Contorno en F's",
-      primario: true,
-      area: {
-        id: "a",
-        nombre: "Cara"
-      },
-      diagnosticos: [],
-      signosSintomas: []
-    }
-  ],
-  estigmas: [
-    {
-      estigma: {
-        id: "a",
-        nombre: "Consunción",
-        puntosTotales: 10
-      },
-      percentage: 33,
-      diagnosticos: [
-        {
-          id: "a",
-          nombre: "Hipotrofia temporal",
-          zona: "Cara",
-          nivel: 3, 
-          tratamientos: [
-            {
-              id: "a",
-              nombre: "Contorno en F's",
-              primario: true,
-              area: {
-                id: "a",
-                nombre: ""
-              },
-              diagnosticos: [],
-              signosSintomas: []
-            }
-          ]
-        }
-      ]
-    }
-  ],
+  tratamientosSeleccionados: [],
+  estigmas: [],
   tratamientosPorZona: [],
   usarRecomendacion: true,
   loadedEstigmas: false,

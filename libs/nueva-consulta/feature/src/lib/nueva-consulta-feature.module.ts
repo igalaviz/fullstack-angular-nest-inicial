@@ -19,6 +19,7 @@ import { FeatureConsultasRoutingModule } from './nueva-consulta-routing.module';
 import { TratamientosSeleccionadosComponent } from './tratamientos-recomendados/tratamientos-seleccionados/tratamientos-seleccionados.component';
 import { ExpPanelTratamientosRecomendadosComponent } from './tratamientos-recomendados/exp-panel-tratamientos-recomendados/exp-panel-tratamientos-recomendados.component';
 import { ColumnaTratamientosComponent } from './tratamientos-recomendados/columna-tratamientos/columna-tratamientos.component';
+import { ColumnaCaraComponent } from './tratamientos-recomendados/columna-cara/columna-cara.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { ColumnaTratamientosComponent } from './tratamientos-recomendados/column
     TratamientosSeleccionadosComponent,
     ExpPanelTratamientosRecomendadosComponent,
     ColumnaTratamientosComponent,
+    ColumnaCaraComponent,
   ],
   exports: [
     DiagnosticoInicialComponent

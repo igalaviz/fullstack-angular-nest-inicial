@@ -4,7 +4,7 @@
         <h5 style="margin: 0;">Nueva Consulta</h5>
         <h2 style="margin: 8px;">Tratamientos Recomendados</h2>
     </div>
-    <button mat-flat-button color="primary">Siguiente</button>
+    <button mat-flat-button color="primary" [disabled]="!enableNext">Siguiente</button>
 </div>
 
 <div class="ko-action-bar">
@@ -17,7 +17,7 @@
         <consultas-columna-tratamientos></consultas-columna-tratamientos>
     </div>
     <div>
-        
+        <consultas-columna-cara></consultas-columna-cara>
     </div>
     <div>
         <consultas-tratamientos-seleccionados></consultas-tratamientos-seleccionados>

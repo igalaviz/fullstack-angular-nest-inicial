@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { ConsultasState, loadEstigmas } from '../..';
 
 @Component({
   selector: 'consultas-diagnostico-inicial',
@@ -7,8 +9,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./diagnostico-inicial.component.scss']
 })
 export class DiagnosticoInicialComponent{
-  constructor(private router: Router){}
+  constructor(private router: Router, private store: Store<ConsultasState>){}
   onNextClicked(){
+    this.store.dispatch(loadEstigmas());
     this.router.navigateByUrl('/new/tratamientos');
   }
 
