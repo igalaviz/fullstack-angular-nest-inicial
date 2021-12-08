@@ -20,9 +20,7 @@ export interface Tratamiento {
     id: string,
     nombre: string,
     primario: boolean,
-    area: Area,
-    diagnosticos: DiagnosticoMedico[],
-    signosSintomas: SignoSintoma[],
+    faceAreas: Area[]
 }
 
 export interface SignoSintoma {

@@ -78,12 +78,12 @@ const estigmas =  [
             id: "a",
             nombre: "Contorno en F's",
             primario: true,
-            area: {
-              id: "a",
-              nombre: ""
-            },
-            diagnosticos: [],
-            signosSintomas: []
+            faceAreas: [
+              {
+                id: "a",
+                nombre: ""
+              }
+            ]
           }
         ]
       }
