@@ -1,3 +1,4 @@
+import { EstigmaPerc, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   CONSULTAS_FEATURE_KEY,

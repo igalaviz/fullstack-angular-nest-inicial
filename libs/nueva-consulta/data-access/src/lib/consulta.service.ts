@@ -81,7 +81,18 @@ const estigmas =  [
             faceAreas: [
               {
                 id: "a",
-                nombre: ""
+                nombre: "f1-d"
+              }
+            ]
+          },
+          {
+            id: "b",
+            nombre: "Hidratación",
+            primario: false,
+            faceAreas: [
+              {
+                id: "b",
+                nombre: "g2"
               }
             ]
           }

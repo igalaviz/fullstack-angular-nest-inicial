@@ -82,7 +82,12 @@
             "tsConfig": "apps/kolibri/tsconfig.app.json",
             "assets": [
               "apps/kolibri/src/favicon.ico",
-              "apps/kolibri/src/assets"
+              "apps/kolibri/src/assets",
+              {
+                "input": "libs/nueva-consulta/feature/src/assets",
+                "glob": "**/*",
+                "output": "assets"
+              }
             ],
             "styles": [
               "apps/kolibri/src/custom-theme.scss",

@@ -20,6 +20,8 @@ import { TratamientosSeleccionadosComponent } from './tratamientos-recomendados/
 import { ExpPanelTratamientosRecomendadosComponent } from './tratamientos-recomendados/exp-panel-tratamientos-recomendados/exp-panel-tratamientos-recomendados.component';
 import { ColumnaTratamientosComponent } from './tratamientos-recomendados/columna-tratamientos/columna-tratamientos.component';
 import { ColumnaCaraComponent } from './tratamientos-recomendados/columna-cara/columna-cara.component';
+import { FaceInteractiveDiagramComponent } from './face-interactive-diagram/face-interactive-diagram.component';
+import { ZonesDiagramComponent } from './face-interactive-diagram/zones-diagram/zones-diagram.component';
 
 @NgModule({
   imports: [
@@ -48,6 +50,8 @@ import { ColumnaCaraComponent } from './tratamientos-recomendados/columna-cara/c
     ExpPanelTratamientosRecomendadosComponent,
     ColumnaTratamientosComponent,
     ColumnaCaraComponent,
+    FaceInteractiveDiagramComponent,
+    ZonesDiagramComponent,
   ],
   exports: [
     DiagnosticoInicialComponent

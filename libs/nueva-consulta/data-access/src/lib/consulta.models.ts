@@ -20,7 +20,8 @@ export interface Tratamiento {
     id: string,
     nombre: string,
     primario: boolean,
-    faceAreas: Area[]
+    faceAreas: Area[],
+    selected?: boolean
 }
 
 export interface SignoSintoma {
