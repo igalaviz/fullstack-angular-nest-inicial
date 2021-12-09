@@ -51,3 +51,8 @@ export interface OpcionesDiagnosticoMedico {
     zona: string,
     opciones: DiagnosticoMedico[]
 }
+
+export interface Consulta {
+    id: string,
+    idPaciente: string;
+}
