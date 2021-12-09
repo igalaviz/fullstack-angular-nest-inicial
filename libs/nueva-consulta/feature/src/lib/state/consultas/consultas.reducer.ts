@@ -62,6 +62,25 @@ const deleteDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnostico:
 const addItem = (items: any[], item: any) => [...items, item];
 const deleteItem = (items: any[], item: any) => items.filter(i => item.id !== i.id);
 
+const updateTratamientoEstigmas = (estigmas: EstigmaPerc[], tratamiento: Tratamiento, check: boolean): EstigmaPerc[] => {
+  let newArray = [...estigmas];
+
+  // buscar en los estigmas, los que tengan ese tratamiento
+  for(let i = 0; i < newArray.length; i++){
+    for(let f = 0; f < newArray[i].diagnosticos.length; f++){
+      // I'm looping through the diagnosticos
+      if(newArray[i].diagnosticos[f].tratamientos?.findIndex(o => o.id === tratamiento.id) !== -1){
+        // encontré el tratamiento
+        newArray = newArray.map(e => e.estigma.id == newArray[i].estigma.id ? Object.assign({}, {...e,
+              diagnosticos: e.diagnosticos.map(d => d.id === newArray[i].diagnosticos[f].id ? Object.assign({}, {...d,
+                tratamientos: d.tratamientos?.map(t => t.id === tratamiento.id ? Object.assign({}, {...t, selected: check}) : t)}) : d)}) : e)
+      }
+    }
+  }
+
+  return newArray;
+}
+
 const consultasReducer = createReducer(
   initialState,
   on(ConsultasActions.init, (state) => ({
@@ -106,11 +125,13 @@ const consultasReducer = createReducer(
   })),
   on(ConsultasActions.addTratamiento, (state, { tratamiento }) => ({
     ...state,
-    tratamientosSeleccionados: addItem(state.tratamientosSeleccionados, tratamiento)
+    tratamientosSeleccionados: addItem(state.tratamientosSeleccionados, tratamiento),
+    estigmas: updateTratamientoEstigmas(state.estigmas, tratamiento, true)
   })),
   on(ConsultasActions.deleteTratamiento, (state, { tratamiento }) => ({
     ...state,
-    tratamientosSeleccionados: deleteItem(state.tratamientosSeleccionados, tratamiento)
+    tratamientosSeleccionados: deleteItem(state.tratamientosSeleccionados, tratamiento),
+    estigmas: updateTratamientoEstigmas(state.estigmas, tratamiento, false)
   })),
   on(ConsultasActions.updateUsarRecomendacion, (state, { usarRecomendacion }) => ({
     ...state,

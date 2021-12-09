@@ -13,7 +13,7 @@
 </div>
 
 <mat-accordion *ngIf="categorizacion === 'estigmas'; else zonas">
-    <consultas-exp-panel-tratamientos-recomendados *ngFor="let item of estigmas" categorizacion="estigmas" [estigma]="item" (tratamientoCheck)="onTratamientoChecked($event.tratamiento, $event.checked)"></consultas-exp-panel-tratamientos-recomendados>
+    <consultas-exp-panel-tratamientos-recomendados *ngFor="let item of estigmas | async" categorizacion="estigmas" [estigma]="item" (tratamientoCheck)="onTratamientoChecked($event.tratamiento, $event.checked)"></consultas-exp-panel-tratamientos-recomendados>
 </mat-accordion>
 
 <ng-template #zonas>

@@ -78,6 +78,7 @@ const estigmas =  [
             id: "a",
             nombre: "Contorno en F's",
             primario: true,
+            selected: false,
             faceAreas: [
               {
                 id: "a",
@@ -89,6 +90,7 @@ const estigmas =  [
             id: "b",
             nombre: "Hidratación",
             primario: false,
+            selected: false,
             faceAreas: [
               {
                 id: "b",
