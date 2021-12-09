@@ -12,7 +12,7 @@
 </mat-form-field>
 </div>
 
-<mat-accordion *ngIf="categorizacion === 'estigmas'; else zonas">
+<mat-accordion *ngIf="categorizacion === 'estigmas'; else zonas" [multi]="true">
     <consultas-exp-panel-tratamientos-recomendados *ngFor="let item of estigmas | async" categorizacion="estigmas" [estigma]="item" (tratamientoCheck)="onTratamientoChecked($event.tratamiento, $event.checked)"></consultas-exp-panel-tratamientos-recomendados>
 </mat-accordion>
 
