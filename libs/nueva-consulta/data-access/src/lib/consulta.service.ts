@@ -1,7 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { DiagnosticoMedico, EstigmaPerc, SignoSintoma } from '..';
+import { DiagnosticoMedico, EstigmaPerc, ProductoConsulta, SignoSintoma } from '..';
 import {  OpcionesDiagnosticoMedico, OpcionesSignosSintomas } from './consulta.models';
+
+const productos: ProductoConsulta[] = [
+  {
+    producto: {
+      id: "b",
+      nombre: "Botox",
+      laboratorio: {
+        id: "a",
+        nombre: "Allergan",
+        funcionesDisponibles: []
+      },
+      funcion: {
+        id: "t",
+        nombre: "Toxina",
+        laboratoriosDisponibles: []
+      },
+    },
+    selected: false,
+    disponibleEnInventario: true,
+    tratamientos: []  // it has to be empty so later on it gets filled with whatever the user chooses
+  }
+] 
 
 const signosSintomas: OpcionesSignosSintomas[] = [
   {
@@ -118,5 +140,9 @@ export class ConsultaService {
 
   calcularEstigmas(signosSintomas: SignoSintoma[], diagnosticoMedico: DiagnosticoMedico[]): Observable<EstigmaPerc[]> {
     return of(estigmas);
+  }
+
+  getProductosRecomendadosParaTratamiento(idTratamiento: string): Observable<ProductoConsulta[]>{
+    return of(productos);
   }
 }

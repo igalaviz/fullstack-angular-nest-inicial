@@ -1,0 +1,25 @@
+<div style="display: flex; flex-direction: row; align-items: center;">
+    <mat-icon style="margin-right: 16px;">
+        auto_awesome
+    </mat-icon>
+    <h2>
+        {{ tratamientoInteres ? "Productos recomendados para " + tratamientoInteres.nombre : "Productos recomendados para..." }}
+    </h2>
+</div>
+
+<div *ngIf="tratamientoInteres; else noProducts">
+    <consultas-item-producto
+        *ngFor="let producto of productos$ | async"
+        [producto]="producto"
+        [opcionesTratamientos]="tratamientosSeleccionados"
+        [highlight]="true"
+        [activarRecomendaciones]="true"
+        (productoSelectTratamiento)="onProductoSelected($event.producto, $event.tratamiento)"
+        >
+    </consultas-item-producto>
+</div>
+<ng-template #noProducts>
+    <div>
+        <span>Seleccione un tratamiento para ver los productos recomendados.</span>
+    </div>
+</ng-template>

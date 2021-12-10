@@ -1,12 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Producto, ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 
 @Component({
   selector: 'consultas-item-tratamiento',
   templateUrl: './item-tratamiento.component.html',
   styleUrls: ['./item-tratamiento.component.scss']
 })
-export class ItemTratamientoComponent implements OnInit {
+export class ItemTratamientoComponent {
   @Input() tratamiento: Tratamiento = {
     id: "a",
     nombre: "Contorno en F's",
@@ -44,11 +44,6 @@ export class ItemTratamientoComponent implements OnInit {
 
   @Output() toggle = new EventEmitter<Tratamiento>();
   @Output() productoRemove = new EventEmitter<{producto: ProductoConsulta, tratamiento: Tratamiento}>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onProductoRemoved(producto: ProductoConsulta){
     this.productoRemove.emit({producto, tratamiento: this.tratamiento})
