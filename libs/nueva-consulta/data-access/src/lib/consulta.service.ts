@@ -1,7 +1,38 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { DiagnosticoMedico, EstigmaPerc, ProductoConsulta, SignoSintoma } from '..';
+import { DiagnosticoMedico, EstigmaPerc, Funcion, Laboratorio, ProductoConsulta, SignoSintoma } from '..';
 import {  OpcionesDiagnosticoMedico, OpcionesSignosSintomas } from './consulta.models';
+
+const laboratorios: Laboratorio[] = [
+  {
+    id: "a",
+    nombre: "Allergan",
+    funcionesDisponibles: ["t", "r"]
+  },
+  {
+    id: "m",
+    nombre: "Merz",
+    funcionesDisponibles: ["t", "r"]
+  },
+  {
+    id: "g",
+    nombre: "Galderma",
+    funcionesDisponibles: ["t", "r"]
+  }
+]
+
+const funciones: Funcion[] = [
+  {
+    id: "t",
+    nombre: "Toxina",
+    laboratoriosDisponibles: ["a", "m", "g"]
+  },
+  {
+    id: "r",
+    nombre: "Relleno",
+    laboratoriosDisponibles: ["a", "m", "g"]
+  }
+]
 
 const productos: ProductoConsulta[] = [
   {
@@ -144,5 +175,13 @@ export class ConsultaService {
 
   getProductosRecomendadosParaTratamiento(idTratamiento: string): Observable<ProductoConsulta[]>{
     return of(productos);
+  }
+
+  getLaboratorios(): Observable<Laboratorio[]>{
+    return of(laboratorios);
+  }
+
+  getFunciones(): Observable<Funcion[]> {
+    return of(funciones);
   }
 }

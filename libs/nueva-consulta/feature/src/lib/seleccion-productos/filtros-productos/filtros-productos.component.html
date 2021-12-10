@@ -1,0 +1,13 @@
+<div style="display: flex; flex-direction: column; justify-content: start;">
+    <div>
+        <mat-button-toggle-group multiple="false">
+            <mat-button-toggle *ngFor="let lab of laboratorios" [value]="lab.id" [checked]="laboratorioSeleccionado ? laboratorioSeleccionado.id === lab.id : false" (change)="onLaboratorioChanged(lab)" [ngClass]="laboratorioSeleccionado?.id === lab.id ? 'ko-selected-btn-toggle-item mat-elevation-z4' : '' " >{{ lab.nombre }}</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    
+    <div>
+        <mat-button-toggle-group multiple="false">
+            <mat-button-toggle *ngFor="let funcion of funciones" [value]="funcion.id" [checked]="funcionSeleccionada ? funcionSeleccionada.id === funcion.id : false" (change)="onFuncionChanged(funcion)">{{ funcion.nombre }}</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+</div>

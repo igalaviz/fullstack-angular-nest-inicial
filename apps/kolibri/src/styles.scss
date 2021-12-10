@@ -80,3 +80,9 @@ body {
   color: mat.get-color-from-palette($kolibri-accent, 'default');
   font-weight: 600;
 }
+
+.ko-selected-btn-toggle-item {
+  background-color: mat.get-color-from-palette($kolibri-primary, 'lighter');
+  color: white;
+  font-weight: 500;
+}

@@ -27,6 +27,7 @@ import { ItemProductoComponent } from './seleccion-productos/item-producto/item-
 import { ItemTratamientoComponent } from './seleccion-productos/item-tratamiento/item-tratamiento.component';
 import { ColumnaTratamientosSeleccionadosComponent } from './seleccion-productos/columna-tratamientos-seleccionados/columna-tratamientos-seleccionados.component';
 import { ProductosRecomendadosComponent } from './seleccion-productos/productos-recomendados/productos-recomendados.component';
+import { FiltrosProductosComponent } from './seleccion-productos/filtros-productos/filtros-productos.component';
 
 @NgModule({
   imports: [
@@ -62,6 +63,7 @@ import { ProductosRecomendadosComponent } from './seleccion-productos/productos-
     ItemTratamientoComponent,
     ColumnaTratamientosSeleccionadosComponent,
     ProductosRecomendadosComponent,
+    FiltrosProductosComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
