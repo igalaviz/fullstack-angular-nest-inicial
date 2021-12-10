@@ -53,4 +53,12 @@ export class FiltrosProductosComponent implements OnInit {
       return false;
     }
   }
+
+  isFuncionAvailable(funcionId: string){
+    if(this.laboratorioSeleccionado && this.laboratorioSeleccionado.funcionesDisponibles.findIndex(f => f === funcionId) !== -1){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }

@@ -13,7 +13,6 @@ export class ZonesDiagramComponent implements OnInit {
 
   ngOnInit(): void {
     this.highlights.subscribe((highlights) => {
-      //Changits SON LOS MEJORES UwU
       //Primero, deseleccionar cualquier zona actualmente seleccionada
       //Después, si el array contiene elementos, seleccionar esos elementos
       //Si el array no tenía elementos, no seleccionar nada

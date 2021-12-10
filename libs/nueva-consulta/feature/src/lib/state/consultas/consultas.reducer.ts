@@ -5,7 +5,6 @@ import * as ConsultasActions from './consultas.actions';
 import { ConsultasEntity, EstigmaPerc } from './consultas.models';
 
 import { DiagnosticoMedico, FiltrosProductosConsulta, OpcionesDiagnosticoMedico, ProductoConsulta, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access'
-import { of } from 'rxjs';
 
 export const CONSULTAS_FEATURE_KEY = 'consultas';
 
