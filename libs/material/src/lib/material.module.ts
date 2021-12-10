@@ -11,6 +11,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
  
 const modules = [
   MatExpansionModule,
@@ -24,7 +26,9 @@ const modules = [
   MatSlideToggleModule,
   MatChipsModule,
   MatIconModule,
-  MatSelectModule
+  MatSelectModule,
+  MatCardModule,
+  MatAutocompleteModule
 ]
 
 @NgModule({

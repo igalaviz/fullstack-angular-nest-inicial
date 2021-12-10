@@ -23,6 +23,7 @@ import { ColumnaCaraComponent } from './tratamientos-recomendados/columna-cara/c
 import { FaceInteractiveDiagramComponent } from './face-interactive-diagram/face-interactive-diagram.component';
 import { ZonesDiagramComponent } from './face-interactive-diagram/zones-diagram/zones-diagram.component';
 import { SeleccionProductosComponent } from './seleccion-productos/seleccion-productos.component';
+import { ItemProductoComponent } from './seleccion-productos/item-producto/item-producto.component';
 
 @NgModule({
   imports: [
@@ -54,6 +55,7 @@ import { SeleccionProductosComponent } from './seleccion-productos/seleccion-pro
     FaceInteractiveDiagramComponent,
     ZonesDiagramComponent,
     SeleccionProductosComponent,
+    ItemProductoComponent,
   ],
   exports: [
     DiagnosticoInicialComponent

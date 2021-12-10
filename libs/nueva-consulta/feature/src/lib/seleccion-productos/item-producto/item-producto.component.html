@@ -1,0 +1,13 @@
+<mat-card [ngClass]="producto.selected ? 'mat-elevation-z4' : 'mat-elevation-z1'">
+    <div class="ko-item-producto__parent">
+        <div *ngIf="!activarRecomendaciones" style="margin-right: 16px;">
+            <mat-checkbox (change)="onCheckboxChange($event.checked)" color="primary"></mat-checkbox>
+        </div>
+        <div>
+            <p style="margin: 0px;">
+                {{producto.producto.funcion.nombre}}
+            </p>
+            <h3 style="margin: 0px;">{{ producto.producto.nombre }} - {{ producto.producto.laboratorio.nombre }}</h3>
+        </div>
+    </div>
+</mat-card>
