@@ -1,0 +1,7 @@
+.ko-item-disponible {
+  background-color: #e0e0e082 !important;
+}
+
+.ko-item-no-disponible {
+  color: gray;
+}

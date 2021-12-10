@@ -46,4 +46,11 @@ export class FiltrosProductosComponent implements OnInit {
     this.store.dispatch(setFiltrosProductos({filtros: {idLaboratorio: this.laboratorioSeleccionado ? this.laboratorioSeleccionado.id : '', idFuncion: this.funcionSeleccionada ? this.funcionSeleccionada.id : ''}}))
   }
 
+  isLabAvailable(labId: string){
+    if(this.funcionSeleccionada && this.funcionSeleccionada.laboratoriosDisponibles.findIndex(l => l === labId) !== -1){
+      return true;
+    }else{
+      return false;
+    }
+  }
 }

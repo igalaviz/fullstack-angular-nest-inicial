@@ -83,6 +83,6 @@ body {
 
 .ko-selected-btn-toggle-item {
   background-color: mat.get-color-from-palette($kolibri-primary, 'lighter');
-  color: white;
+  color: mat.get-color-from-palette($kolibri-primary, 'darker') !important;
   font-weight: 500;
 }
