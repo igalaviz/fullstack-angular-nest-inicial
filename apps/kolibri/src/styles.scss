@@ -11,9 +11,19 @@ body {
 }
 
 .ko-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   border-bottom: lightgray solid 1px;
   padding: 4px;
   background-color: white;
+  align-items: center;
+  .mat-stroked-button {
+    height: 100%;
+  }
+  .mat-flat-button {
+    height: 100%;
+  }
 }
 
 .ko-screen-content {

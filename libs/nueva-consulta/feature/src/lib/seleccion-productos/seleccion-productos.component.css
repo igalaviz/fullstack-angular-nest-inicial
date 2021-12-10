@@ -1,0 +1,10 @@
+.ko-toolbar-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mat-stroked-button .mat-icon {
+  font-size: 1.5em;
+  margin-right: 4px;
+}
