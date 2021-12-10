@@ -60,3 +60,23 @@ body {
     color: mat.get-color-from-palette($kolibri-accent, 'default');
   }
 }
+
+.ko-highlighted-button {
+  transition: all 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+  color: white;
+  background-color: mat.get-color-from-palette($kolibri-accent, 'default');
+  border-color: mat.get-color-from-palette($kolibri-accent, 'default');
+  .mat-icon {
+    font-size: 1.5em;
+    margin-right: 8px;
+  }
+}
+
+.ko-highlightable-button {
+  transition: all 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+}
+
+.ko-highlightable-button:hover {
+  color: mat.get-color-from-palette($kolibri-accent, 'default');
+  font-weight: 600;
+}

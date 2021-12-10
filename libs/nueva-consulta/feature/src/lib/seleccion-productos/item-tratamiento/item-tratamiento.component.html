@@ -1,0 +1,24 @@
+<mat-card>
+    <span>{{ tratamiento.nombre }}</span>
+    <div *ngIf="productos.length === 0; else productosDiv">
+        <span>No se ha seleccionado ningún producto para este tratamiento.</span>
+    </div>
+
+    <ng-template #productosDiv>
+        <div>
+            <span>Productos seleccionados</span>
+        </div>
+        <mat-chip-list [selectable]="false">
+            <mat-chip *ngFor="let producto of productos" removable="true" (removed)="onProductoRemoved(producto)">
+                {{ producto.producto.nombre }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+            </mat-chip>
+        </mat-chip-list>
+    </ng-template>
+
+    <button mat-stroked-button [ngClass]="chosen ? 'ko-highlighted-button' : 'ko-highlightable-button'" (click)="onMostrarProductosClicked()">
+        <mat-icon *ngIf="chosen">check_circle</mat-icon>
+        Mostrar productos recomendados
+    </button>
+    
+</mat-card>
