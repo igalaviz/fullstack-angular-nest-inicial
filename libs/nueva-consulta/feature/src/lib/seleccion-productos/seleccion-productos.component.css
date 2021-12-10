@@ -8,3 +8,8 @@
   font-size: 1.5em;
   margin-right: 4px;
 }
+
+::ng-deep .mat-card {
+  box-shadow: none !important;
+  border: lightgray 1px solid;
+}
