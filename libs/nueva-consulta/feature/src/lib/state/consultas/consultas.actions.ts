@@ -1,4 +1,4 @@
-import { DiagnosticoMedico, OpcionesDiagnosticoMedico, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { DiagnosticoMedico, FiltrosProductosConsulta, OpcionesDiagnosticoMedico, ProductoConsulta, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { EstigmaPerc } from '@fullstack-angular-nest/nueva-consulta/feature';
 import { createAction, props } from '@ngrx/store';
 import { ConsultasEntity } from './consultas.models';
@@ -23,6 +23,12 @@ export enum ConsultasActionTypes {
   LoadTratsByZona = "[Consultas] Fetching tratamientos by zona...",
   LoadTratsByZonaSuccess = "[Consultas] Successfuly fethced tratamientos by zona",
   LoadTratsByZonaFailure = "[Consultas] Failed in fetching tratamientos by zona",
+
+  // THIRD STEP (SELECCIÓN DE PRODUCTOS)
+  SetTratamientoDeInteres = "[Consultas] Set tratamiento de interes",
+  AddProductoSeleccionado = "[Consultas] Added a selected product",
+  DeleteProductoSeleccionado = "[Consultas] Removed a selected product",
+  SetFiltrosProductos = "[Consultas] Set the product filters",
 }
 
 export const init = createAction('[Consultas Page] Init');
@@ -109,4 +115,24 @@ export const loadTratsByZonaSuccess = createAction(
 export const loadTratsByZonaFailure = createAction(
   ConsultasActionTypes.LoadTratsByZonaFailure,
   props<{ error: any }>()
+)
+
+export const setTratamientoInteres = createAction(
+  ConsultasActionTypes.SetTratamientoDeInteres,
+  props<{ tratamientoInteres: Tratamiento }>()
+)
+
+export const addProductoSeleccionado = createAction(
+  ConsultasActionTypes.AddProductoSeleccionado,
+  props<{ producto: ProductoConsulta, tratamiento: Tratamiento }>()
+)
+
+export const deleteProductoSeleccionado = createAction(
+  ConsultasActionTypes.DeleteDiagnosticoMedico,
+  props<{ producto: ProductoConsulta, tratamiento: Tratamiento }>()
+)
+
+export const setFiltrosProductos = createAction(
+  ConsultasActionTypes.SetFiltrosProductos,
+  props<{ filtros: FiltrosProductosConsulta }>()
 )

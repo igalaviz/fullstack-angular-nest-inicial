@@ -4,7 +4,8 @@ import { createReducer, on, Action } from '@ngrx/store';
 import * as ConsultasActions from './consultas.actions';
 import { ConsultasEntity, EstigmaPerc } from './consultas.models';
 
-import { DiagnosticoMedico, OpcionesDiagnosticoMedico, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access'
+import { DiagnosticoMedico, FiltrosProductosConsulta, OpcionesDiagnosticoMedico, ProductoConsulta, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access'
+import { of } from 'rxjs';
 
 export const CONSULTAS_FEATURE_KEY = 'consultas';
 
@@ -23,6 +24,11 @@ export interface ConsultasState extends EntityState<ConsultasEntity> {
   usarRecomendacion: boolean;
   loadedEstigmas: boolean;
   loadedTratsByZona: boolean;
+
+  productosSeleccionados: ProductoConsulta[];
+  tratamientoDeInteres?: Tratamiento;
+  filtros: FiltrosProductosConsulta;
+
 }
 
 export interface ConsultasPartialState {
@@ -44,7 +50,14 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
   tratamientosPorZona: [],
   usarRecomendacion: true,
   loadedEstigmas: false,
-  loadedTratsByZona: false
+  loadedTratsByZona: false,
+
+  productosSeleccionados: [],
+  tratamientoDeInteres: undefined,
+  filtros: {
+    idFuncion: '',
+    idLaboratorio: ''
+  }
 });
 
 // HELPER FUNCTIONS
@@ -79,6 +92,46 @@ const updateTratamientoEstigmas = (estigmas: EstigmaPerc[], tratamiento: Tratami
   }
 
   return newArray;
+}
+
+const addProducto = (productos: ProductoConsulta[], producto: ProductoConsulta, tratamiento?: Tratamiento): ProductoConsulta[] => {
+  
+  const found = productos.find(p => p.producto.id === producto.producto.id);
+  if(found && tratamiento) {
+    // Si el producto ya estaba en la lista y simplemente se le quería agregar un tratamiento
+    return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, tratamientos: p.tratamientos ? [...p.tratamientos, tratamiento] : [tratamiento]}) : p)
+
+  }else if(!found && tratamiento){
+    // Si no se encontró el producto en la lista y se especificó un tratamiento (se están usando recomendaciones)
+    const productToAdd: ProductoConsulta = producto;
+    producto.tratamientos?.push(tratamiento);
+    return [...productos, productToAdd]
+  }else if(found && !tratamiento){
+    // Si el producto se encontró en la lista y no se especificó ningún tratamiento (no se están usando recomendaciones)
+    return productos;
+  }else if(!found && !tratamiento){
+    // Si el producto no se encontró en la lista y no se especificó ningún tratamiento (no se están usando recomendaciones)
+    return [...productos, producto]
+  } else {
+    return productos;
+  }
+}
+
+const removeProducto = (productos: ProductoConsulta[], producto: ProductoConsulta, tratamiento?: Tratamiento): ProductoConsulta[] => {
+  // Buscar el producto que se quiere deseleccionar
+  const found = productos.find(p => p.producto.id === producto.producto.id);
+  if(found) {
+    // Si solo tiene un tratamiento, quitar el producto de la lista por completo
+    if(found.tratamientos?.length === 1){
+      return productos.filter(p => p.producto.id !== producto.producto.id);
+    }else {
+      // Si tiene más de un tratamiento, simplemente quitar el tratamiento de la lista del producto
+      return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, tratamientos: p.tratamientos?.filter(t => t.id !== tratamiento?.id) }) : p)
+    }
+  }else{
+    // Si no se encontró el producto en la lista, simplemente regresar la lista como estaba
+    return productos;
+  }
 }
 
 const consultasReducer = createReducer(
@@ -162,6 +215,22 @@ const consultasReducer = createReducer(
     ...state,
     tratamientosPorZona: tratsByZona,
     loadedTratsByZona: true
+  })),
+  on(ConsultasActions.setTratamientoInteres, (state, { tratamientoInteres }) => ({
+    ...state,
+    tratamientoDeInteres: tratamientoInteres
+  })),
+  on(ConsultasActions.setFiltrosProductos, (state, { filtros }) => ({
+    ...state,
+    filtros
+  })),
+  on(ConsultasActions.addProductoSeleccionado, (state, { producto, tratamiento }) => ({
+    ...state,
+    productosSeleccionados: addProducto(state.productosSeleccionados, producto, tratamiento)
+  })),
+  on(ConsultasActions.deleteProductoSeleccionado, (state, { producto, tratamiento }) => ({
+    ...state,
+    productosSeleccionados: removeProducto(state.productosSeleccionados, producto, tratamiento)
   }))
 );
 

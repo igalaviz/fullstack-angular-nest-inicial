@@ -56,3 +56,34 @@ export interface Consulta {
     id: string,
     idPaciente: string;
 }
+
+export interface Laboratorio {
+    id: string,
+    nombre: string,
+    funcionesDisponibles: string[]   // los ids de las funciones disponibles
+}
+
+export interface Funcion {
+    id: string,
+    nombre: string,
+    laboratoriosDisponibles: string[]  // los ids de los laboratorios disponibles
+}
+
+export interface Producto {
+    id: string,
+    nombre: string,
+    laboratorio: Laboratorio;
+    funcion: Funcion;
+}
+
+export interface FiltrosProductosConsulta {
+    idLaboratorio: string,
+    idFuncion: string
+}
+
+export interface ProductoConsulta {
+    producto: Producto,
+    disponibleEnInventario: boolean,
+    selected: boolean,
+    tratamientos?: Tratamiento[]
+}

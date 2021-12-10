@@ -1,5 +1,6 @@
-import { EstigmaPerc, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { EstigmaPerc, ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { TratamientoConProductos } from './consultas.models';
 import {
   CONSULTAS_FEATURE_KEY,
   ConsultasState,
@@ -77,4 +78,48 @@ export const getEstigmas = createSelector(
 export const getTratamientosPorZona = createSelector(
   getConsultasState,
   (state: ConsultasState) => state.tratamientosPorZona
+)
+
+export const getTratamientoDeInteres = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.tratamientoDeInteres
+)
+
+export const getFiltrosProductos = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.filtros
+)
+
+export const getProductosSeleccionados = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.productosSeleccionados
+)
+
+export const getTratamientosConProductosSeleccionados = createSelector(
+  getProductosSeleccionados,
+  getTratamientosSeleccionados,
+  getTratamientoDeInteres,
+  (productos: ProductoConsulta[], tratamientos: Tratamiento[], tratamientoInteres?: Tratamiento) => {
+    const tratamientosConProductos: TratamientoConProductos[] = [];
+
+    // I'm gonna loop through all the treatments, and add the appropriate products to each one.
+    //And if the treatment I'm currently on matches the one that is of interest, then imma mark it as chosen
+
+    for(let i = 0; i < tratamientos.length; i++){
+      const tratConProd: TratamientoConProductos = {
+        tratamiento: tratamientos[i],
+        productos: [],
+        chosen: tratamientos[i].id === tratamientoInteres?.id
+      }
+      for(let b = 0; b < productos.length; b++){
+        const foundTrat = productos[b].tratamientos?.find(t => t.id === tratamientos[i].id);
+        if(foundTrat){
+          tratConProd.productos.push(productos[b]);
+        }
+      }
+      tratamientosConProductos.push(tratConProd);
+    }
+
+    return tratamientosConProductos;
+  }
 )
