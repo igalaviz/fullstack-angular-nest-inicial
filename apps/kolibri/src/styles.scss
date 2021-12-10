@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 @import 'custom-theme.scss';
 
 html,
@@ -52,4 +53,10 @@ body {
   background-color: $kolibri-cancel;
   color: white;
   border-color: $kolibri-cancel;
+}
+
+.ko-highlighted-product {
+  .ko-item-producto__header {
+    color: mat.get-color-from-palette($kolibri-accent, 'default');
+  }
 }
