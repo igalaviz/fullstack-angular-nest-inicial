@@ -218,7 +218,7 @@ const consultasReducer = createReducer(
   })),
   on(ConsultasActions.setTratamientoInteres, (state, { tratamientoInteres }) => ({
     ...state,
-    tratamientoDeInteres: tratamientoInteres
+    tratamientoDeInteres: tratamientoInteres.id === state.tratamientoDeInteres?.id ? undefined : tratamientoInteres
   })),
   on(ConsultasActions.setFiltrosProductos, (state, { filtros }) => ({
     ...state,

@@ -25,6 +25,7 @@ import { ZonesDiagramComponent } from './face-interactive-diagram/zones-diagram/
 import { SeleccionProductosComponent } from './seleccion-productos/seleccion-productos.component';
 import { ItemProductoComponent } from './seleccion-productos/item-producto/item-producto.component';
 import { ItemTratamientoComponent } from './seleccion-productos/item-tratamiento/item-tratamiento.component';
+import { ColumnaTratamientosSeleccionadosComponent } from './seleccion-productos/columna-tratamientos-seleccionados/columna-tratamientos-seleccionados.component';
 
 @NgModule({
   imports: [
@@ -58,6 +59,7 @@ import { ItemTratamientoComponent } from './seleccion-productos/item-tratamiento
     SeleccionProductosComponent,
     ItemProductoComponent,
     ItemTratamientoComponent,
+    ColumnaTratamientosSeleccionadosComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
