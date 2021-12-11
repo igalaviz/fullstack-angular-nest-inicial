@@ -8,3 +8,17 @@
   font-style: italic;
   color: gray;
 }
+
+element.style {
+  margin-right: 16px;
+}
+.mat-icon {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  height: 24px;
+  width: 24px;
+}

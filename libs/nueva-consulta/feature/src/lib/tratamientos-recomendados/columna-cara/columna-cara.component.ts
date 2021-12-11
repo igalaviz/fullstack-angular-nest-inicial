@@ -19,12 +19,9 @@ export class ColumnaCaraComponent implements OnInit {
       let newAreas: string[] = [];
       for(const t of tratamientos){
         const areasNames = t.faceAreas.map(f => f.nombre);
-        console.log(areasNames);
         newAreas = newAreas.concat(areasNames);
       }
-      console.log(tratamientos)
       this.highlightAreas.next(newAreas);
-      console.log("NEW AREAS ", newAreas);
     })
   }
 

@@ -15,6 +15,7 @@
         [highlight]="true"
         [activarRecomendaciones]="true"
         (productoSelectTratamiento)="onProductoSelected($event.producto, $event.tratamiento)"
+        (productoUnselectTratamiento)="onProductoRemoved($event.producto, $event.tratamiento)"
         >
     </consultas-item-producto>
 </div>

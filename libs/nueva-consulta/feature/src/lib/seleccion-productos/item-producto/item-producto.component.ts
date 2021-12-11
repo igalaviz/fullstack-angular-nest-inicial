@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatOptionSelectionChange } from '@angular/material/core';
 import { ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 
 @Component({
@@ -54,7 +55,7 @@ export class ItemProductoComponent implements OnInit {
   ngOnInit(): void {
     this.tratamientosControl.valueChanges.subscribe((tratamientos: Tratamiento[]) => {
       // asignar los tratamientos actualizados al objeto de Producto
-      this.producto.tratamientos = tratamientos;
+      this.producto = Object.assign({}, {...this.producto, tratamientos});
 
       if(tratamientos.length === 0){
         this.producto.selected = false;
@@ -75,26 +76,21 @@ export class ItemProductoComponent implements OnInit {
   }
 
   onTratamientoRemoved(tratamiento: Tratamiento){
-    const tratamientos = this.tratamientosControl.value as Tratamiento[];
-    this.removeFirst(tratamientos, tratamiento);
+    let tratamientos = this.tratamientosControl.value as Tratamiento[];
+    tratamientos = tratamientos.filter(t => t.id !== tratamiento.id);
     
     this.tratamientosControl.setValue(tratamientos); // To trigger change detection
     this.productoUnselectTratamiento.emit({producto: this.producto, tratamiento});
   }
 
-  onTratamientoSelectionChanged(tratamientos: Tratamiento[]){
-    if(this.producto.tratamientos && tratamientos.length > this.producto.tratamientos.length){
+  onTratamientoSelectionChanged(tratamiento: Tratamiento, checked: boolean){
+    
+    if(checked){
       // se añadió un tratamiento
-      this.producto.selected = true;
-      const tratamientoAgregado: Tratamiento = tratamientos.filter(t => this.producto.tratamientos?.findIndex(l => l.id === t.id) === -1)[0]
-      this.productoSelectTratamiento.emit({producto: this.producto, tratamiento: tratamientoAgregado})
-    }
-  }
-
-  private removeFirst<T>(array: T[], toRemove: T): void {
-    const index = array.indexOf(toRemove);
-    if (index !== -1) {
-      array.splice(index, 1);
+      this.productoSelectTratamiento.emit({producto: this.producto, tratamiento: tratamiento})
+    }else {
+      // se deseleccionó un tratamiento
+      this.productoUnselectTratamiento.emit({producto: this.producto, tratamiento});
     }
   }
 }

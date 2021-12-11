@@ -102,8 +102,8 @@ const addProducto = (productos: ProductoConsulta[], producto: ProductoConsulta, 
 
   }else if(!found && tratamiento){
     // Si no se encontró el producto en la lista y se especificó un tratamiento (se están usando recomendaciones)
-    const productToAdd: ProductoConsulta = producto;
-    producto.tratamientos?.push(tratamiento);
+    const productToAdd: ProductoConsulta = Object.assign({}, {...producto});
+    productToAdd.tratamientos = productToAdd.tratamientos ? [...productToAdd.tratamientos, tratamiento] : [tratamiento];
     return [...productos, productToAdd]
   }else if(found && !tratamiento){
     // Si el producto se encontró en la lista y no se especificó ningún tratamiento (no se están usando recomendaciones)

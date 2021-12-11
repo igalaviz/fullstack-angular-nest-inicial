@@ -37,10 +37,12 @@ export class ProductosRecomendadosComponent implements OnInit {
   }
 
   onProductoSelected(producto: ProductoConsulta, tratamiento: Tratamiento) {
+    console.log(producto, tratamiento);
     this.store.dispatch(addProductoSeleccionado({producto, tratamiento}))
   }
 
   onProductoRemoved(producto: ProductoConsulta, tratamiento: Tratamiento) {
+    console.log(producto, tratamiento);
     this.store.dispatch(deleteProductoSeleccionado({producto, tratamiento}))
   }
 }

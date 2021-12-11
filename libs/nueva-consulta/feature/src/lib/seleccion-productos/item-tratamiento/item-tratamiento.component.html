@@ -1,4 +1,5 @@
 <mat-card>
+    
     <span class="ko-tratamiento__nombre">{{ tratamiento.nombre }}</span>
     <div *ngIf="productos.length === 0; else productosDiv" class="ko-unavailable-msg">
         <span>No se ha seleccionado ningún producto para este tratamiento.</span>
