@@ -128,7 +128,7 @@ export const addProductoSeleccionado = createAction(
 )
 
 export const deleteProductoSeleccionado = createAction(
-  ConsultasActionTypes.DeleteDiagnosticoMedico,
+  ConsultasActionTypes.DeleteProductoSeleccionado,
   props<{ producto: ProductoConsulta, tratamiento?: Tratamiento }>()
 )
 

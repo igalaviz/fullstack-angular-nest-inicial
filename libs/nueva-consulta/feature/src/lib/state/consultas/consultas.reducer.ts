@@ -117,6 +117,8 @@ const addProducto = (productos: ProductoConsulta[], producto: ProductoConsulta, 
 }
 
 const removeProducto = (productos: ProductoConsulta[], producto: ProductoConsulta, tratamiento?: Tratamiento): ProductoConsulta[] => {
+  console.log(producto);
+  console.log(productos);
   // Buscar el producto que se quiere deseleccionar
   const found = productos.find(p => p.producto.id === producto.producto.id);
   if(found) {
