@@ -1,12 +1,12 @@
-<mat-card>
+<mat-card style="margin-bottom: 8px;">
     
     <span class="ko-tratamiento__nombre">{{ tratamiento.nombre }}</span>
-    <div *ngIf="productos.length === 0; else productosDiv" class="ko-unavailable-msg">
+    <div *ngIf="productos.length === 0; else productosDiv" class="ko-unavailable-msg" style="margin-top: 8px;">
         <span>No se ha seleccionado ningún producto para este tratamiento.</span>
     </div>
 
     <ng-template #productosDiv>
-        <div>
+        <div style="margin-top: 16px; margin-bottom: 8px;">
             <span>Productos seleccionados</span>
         </div>
         <mat-chip-list [selectable]="false">
@@ -17,7 +17,7 @@
         </mat-chip-list>
     </ng-template>
 
-    <button mat-stroked-button [ngClass]="chosen ? 'ko-highlighted-button' : 'ko-highlightable-button'" (click)="onMostrarProductosClicked()">
+    <button mat-stroked-button [ngClass]="chosen ? 'ko-highlighted-button' : 'ko-highlightable-button'" (click)="onMostrarProductosClicked()" style="margin-top: 8px;">
         <mat-icon *ngIf="chosen">check_circle</mat-icon>
         Mostrar productos recomendados
     </button>

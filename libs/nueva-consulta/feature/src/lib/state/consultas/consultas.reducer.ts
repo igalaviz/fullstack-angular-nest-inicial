@@ -131,6 +131,7 @@ const removeProducto = (productos: ProductoConsulta[], producto: ProductoConsult
     // Si no se encontró el producto en la lista, simplemente regresar la lista como estaba
     return productos;
   }
+
 }
 
 const consultasReducer = createReducer(

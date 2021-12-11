@@ -11,12 +11,22 @@
     </div>
     <button mat-flat-button color="primary">Siguiente</button>
 </div>
-<div style="display: flex; flex-direction: row; column-gap: 16px;"class="ko-screen-content">
-    <div style="width: 30%;">
-        <consultas-columna-tratamientos-seleccionados></consultas-columna-tratamientos-seleccionados>
+
+<div>
+    <div *ngIf="usarRecomendaciones; else noRecomendaciones" style="display: flex; flex-direction: row; column-gap: 16px;"class="ko-screen-content">
+        <div style="width: 30%;">
+            <consultas-columna-tratamientos-seleccionados></consultas-columna-tratamientos-seleccionados>
+        </div>
+        <div style="width: 70%;">
+            <consultas-productos-recomendados></consultas-productos-recomendados>
+            <consultas-todos-productos></consultas-todos-productos>
+        </div>
     </div>
-    <div style="width: 70%;">
-        <consultas-productos-recomendados></consultas-productos-recomendados>
-        <consultas-todos-productos></consultas-todos-productos>
-    </div>
+    <ng-template #noRecomendaciones>
+        <div class="ko-screen-content">
+            <consultas-todos-productos></consultas-todos-productos>
+        </div>
+        
+    </ng-template>
+    
 </div>
