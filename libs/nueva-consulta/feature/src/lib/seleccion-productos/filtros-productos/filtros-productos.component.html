@@ -1,5 +1,6 @@
 <div style="display: flex; flex-direction: column; justify-content: start;">
     <div>
+        <span class="label">Laboratorio</span>
         <mat-button-toggle-group multiple="false">
             <mat-button-toggle
                 *ngFor="let lab of laboratorios"
@@ -13,7 +14,8 @@
         </mat-button-toggle-group>
     </div>
     
-    <div style="margin-top: 16px;">
+    <div style="margin-top: 8px;">
+        <span class="label">Función</span>
         <mat-button-toggle-group multiple="false">
             <mat-button-toggle
                 *ngFor="let funcion of funciones"

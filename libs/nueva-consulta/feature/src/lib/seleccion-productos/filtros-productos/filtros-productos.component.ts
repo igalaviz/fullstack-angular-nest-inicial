@@ -7,7 +7,7 @@ import { ConsultasState } from '../../state/consultas/consultas.reducer';
 @Component({
   selector: 'consultas-filtros-productos',
   templateUrl: './filtros-productos.component.html',
-  styleUrls: ['./filtros-productos.component.css']
+  styleUrls: ['./filtros-productos.component.scss']
 })
 export class FiltrosProductosComponent implements OnInit {
   laboratorios: Laboratorio[] = [];
