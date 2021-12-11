@@ -184,4 +184,8 @@ export class ConsultaService {
   getFunciones(): Observable<Funcion[]> {
     return of(funciones);
   }
+
+  getProductosByLabAndFuncion(idLaboratorio: string, idFuncion: string) {
+    return of(productos);
+  }
 }

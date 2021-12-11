@@ -1,0 +1,18 @@
+<div *ngIf="productos$ | async; let productos">
+    <div *ngIf="productos.length > 0; else noProducts">
+        <consultas-item-producto *ngFor="let producto of productos"
+            [producto]="producto"
+            [opcionesTratamientos]="tratamientosSeleccionados"
+            [activarRecomendaciones]="usarRecomendacion"
+            [highlight]="false"
+            (productoSelectTratamiento)="onProductoSelected($event.producto, $event.tratamiento)"
+            (productoSelect)="onProductoSelected($event)"
+            (productoUnselectTratamiento)="onProductoRemoved($event.producto, $event.tratamiento)"
+            (productoUnselect)="onProductoRemoved($event)"
+            >
+        </consultas-item-producto>
+    </div>
+    <ng-template #noProducts>
+        <span>No se encontraron productos.</span>
+    </ng-template>
+</div>

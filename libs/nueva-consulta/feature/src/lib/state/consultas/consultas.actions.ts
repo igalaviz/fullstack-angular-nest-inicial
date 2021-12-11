@@ -124,12 +124,12 @@ export const setTratamientoInteres = createAction(
 
 export const addProductoSeleccionado = createAction(
   ConsultasActionTypes.AddProductoSeleccionado,
-  props<{ producto: ProductoConsulta, tratamiento: Tratamiento }>()
+  props<{ producto: ProductoConsulta, tratamiento?: Tratamiento }>()
 )
 
 export const deleteProductoSeleccionado = createAction(
   ConsultasActionTypes.DeleteDiagnosticoMedico,
-  props<{ producto: ProductoConsulta, tratamiento: Tratamiento }>()
+  props<{ producto: ProductoConsulta, tratamiento?: Tratamiento }>()
 )
 
 export const setFiltrosProductos = createAction(
