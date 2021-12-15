@@ -81,9 +81,45 @@ export interface FiltrosProductosConsulta {
     idFuncion: string
 }
 
+export interface AplicacionProducto {
+    idProducto: string,
+    area: Area,
+    cantidad: number
+}
+
+export enum Agujas {
+    AGUJA_27G = "27G",
+    AGUJA_30G = "30G",
+    AGUJA_32G = "32G"
+}
+
+export enum Canulas {
+    CANULA_18G = "18G",
+    CANULA_22G = "22G",
+    CANULA_25G = "25G",
+    CANULA_27G = "27G",
+    CANULA_30G = "30G"
+} 
+
+export interface Aplicador {
+    categoria: "AGUJA" | "CANULA",
+    nombre: Agujas | Canulas,
+    color: string
+}
+
+// no sé exactamente que campos deben ir aquí
+export interface Lote {
+    idProducto: string,
+    numeroDeLote: string
+}
+
 export interface ProductoConsulta {
     producto: Producto,
     disponibleEnInventario: boolean,
     selected: boolean,
     tratamientos?: Tratamiento[]
+    aplicaciones: AplicacionProducto[],
+    proximaAplicacion: string,
+    aplicador?: Aplicador,
+    lote?: Lote
 }

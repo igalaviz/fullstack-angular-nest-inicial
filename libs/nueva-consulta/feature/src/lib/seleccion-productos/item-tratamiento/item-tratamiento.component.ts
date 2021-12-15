@@ -37,7 +37,9 @@ export class ItemTratamientoComponent {
       },
       disponibleEnInventario: true,
       tratamientos: [],
-      selected: false
+      selected: false,
+      aplicaciones: [],
+      proximaAplicacion: "",
     }
   ]
   @Input() chosen = false;

@@ -1,6 +1,7 @@
 import { DiagnosticoMedico, FiltrosProductosConsulta, OpcionesDiagnosticoMedico, ProductoConsulta, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { EstigmaPerc } from '@fullstack-angular-nest/nueva-consulta/feature';
 import { createAction, props } from '@ngrx/store';
+import { AplicacionProducto } from 'libs/nueva-consulta/data-access/src';
 import { ConsultasEntity } from './consultas.models';
 
 export enum ConsultasActionTypes {
@@ -28,7 +29,14 @@ export enum ConsultasActionTypes {
   SetTratamientoDeInteres = "[Consultas] Set tratamiento de interes",
   AddProductoSeleccionado = "[Consultas] Added a selected product",
   DeleteProductoSeleccionado = "[Consultas] Removed a selected product",
+  UpdateProductoSeleccionado ="[Consultas] Updated a selected product's data",
   SetFiltrosProductos = "[Consultas] Set the product filters",
+
+  //FOURTH STEP (PANTALLA DE TRABAJO)
+  SetProductoSiendoAplicado = "[Consultas] Set the product being currently applied",
+  AddAplicacionProducto = "[Consultas] Added a specific application of a selected product",
+  RemoveAplicacionProducto = "[Consultas] Removed a specific applicaction of a selected product",
+  UpdateAplicacionProducto = "[Consultas] Updated the data of a specific product application",
 }
 
 export const init = createAction('[Consultas Page] Init');
@@ -132,7 +140,32 @@ export const deleteProductoSeleccionado = createAction(
   props<{ producto: ProductoConsulta, tratamiento?: Tratamiento }>()
 )
 
+export const updateProductoSeleccionado = createAction(
+  ConsultasActionTypes.UpdateProductoSeleccionado,
+  props<{ producto: ProductoConsulta }>()
+)
+
 export const setFiltrosProductos = createAction(
   ConsultasActionTypes.SetFiltrosProductos,
   props<{ filtros: FiltrosProductosConsulta }>()
+)
+
+export const setProductoSiendoAplicado = createAction(
+  ConsultasActionTypes.SetProductoSiendoAplicado,
+  props<{ producto: ProductoConsulta }>()
+)
+
+export const addAplicacionProducto = createAction(
+  ConsultasActionTypes.AddAplicacionProducto,
+  props<{ aplicacion: AplicacionProducto, producto: ProductoConsulta }>()
+)
+
+export const removeAplicacionProducto = createAction(
+  ConsultasActionTypes.RemoveAplicacionProducto,
+  props<{ aplicacion: AplicacionProducto, producto: ProductoConsulta }>()
+)
+
+export const updateAplicacionProducto = createAction(
+  ConsultasActionTypes.UpdateAplicacionProducto,
+  props<{ aplicacion: AplicacionProducto, producto: ProductoConsulta }>()
 )

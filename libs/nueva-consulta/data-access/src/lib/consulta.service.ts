@@ -52,7 +52,11 @@ const productos: ProductoConsulta[] = [
     },
     selected: false,
     disponibleEnInventario: true,
-    tratamientos: []  // it has to be empty so later on it gets filled with whatever the user chooses
+    tratamientos: [],  // it has to be empty so later on it gets filled with whatever the user chooses,
+    aplicaciones: [],
+    proximaAplicacion: "",
+    aplicador: undefined,
+    lote: undefined
   }
 ] 
 

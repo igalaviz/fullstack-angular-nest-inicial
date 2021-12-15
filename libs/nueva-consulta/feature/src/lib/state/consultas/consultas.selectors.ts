@@ -123,3 +123,8 @@ export const getTratamientosConProductosSeleccionados = createSelector(
     return tratamientosConProductos;
   }
 )
+
+export const getProductoSiendoAplicado = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.productoSiendoAplicado
+)

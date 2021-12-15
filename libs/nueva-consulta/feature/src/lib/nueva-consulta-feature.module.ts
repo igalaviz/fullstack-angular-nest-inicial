@@ -30,6 +30,7 @@ import { ProductosRecomendadosComponent } from './seleccion-productos/productos-
 import { FiltrosProductosComponent } from './seleccion-productos/filtros-productos/filtros-productos.component';
 import { ListadoProductosComponent } from './seleccion-productos/listado-productos/listado-productos.component';
 import { TodosProductosComponent } from './seleccion-productos/todos-productos/todos-productos.component';
+import { TrabajoComponent } from './trabajo/trabajo.component';
 
 @NgModule({
   imports: [
@@ -68,6 +69,7 @@ import { TodosProductosComponent } from './seleccion-productos/todos-productos/t
     FiltrosProductosComponent,
     ListadoProductosComponent,
     TodosProductosComponent,
+    TrabajoComponent,
   ],
   exports: [
     DiagnosticoInicialComponent

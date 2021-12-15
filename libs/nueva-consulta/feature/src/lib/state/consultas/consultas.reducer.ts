@@ -5,6 +5,7 @@ import * as ConsultasActions from './consultas.actions';
 import { ConsultasEntity, EstigmaPerc } from './consultas.models';
 
 import { DiagnosticoMedico, FiltrosProductosConsulta, OpcionesDiagnosticoMedico, ProductoConsulta, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access'
+import { AplicacionProducto } from 'libs/nueva-consulta/data-access/src';
 
 export const CONSULTAS_FEATURE_KEY = 'consultas';
 
@@ -27,6 +28,8 @@ export interface ConsultasState extends EntityState<ConsultasEntity> {
   productosSeleccionados: ProductoConsulta[];
   tratamientoDeInteres?: Tratamiento;
   filtros: FiltrosProductosConsulta;
+
+  productoSiendoAplicado?: ProductoConsulta;
 
 }
 
@@ -56,7 +59,9 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
   filtros: {
     idFuncion: '',
     idLaboratorio: ''
-  }
+  },
+
+  productoSiendoAplicado: undefined
 });
 
 // HELPER FUNCTIONS
@@ -132,6 +137,23 @@ const removeProducto = (productos: ProductoConsulta[], producto: ProductoConsult
     return productos;
   }
 
+}
+
+const updateProducto = (productos: ProductoConsulta[], producto: ProductoConsulta) => {
+  return productos.map(p => p.producto.id === producto.producto.id ? producto : p);
+}
+
+const addAplicacionProducto = (aplicacion: AplicacionProducto, producto: ProductoConsulta, productos: ProductoConsulta[]) => {
+  return updateProducto(productos, Object.assign({}, {...producto, aplicaciones: [...producto.aplicaciones, aplicacion]}))
+}
+
+
+const removeAplicacionProducto = (aplicacion: AplicacionProducto, producto: ProductoConsulta, productos: ProductoConsulta[]) => {
+  return updateProducto(productos, Object.assign({}, {...producto, aplicaciones: producto.aplicaciones.filter(a => a.area.id !== aplicacion.area.id) }) )
+}
+
+const updateAplicacionProducto = (aplicacion: AplicacionProducto, producto: ProductoConsulta, productos: ProductoConsulta[]) => {
+  return updateProducto(productos, Object.assign({}, {...producto, aplicacion: producto.aplicaciones.map(a => a.area.id === aplicacion.area.id ? aplicacion : a)}))
 }
 
 const consultasReducer = createReducer(
@@ -231,6 +253,26 @@ const consultasReducer = createReducer(
   on(ConsultasActions.deleteProductoSeleccionado, (state, { producto, tratamiento }) => ({
     ...state,
     productosSeleccionados: removeProducto(state.productosSeleccionados, producto, tratamiento)
+  })),
+  on(ConsultasActions.updateProductoSeleccionado, (state, { producto }) => ({
+    ...state,
+    productosSeleccionados: updateProducto(state.productosSeleccionados, producto)
+  })),
+  on(ConsultasActions.setProductoSiendoAplicado, (state, { producto }) => ({
+    ...state,
+    productoSiendoAplicado: producto
+  })),
+  on(ConsultasActions.addAplicacionProducto, (state, { aplicacion, producto }) => ({
+    ...state,
+    productosSeleccionados: addAplicacionProducto(aplicacion, producto, state.productosSeleccionados)
+  })),
+  on(ConsultasActions.removeAplicacionProducto, (state, { aplicacion, producto }) => ({
+    ...state,
+    productosSeleccionados: removeAplicacionProducto(aplicacion, producto, state.productosSeleccionados)
+  })),
+  on(ConsultasActions.updateAplicacionProducto, (state, { aplicacion, producto }) => ({
+    ...state,
+    productosSeleccionados: updateAplicacionProducto(aplicacion, producto, state.productosSeleccionados)
   }))
 );
 
