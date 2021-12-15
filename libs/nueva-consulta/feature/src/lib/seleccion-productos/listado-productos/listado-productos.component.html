@@ -2,6 +2,7 @@
     <div *ngIf="productos.length > 0; else noProducts">
         <consultas-item-producto *ngFor="let producto of productos"
             [producto]="producto"
+            [tratamientos]="producto.tratamientos"
             [opcionesTratamientos]="tratamientosSeleccionados"
             [activarRecomendaciones]="usarRecomendacion"
             [highlight]="false"

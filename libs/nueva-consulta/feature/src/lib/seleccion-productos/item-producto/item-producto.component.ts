@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatOptionSelectionChange } from '@angular/material/core';
 import { ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 
 @Component({
@@ -9,6 +8,7 @@ import { ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-con
   styleUrls: ['./item-producto.component.scss']
 })
 export class ItemProductoComponent implements OnInit {
+  @Input() tratamientos?: Tratamiento[] = [];
   @Input() producto: ProductoConsulta = {
     producto: {
       id: "a",
@@ -50,7 +50,7 @@ export class ItemProductoComponent implements OnInit {
   @Output() productoSelectTratamiento = new EventEmitter<{producto: ProductoConsulta, tratamiento: Tratamiento}>();
   @Output() productoUnselectTratamiento = new EventEmitter<{producto: ProductoConsulta, tratamiento: Tratamiento}>();
 
-  tratamientosControl: FormControl = new FormControl([]);
+  tratamientosControl: FormControl = new FormControl(this.producto.tratamientos);
 
   ngOnInit(): void {
     this.tratamientosControl.valueChanges.subscribe((tratamientos: Tratamiento[]) => {

@@ -18,7 +18,7 @@
                   
                       <mat-select-trigger>
                         <mat-chip-list>
-                          <mat-chip *ngFor="let tratamiento of tratamientosControl.value"
+                          <mat-chip *ngFor="let tratamiento of producto.tratamientos"
                             [removable]="true" (removed)="onTratamientoRemoved(tratamiento)">
                             {{ tratamiento.nombre }}
                             <mat-icon matChipRemove>cancel</mat-icon>
