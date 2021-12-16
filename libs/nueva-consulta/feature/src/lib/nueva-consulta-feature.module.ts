@@ -34,6 +34,7 @@ import { TrabajoComponent } from './trabajo/trabajo.component';
 import { ItemProductoPorAplicarComponent } from './trabajo/item-producto-por-aplicar/item-producto-por-aplicar.component';
 import { ListaProductosPorAplicarComponent } from './trabajo/lista-productos-por-aplicar/lista-productos-por-aplicar.component';
 import { AddProductoBtnComponent } from './trabajo/add-producto-btn/add-producto-btn.component';
+import { DialogoProductoAplicarComponent } from './trabajo/dialogo-producto-aplicar/dialogo-producto-aplicar.component';
 
 @NgModule({
   imports: [
@@ -76,6 +77,7 @@ import { AddProductoBtnComponent } from './trabajo/add-producto-btn/add-producto
     ItemProductoPorAplicarComponent,
     ListaProductosPorAplicarComponent,
     AddProductoBtnComponent,
+    DialogoProductoAplicarComponent,
   ],
   exports: [
     DiagnosticoInicialComponent

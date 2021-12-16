@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { DiagnosticoMedico, EstigmaPerc, Funcion, Laboratorio, ProductoConsulta, SignoSintoma } from '..';
+import { DiagnosticoMedico, EstigmaPerc, Funcion, Laboratorio, Lote, ProductoConsulta, SignoSintoma } from '..';
 import {  OpcionesDiagnosticoMedico, OpcionesSignosSintomas } from './consulta.models';
 
 const laboratorios: Laboratorio[] = [
@@ -162,6 +162,13 @@ const estigmas =  [
   }
 ]
 
+const lotes: Lote[] = [
+  {
+    idProducto: "a",
+    numeroDeLote: "abc123"
+  }
+]
+
 @Injectable({
   providedIn: 'root'
 })
@@ -195,6 +202,10 @@ export class ConsultaService {
   }
 
   getAllProducts(): Observable<ProductoConsulta[]>{
-    return of(productos)
+    return of(productos);
+  }
+
+  getLotesDisponiblesParaProducto(idProducto: string){
+    return of(lotes);
   }
 }
