@@ -28,7 +28,8 @@ export class ItemProductoComponent implements OnInit {
     tratamientos: [],
     selected: false,
     aplicaciones: [],
-    proximaAplicacion: ""
+    proximaAplicacion: "",
+    aplicado: false
   };
   @Input() activarRecomendaciones = true;
   @Input() opcionesTratamientos: Tratamiento[] = [

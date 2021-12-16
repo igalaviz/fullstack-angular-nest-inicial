@@ -56,7 +56,8 @@ const productos: ProductoConsulta[] = [
     aplicaciones: [],
     proximaAplicacion: "",
     aplicador: undefined,
-    lote: undefined
+    lote: undefined,
+    aplicado: false
   }
 ] 
 

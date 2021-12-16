@@ -121,5 +121,6 @@ export interface ProductoConsulta {
     aplicaciones: AplicacionProducto[],
     proximaAplicacion: string,
     aplicador?: Aplicador,
-    lote?: Lote
+    lote?: Lote,
+    aplicado: boolean
 }

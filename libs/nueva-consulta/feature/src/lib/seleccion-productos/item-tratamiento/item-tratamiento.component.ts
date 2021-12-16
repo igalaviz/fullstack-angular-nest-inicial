@@ -40,6 +40,7 @@ export class ItemTratamientoComponent {
       selected: false,
       aplicaciones: [],
       proximaAplicacion: "",
+      aplicado: false
     }
   ]
   @Input() chosen = false;

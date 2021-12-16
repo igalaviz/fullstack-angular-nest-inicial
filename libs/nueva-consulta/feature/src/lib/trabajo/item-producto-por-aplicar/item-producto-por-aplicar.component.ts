@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 
 @Component({
@@ -6,7 +6,7 @@ import { ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-ac
   templateUrl: './item-producto-por-aplicar.component.html',
   styleUrls: ['./item-producto-por-aplicar.component.scss']
 })
-export class ItemProductoPorAplicarComponent implements OnInit {
+export class ItemProductoPorAplicarComponent {
   @Input() producto: ProductoConsulta = {
     producto: {
       id: "a",
@@ -33,16 +33,12 @@ export class ItemProductoPorAplicarComponent implements OnInit {
     ],
     selected: false,
     aplicaciones: [],
-    proximaAplicacion: ""
+    proximaAplicacion: "",
+    aplicado: false
   };
 
   @Output() productDiscard = new EventEmitter<ProductoConsulta>();
   @Output() productAplicar = new EventEmitter<ProductoConsulta>();
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onProductoDiscardClick(){
     this.productDiscard.emit(this.producto);

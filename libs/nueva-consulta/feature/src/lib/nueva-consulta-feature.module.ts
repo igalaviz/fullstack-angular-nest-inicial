@@ -32,6 +32,7 @@ import { ListadoProductosComponent } from './seleccion-productos/listado-product
 import { TodosProductosComponent } from './seleccion-productos/todos-productos/todos-productos.component';
 import { TrabajoComponent } from './trabajo/trabajo.component';
 import { ItemProductoPorAplicarComponent } from './trabajo/item-producto-por-aplicar/item-producto-por-aplicar.component';
+import { ListaProductosPorAplicarComponent } from './trabajo/lista-productos-por-aplicar/lista-productos-por-aplicar.component';
 
 @NgModule({
   imports: [
@@ -72,6 +73,7 @@ import { ItemProductoPorAplicarComponent } from './trabajo/item-producto-por-apl
     TodosProductosComponent,
     TrabajoComponent,
     ItemProductoPorAplicarComponent,
+    ListaProductosPorAplicarComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
