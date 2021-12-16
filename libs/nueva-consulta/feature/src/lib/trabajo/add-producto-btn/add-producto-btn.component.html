@@ -1,0 +1,29 @@
+<button mat-flat-button color="primary" [matMenuTriggerFor]="productMenu">
+    <mat-icon style="font-size: 1.3em; height: 22px;">add_circle_outline</mat-icon>
+    Añadir otro producto
+</button>
+
+<mat-menu #productMenu>
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onProductoChanged($event)">
+        <mat-option
+          *ngFor="let option of filteredOpcionesProductos | async"
+          [value]="option"
+        >
+          {{ option.producto.nombre }}
+        </mat-option>
+    </mat-autocomplete>
+    <mat-form-field appearance="outline">
+        <input
+          type="text"
+          placeholder="Seleccione un producto..."
+          matInput
+          [formControl]="productoControl"
+          [matAutocomplete]="auto"
+          (click)="$event.stopPropagation()"
+          (focus)="$event.stopPropagation()"
+        />
+    </mat-form-field>
+    <button mat-button (click)="onAddClicked()">
+        Agregar
+    </button>
+</mat-menu>

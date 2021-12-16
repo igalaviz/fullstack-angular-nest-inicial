@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMenuModule } from '@angular/material/menu';
  
 const modules = [
   MatExpansionModule,
@@ -28,7 +29,8 @@ const modules = [
   MatIconModule,
   MatSelectModule,
   MatCardModule,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatMenuModule,
 ]
 
 @NgModule({

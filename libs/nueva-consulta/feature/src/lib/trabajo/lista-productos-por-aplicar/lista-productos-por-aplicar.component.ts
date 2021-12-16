@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { deleteProductoSeleccionado, setProductoSiendoAplicado } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getProductosSeleccionados } from '../../state/consultas/consultas.selectors';
