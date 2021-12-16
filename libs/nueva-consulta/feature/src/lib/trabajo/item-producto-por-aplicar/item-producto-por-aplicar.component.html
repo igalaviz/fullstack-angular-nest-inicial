@@ -1,0 +1,6 @@
+<div>
+    <span>{{ producto.producto.nombre }}</span>
+    <div *ngIf="producto.tratamientos && producto.tratamientos.length > 0">
+        <span>Para <span *ngFor="let tratamiento of producto.tratamientos">{{tratamiento}}</span></span>
+    </div>
+</div>
