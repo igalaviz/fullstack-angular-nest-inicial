@@ -1,6 +1,13 @@
-<div>
+<mat-card>
     <span>{{ producto.producto.nombre }}</span>
     <div *ngIf="producto.tratamientos && producto.tratamientos.length > 0">
-        <span>Para <span *ngFor="let tratamiento of producto.tratamientos">{{tratamiento}}</span></span>
+        <span>Para <span *ngFor="let tratamiento of producto.tratamientos; let i = index">{{tratamiento.nombre}}{{i === producto.tratamientos!.length - 1 ? '' : ','}}</span></span>
     </div>
-</div>
+    <button mat-flat-button color="primary" (click)="onProductoAplicarClick()">Aplicar</button>
+    <button mat-stroked-button class="ko-cancel-stroked-button" style="margin-left: 8px;" (click)="onProductoDiscardClick()">
+        <mat-icon>
+            clear
+        </mat-icon>
+        Descartar
+    </button>
+</mat-card>
