@@ -1,0 +1,10 @@
+<div>
+    <mat-checkbox [checked]="selected" (change)="onSelectionChange($event.checked)">{{ area.nombre }}</mat-checkbox>
+    <div *ngIf="selected">
+        <mat-form-field appearance="outline">
+            <input matInput type="number" placeholder="0"
+            [formControl]="cantidadControl">
+            <span matSuffix>{{ unidad === "ML" ? "ml" : ""}}</span>
+          </mat-form-field>
+    </div>
+</div>

@@ -35,6 +35,7 @@ import { ItemProductoPorAplicarComponent } from './trabajo/item-producto-por-apl
 import { ListaProductosPorAplicarComponent } from './trabajo/lista-productos-por-aplicar/lista-productos-por-aplicar.component';
 import { AddProductoBtnComponent } from './trabajo/add-producto-btn/add-producto-btn.component';
 import { DialogoProductoAplicarComponent } from './trabajo/dialogo-producto-aplicar/dialogo-producto-aplicar.component';
+import { ItemFaceAreaComponent } from './trabajo/item-face-area/item-face-area.component';
 
 @NgModule({
   imports: [
@@ -78,6 +79,7 @@ import { DialogoProductoAplicarComponent } from './trabajo/dialogo-producto-apli
     ListaProductosPorAplicarComponent,
     AddProductoBtnComponent,
     DialogoProductoAplicarComponent,
+    ItemFaceAreaComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
