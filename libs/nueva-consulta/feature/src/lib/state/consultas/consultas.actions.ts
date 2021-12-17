@@ -1,4 +1,4 @@
-import { DiagnosticoMedico, FiltrosProductosConsulta, OpcionesDiagnosticoMedico, ProductoConsulta, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { Area, DiagnosticoMedico, FiltrosProductosConsulta, OpcionesDiagnosticoMedico, ProductoConsulta, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { EstigmaPerc } from '@fullstack-angular-nest/nueva-consulta/feature';
 import { createAction, props } from '@ngrx/store';
 import { AplicacionProducto } from 'libs/nueva-consulta/data-access/src';
@@ -37,6 +37,9 @@ export enum ConsultasActionTypes {
   AddAplicacionProducto = "[Consultas] Added a specific application of a selected product",
   RemoveAplicacionProducto = "[Consultas] Removed a specific applicaction of a selected product",
   UpdateAplicacionProducto = "[Consultas] Updated the data of a specific product application",
+  SetAreasSeleccionadas = "[Consultas] Set the selected face areas list",
+  AddAreaSeleccionada = "[Consultas] Added a selected face area",
+  DeleteAreaSeleccionada = "[Consultas] Removed a selected face area",
 }
 
 export const init = createAction('[Consultas Page] Init');
@@ -168,4 +171,19 @@ export const removeAplicacionProducto = createAction(
 export const updateAplicacionProducto = createAction(
   ConsultasActionTypes.UpdateAplicacionProducto,
   props<{ aplicacion: AplicacionProducto, producto: ProductoConsulta }>()
+)
+
+export const setSelectedFaceAreas = createAction(
+  ConsultasActionTypes.SetAreasSeleccionadas,
+  props<{ areas: Area[] }>()
+)
+
+export const addSelectedFaceArea = createAction(
+  ConsultasActionTypes.AddAreaSeleccionada,
+  props<{ area: Area }>()
+)
+
+export const deleteSelectedFaceArea = createAction(
+  ConsultasActionTypes.DeleteAreaSeleccionada,
+  props<{ area: Area }>()
 )

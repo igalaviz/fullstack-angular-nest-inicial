@@ -1,3 +1,4 @@
+import { state } from '@angular/animations';
 import { EstigmaPerc, ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { TratamientoConProductos } from './consultas.models';
@@ -127,4 +128,9 @@ export const getTratamientosConProductosSeleccionados = createSelector(
 export const getProductoSiendoAplicado = createSelector(
   getConsultasState,
   (state: ConsultasState) => state.productoSiendoAplicado
+)
+
+export const getSelectedFaceAreas = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.areasSeleccionadas
 )

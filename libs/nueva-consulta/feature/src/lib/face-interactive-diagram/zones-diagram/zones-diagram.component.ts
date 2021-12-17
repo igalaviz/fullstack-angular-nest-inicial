@@ -8,10 +8,13 @@ import { Observable, of } from 'rxjs';
 })
 export class ZonesDiagramComponent implements OnInit {
   @Input() highlights: Observable<string[]> = of([]);
+  @Input() allowSelection = false;
+  @Input() selectionsList: Observable<string[]> = of([]);
 
   constructor() { }
 
   ngOnInit(): void {
+    if(!this.allowSelection)
     this.highlights.subscribe((highlights) => {
       //Primero, deseleccionar cualquier zona actualmente seleccionada
       //Después, si el array contiene elementos, seleccionar esos elementos

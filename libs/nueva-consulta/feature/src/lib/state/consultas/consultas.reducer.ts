@@ -4,8 +4,8 @@ import { createReducer, on, Action } from '@ngrx/store';
 import * as ConsultasActions from './consultas.actions';
 import { ConsultasEntity, EstigmaPerc } from './consultas.models';
 
-import { DiagnosticoMedico, FiltrosProductosConsulta, OpcionesDiagnosticoMedico, ProductoConsulta, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access'
-import { AplicacionProducto } from 'libs/nueva-consulta/data-access/src';
+import { Area, DiagnosticoMedico, FiltrosProductosConsulta, OpcionesDiagnosticoMedico, ProductoConsulta, SignoSintoma, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access'
+import { AplicacionProducto } from '@fullstack-angular-nest/nueva-consulta/data-access';
 
 export const CONSULTAS_FEATURE_KEY = 'consultas';
 
@@ -30,6 +30,7 @@ export interface ConsultasState extends EntityState<ConsultasEntity> {
   filtros: FiltrosProductosConsulta;
 
   productoSiendoAplicado?: ProductoConsulta;
+  areasSeleccionadas: Area[];
 
 }
 
@@ -61,7 +62,8 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
     idLaboratorio: ''
   },
 
-  productoSiendoAplicado: undefined
+  productoSiendoAplicado: undefined,
+  areasSeleccionadas: [],
 });
 
 // HELPER FUNCTIONS
@@ -273,6 +275,18 @@ const consultasReducer = createReducer(
   on(ConsultasActions.updateAplicacionProducto, (state, { aplicacion, producto }) => ({
     ...state,
     productosSeleccionados: updateAplicacionProducto(aplicacion, producto, state.productosSeleccionados)
+  })),
+  on(ConsultasActions.addSelectedFaceArea, (state, { area }) => ({
+    ...state,
+    areasSeleccionadas: addItem(state.areasSeleccionadas, area)
+  })),
+  on(ConsultasActions.deleteSelectedFaceArea, (state, { area }) => ({
+    ...state,
+    areasSeleccionadas: deleteItem(state.areasSeleccionadas, area)
+  })),
+  on(ConsultasActions.setSelectedFaceAreas, (state, { areas }) => ({
+    ...state,
+    areasSeleccionadas: areas
   }))
 );
 
