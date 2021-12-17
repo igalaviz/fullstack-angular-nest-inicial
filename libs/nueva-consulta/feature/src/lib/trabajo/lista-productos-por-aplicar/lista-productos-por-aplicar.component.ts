@@ -4,7 +4,7 @@ import { ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-ac
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { deleteProductoSeleccionado, setProductoSiendoAplicado } from '../../state/consultas/consultas.actions';
+import { deleteProductoSeleccionado, setProductoSiendoAplicado, updateProductoSeleccionado } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getProductosSeleccionados } from '../../state/consultas/consultas.selectors';
 import { DialogoProductoAplicarComponent } from '../dialogo-producto-aplicar/dialogo-producto-aplicar.component';
@@ -29,10 +29,14 @@ export class ListaProductosPorAplicarComponent implements OnInit {
 
   onProductoAplicar(producto: ProductoConsulta) {
     const dialogRef = this.dialog.open(DialogoProductoAplicarComponent, {
-      data: {producto},
+      width: '480px',
+      data: {product: producto},
     });
 
     dialogRef.afterClosed().subscribe(result => {
+      producto = Object.assign({}, {...producto, aplicador: result.aplicador, lote: result.lote})
+
+      this.store.dispatch(updateProductoSeleccionado({producto}));
       this.store.dispatch(setProductoSiendoAplicado({producto}));
     });
   }

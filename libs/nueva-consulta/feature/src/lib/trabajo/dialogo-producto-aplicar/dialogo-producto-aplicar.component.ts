@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { Aplicador, ConsultaService, Lote, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { Store } from '@ngrx/store';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -14,10 +14,10 @@ export class DialogoProductoAplicarComponent implements OnInit {
   lotesDisponibles: Lote[] = [];
 
   tipoAplicador: "A" | "C" = "A";
-  aplicador?: Aplicador;
+  aplicadorSeleccionado?: Aplicador;
   loteSeleccionado?: Lote;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {product: ProductoConsulta}, private consultasService: ConsultaService, private store: Store<ConsultaService>) { }
+  constructor(public dialogRef: MatDialogRef<DialogoProductoAplicarComponent>, @Inject(MAT_DIALOG_DATA) public data: {product: ProductoConsulta}, private consultasService: ConsultaService, private store: Store<ConsultaService>) { }
 
   ngOnInit(): void {
     this.consultasService.getLotesDisponiblesParaProducto(this.data.product.producto.id).subscribe((value) => {
@@ -31,10 +31,14 @@ export class DialogoProductoAplicarComponent implements OnInit {
   }
 
   onAplicadorChange(aplicador: Aplicador) {
-    this.aplicador = aplicador;
+    this.aplicadorSeleccionado = aplicador;
   }
 
   onLoteChange(lote: Lote) {
     this.loteSeleccionado = lote;
+  }
+
+  onCancelarClicked(){
+    this.dialogRef.close();
   }
 }
