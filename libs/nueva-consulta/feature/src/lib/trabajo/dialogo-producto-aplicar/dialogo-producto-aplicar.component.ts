@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { Aplicador, ConsultaService, Lote, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { Store } from '@ngrx/store';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'consultas-dialogo-producto-aplicar',
@@ -9,10 +10,10 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./dialogo-producto-aplicar.component.scss']
 })
 export class DialogoProductoAplicarComponent implements OnInit {
-  opcionesAplicadores: Aplicador[] = [];
+  opcionesAplicadores$: Observable<Aplicador[]> = new Observable();
   lotesDisponibles: Lote[] = [];
 
-  tipoAplicador: "AGUJA" | "CANULA" = "AGUJA";
+  tipoAplicador: "A" | "C" = "A";
   aplicador?: Aplicador;
   loteSeleccionado?: Lote;
 
@@ -24,4 +25,16 @@ export class DialogoProductoAplicarComponent implements OnInit {
     })
   }
 
+  onTipoAplicadorChange(tipo: "A" | "C") {
+    this.tipoAplicador = tipo;
+    this.opcionesAplicadores$ = this.consultasService.getOpcionesAplicadores(this.tipoAplicador);
+  }
+
+  onAplicadorChange(aplicador: Aplicador) {
+    this.aplicador = aplicador;
+  }
+
+  onLoteChange(lote: Lote) {
+    this.loteSeleccionado = lote;
+  }
 }

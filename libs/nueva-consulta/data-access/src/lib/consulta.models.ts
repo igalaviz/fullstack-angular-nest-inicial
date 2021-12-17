@@ -102,7 +102,7 @@ export enum Canulas {
 } 
 
 export interface Aplicador {
-    categoria: "AGUJA" | "CANULA",
+    categoria: "A" | "C",
     nombre: Agujas | Canulas,
     color: string
 }

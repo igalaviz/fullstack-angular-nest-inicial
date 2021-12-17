@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
@@ -6,6 +7,7 @@ import { tap } from 'rxjs/operators';
 import { deleteProductoSeleccionado, setProductoSiendoAplicado } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getProductosSeleccionados } from '../../state/consultas/consultas.selectors';
+import { DialogoProductoAplicarComponent } from '../dialogo-producto-aplicar/dialogo-producto-aplicar.component';
 
 @Component({
   selector: 'consultas-lista-productos-por-aplicar',
@@ -15,7 +17,7 @@ import { getProductosSeleccionados } from '../../state/consultas/consultas.selec
 export class ListaProductosPorAplicarComponent implements OnInit {
   productos$: Observable<ProductoConsulta[]> = new Observable();
 
-  constructor(private store: Store<ConsultasState>) { }
+  constructor(private store: Store<ConsultasState>, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.productos$ = this.store.pipe(select(getProductosSeleccionados), tap((productos) => {return productos.filter(p => p.aplicado === false)}))
@@ -26,7 +28,13 @@ export class ListaProductosPorAplicarComponent implements OnInit {
   }
 
   onProductoAplicar(producto: ProductoConsulta) {
-    this.store.dispatch(setProductoSiendoAplicado({producto}));
+    const dialogRef = this.dialog.open(DialogoProductoAplicarComponent, {
+      data: {producto},
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.store.dispatch(setProductoSiendoAplicado({producto}));
+    });
   }
 
 }

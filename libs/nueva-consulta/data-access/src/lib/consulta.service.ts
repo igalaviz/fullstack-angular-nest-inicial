@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { DiagnosticoMedico, EstigmaPerc, Funcion, Laboratorio, Lote, ProductoConsulta, SignoSintoma } from '..';
-import {  OpcionesDiagnosticoMedico, OpcionesSignosSintomas } from './consulta.models';
+import { Aplicador, DiagnosticoMedico, EstigmaPerc, Funcion, Laboratorio, Lote, ProductoConsulta, SignoSintoma } from '..';
+import { OpcionesDiagnosticoMedico, OpcionesSignosSintomas, Agujas, Canulas } from './consulta.models';
 
 const laboratorios: Laboratorio[] = [
   {
@@ -162,6 +162,49 @@ const estigmas =  [
   }
 ]
 
+const aplicadores: Aplicador[] = [
+  {
+    categoria: "A",
+    nombre: Agujas.AGUJA_27G,
+    color: "#828282"
+  },
+  {
+    categoria: "A",
+    nombre: Agujas.AGUJA_30G,
+    color: "#f2f066"
+  },
+  {
+    categoria: "A",
+    nombre: Agujas.AGUJA_32G,
+    color: "#64f37e"
+  },
+  {
+    categoria: "C",
+    nombre: Canulas.CANULA_18G,
+    color: "#ef4fa6"
+  },
+  {
+    categoria: "C",
+    nombre: Canulas.CANULA_22G,
+    color: "#4d4d4d"
+  },
+  {
+    categoria: "C",
+    nombre: Canulas.CANULA_25G,
+    color: "#ffaf49"
+  },
+  {
+    categoria: "C",
+    nombre: Canulas.CANULA_27G,
+    color: "#c9c9c9"
+  },
+  {
+    categoria: "C",
+    nombre: Canulas.CANULA_30G,
+    color: "#f2f066"
+  }
+]
+
 const lotes: Lote[] = [
   {
     idProducto: "a",
@@ -207,5 +250,15 @@ export class ConsultaService {
 
   getLotesDisponiblesParaProducto(idProducto: string){
     return of(lotes);
+  }
+
+  getOpcionesAplicadores(tipo: "A" | "C"): Observable<Aplicador[]>{
+    if(tipo === "A"){
+      return of(aplicadores.filter(a => a.categoria === "A"))
+    }else if (tipo === "C"){
+      return of(aplicadores.filter(a => a.categoria === "C"))
+    }else {
+      return of([])
+    }
   }
 }

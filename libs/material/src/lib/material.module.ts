@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
  
 const modules = [
   MatExpansionModule,
@@ -32,7 +33,8 @@ const modules = [
   MatCardModule,
   MatAutocompleteModule,
   MatMenuModule,
-  MatDialogModule
+  MatDialogModule,
+  MatRadioModule,
 ]
 
 @NgModule({
