@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
-import { ConsultasState } from '../..';
+import { ConsultasState, getProductoSiendoAplicado } from '../..';
 
 @Component({
   selector: 'consultas-trabajo',
@@ -14,6 +14,9 @@ export class TrabajoComponent implements OnInit {
   constructor(private store: Store<ConsultasState>) { }
 
   ngOnInit(): void {
+    this.store.pipe(select(getProductoSiendoAplicado)).subscribe((value) => {
+      this.productoEnUso = value;
+    })
   }
 
 }

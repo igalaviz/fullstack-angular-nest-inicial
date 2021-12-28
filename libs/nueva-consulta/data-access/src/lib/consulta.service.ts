@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Aplicador, DiagnosticoMedico, EstigmaPerc, Funcion, Laboratorio, Lote, ProductoConsulta, SignoSintoma } from '..';
-import { OpcionesDiagnosticoMedico, OpcionesSignosSintomas, Agujas, Canulas } from './consulta.models';
+import { OpcionesDiagnosticoMedico, OpcionesSignosSintomas, Agujas, Canulas, Area } from './consulta.models';
 
 const laboratorios: Laboratorio[] = [
   {
@@ -212,6 +212,28 @@ const lotes: Lote[] = [
   }
 ]
 
+const zonas: Area[] = [
+  {
+    id: "f1-d",
+    nombre: "F1 Derecho"
+  },
+  {
+    id: "f1-i",
+    nombre: "F1 Izquierdo"
+  }
+]
+
+const musculos: Area[] = [
+  {
+    id: "corrugador_d",
+    nombre: "Corrugador Derecho"
+  },
+  {
+    id: "corrugador_i",
+    nombre: "Corrugador Izquierdo"
+  }
+]
+
 @Injectable({
   providedIn: 'root'
 })
@@ -260,5 +282,13 @@ export class ConsultaService {
     }else {
       return of([])
     }
+  }
+
+  getAllZonas(): Observable<Area[]> {
+    return of(zonas)
+  }
+
+  getAllMusculos(): Observable<Area[]> {
+    return of(musculos)
   }
 }

@@ -11,8 +11,6 @@ export class ZonesDiagramComponent implements OnInit {
   @Input() allowSelection = false;
   @Input() selectionsList: Observable<string[]> = of([]);
 
-  constructor() { }
-
   ngOnInit(): void {
     if(!this.allowSelection)
     this.highlights.subscribe((highlights) => {
@@ -33,7 +31,6 @@ export class ZonesDiagramComponent implements OnInit {
         for(const el of toSelect){
           el.classList.add('selected');
         }
-        console.log("hi!");
       }
 
       

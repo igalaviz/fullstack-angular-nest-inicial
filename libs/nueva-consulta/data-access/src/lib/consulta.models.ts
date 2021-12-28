@@ -4,6 +4,11 @@ export interface Area {
     nombre: string
 }
 
+export interface SelectableFaceArea {
+    area: Area,
+    selected: boolean
+}
+
 export interface Estigma {
     id: string,
     nombre: string,

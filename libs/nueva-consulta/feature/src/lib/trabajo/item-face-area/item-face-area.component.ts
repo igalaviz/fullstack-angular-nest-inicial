@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Area } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { SelectableFaceArea } from '@fullstack-angular-nest/nueva-consulta/data-access';
 
 @Component({
   selector: 'consultas-item-face-area',
@@ -8,14 +8,15 @@ import { Area } from '@fullstack-angular-nest/nueva-consulta/data-access';
   styleUrls: ['./item-face-area.component.scss']
 })
 export class ItemFaceAreaComponent implements OnInit {
-  @Input() area!: Area;
+  @Input() area!: SelectableFaceArea;
   @Input() unidad: "ML" = "ML";
+  @Input() showAll = true;
 
-  @Output() areaSelect = new EventEmitter<Area>();
-  @Output() areaUnselect = new EventEmitter<Area>();
+  @Output() areaSelect = new EventEmitter<{area: SelectableFaceArea, cantidad: number}>();
+  @Output() areaUnselect = new EventEmitter<SelectableFaceArea>();
   @Output() areaQtyChange = new EventEmitter<number>();
 
-  selected = false;
+  @Input() selected = false;
 
   cantidadControl = new FormControl(0);
 
@@ -27,7 +28,7 @@ export class ItemFaceAreaComponent implements OnInit {
 
   onSelectionChange(checked: boolean){
     if(checked){
-      this.areaSelect.emit(this.area);
+      this.areaSelect.emit({area: this.area, cantidad: this.cantidadControl.value});
     }else{
       this.areaUnselect.emit(this.area);
     }

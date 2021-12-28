@@ -1,6 +1,6 @@
-<div>
-    <mat-checkbox [checked]="selected" (change)="onSelectionChange($event.checked)">{{ area.nombre }}</mat-checkbox>
-    <div *ngIf="selected">
+<div [style.display]="area.selected || showAll ? 'flex' : 'none'">
+    <mat-checkbox [checked]="area.selected" (change)="onSelectionChange($event.checked)">{{ area.area.nombre }}</mat-checkbox>
+    <div *ngIf="area.selected">
         <mat-form-field appearance="outline">
             <input matInput type="number" placeholder="0"
             [formControl]="cantidadControl">

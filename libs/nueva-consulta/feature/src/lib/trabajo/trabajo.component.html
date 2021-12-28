@@ -1,6 +1,7 @@
 <div style="display: flex; flex-direction: row;">
     <div class="ko-work-sidebar mat-elevation-z4">
         <div *ngIf="productoEnUso; else productos">
+            <consultas-lista-face-areas></consultas-lista-face-areas>
         </div>
         <ng-template #productos>
             <div>
@@ -11,7 +12,6 @@
         
     </div>
     <div class="ko-work-content">
-        
-        <consultas-face-interactive-diagram [allowSelection]="true"></consultas-face-interactive-diagram>
+            <consultas-face-interactive-diagram [allowSelection]="true"></consultas-face-interactive-diagram>
     </div>
 </div>

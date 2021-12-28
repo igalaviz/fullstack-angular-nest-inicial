@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Area } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
-import { addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getSelectedFaceAreas } from '../..';
+import { addAplicacionProducto, addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getSelectedFaceAreas } from '../..';
 
 @Component({
   selector: 'consultas-face-interactive-diagram',
@@ -38,6 +38,8 @@ export class FaceInteractiveDiagramComponent implements OnInit {
   // The names of the face areas to be highlighted
   @Input() highlights!: BehaviorSubject<string[]>;
   selections: Area[] = [];
+
+  //TODO: an event must be emitted every time an area is selected or unselected, so that the saving-in-the-store logic gets abstracted away from this component
 
   constructor(private store: Store<ConsultasState>) { }
 
@@ -78,6 +80,7 @@ export class FaceInteractiveDiagramComponent implements OnInit {
     else if(foundIndex === -1 && el){
       el.classList.add('selected')
       this.store.dispatch(addSelectedFaceArea({area}))
+
     }
   }
 
