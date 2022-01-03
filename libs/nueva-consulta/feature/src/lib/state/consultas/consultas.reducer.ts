@@ -10,6 +10,7 @@ import { AplicacionProducto } from '@fullstack-angular-nest/nueva-consulta/data-
 export const CONSULTAS_FEATURE_KEY = 'consultas';
 
 export interface ConsultasState extends EntityState<ConsultasEntity> {
+  allowNextStep: boolean;
   error?: string | null; // last known error (if any)
   selectedId: string;
   loaded: boolean;
@@ -43,6 +44,7 @@ export const consultasAdapter: EntityAdapter<ConsultasEntity> =
 
 export const initialState: ConsultasState = consultasAdapter.getInitialState({
   // set initial required properties
+  allowNextStep: false,
   loaded: false,
   comentarios: '',
   selectedId: '',

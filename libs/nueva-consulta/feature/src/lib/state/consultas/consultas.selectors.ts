@@ -25,6 +25,11 @@ export const getConsultasError = createSelector(
   (state: ConsultasState) => state.error
 );
 
+export const getAllowNextStep = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.allowNextStep
+)
+
 export const getAllConsultas = createSelector(
   getConsultasState,
   (state: ConsultasState) => selectAll(state)

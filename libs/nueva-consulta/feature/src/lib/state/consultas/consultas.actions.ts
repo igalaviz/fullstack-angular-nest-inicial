@@ -5,6 +5,10 @@ import { AplicacionProducto } from 'libs/nueva-consulta/data-access/src';
 import { ConsultasEntity } from './consultas.models';
 
 export enum ConsultasActionTypes {
+  // GENERAL
+  SetError = '[Consultas] Set the last known error',
+  SetAllowNextStep = '[Consultas] Set if the user can pass to the next step',
+
   // FIRST STEP (DIAGNOSTICO INICIAL)
   SetComentarios = '[Consultas] Set comments data',
   AddSignosSintomas = '[Consultas] Added a selected signo-sintoma',
@@ -186,4 +190,14 @@ export const addSelectedFaceArea = createAction(
 export const deleteSelectedFaceArea = createAction(
   ConsultasActionTypes.DeleteAreaSeleccionada,
   props<{ area: Area }>()
+)
+
+export const setError = createAction(
+  ConsultasActionTypes.SetError,
+  props<{ error: string | null }>()
+)
+
+export const setAllowNextStep = createAction(
+  ConsultasActionTypes.SetAllowNextStep,
+  props<{ allow: boolean }>()
 )
