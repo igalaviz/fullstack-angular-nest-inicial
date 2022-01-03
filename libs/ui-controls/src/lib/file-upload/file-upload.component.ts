@@ -1,8 +1,13 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 
 interface KoFile {
   file: File,
   hasSizeError: boolean
+}
+
+export enum FileUploadErrorTypes {
+  MAX_COUNT_ERROR = "max_count",
+  MAX_SIZE_ERROR = "max_size"
 }
 
 @Component({
@@ -14,6 +19,8 @@ export class FileUploadComponent{
   @Input() allowedExtensions: string[] = ["image/*"];
   @Input() fileMaxSize = 2048000;
   @Input() fileMaxCount = 5;
+
+  @Output() fileError = new EventEmitter<{error: FileUploadErrorTypes}>()
 
   selectedFiles: KoFile[] = [];
 
@@ -31,6 +38,10 @@ export class FileUploadComponent{
         if(file !== null){
           const hasSizeError = file.size > this.fileMaxSize;
           this.selectedFiles.push({file, hasSizeError});
+
+          if(hasSizeError){
+            this.fileError.emit({error: FileUploadErrorTypes.MAX_SIZE_ERROR})
+          }
         }
       }
     }
@@ -38,12 +49,7 @@ export class FileUploadComponent{
     this.doCountValidation();
   }
 
-  showLimitErrors(){
-    
-    // mostrar un mensaje de error, no permitir al usuario que continúe
-      // (podría haber una propiedad global en el state que se llame 'valid')
-      // y pedirle que elimine algunos archivos
-  }
+
 
   doCountValidation(){
     if(this.selectedFiles.length === this.fileMaxCount){
@@ -55,6 +61,7 @@ export class FileUploadComponent{
       this.reachedLimit = true;
       this.surpassedLimit = true;
       this.selectButton.disabled = true;
+      this.fileError.emit({error: FileUploadErrorTypes.MAX_COUNT_ERROR})
     }else{
       this.reachedLimit = false;
       this.surpassedLimit = false;
