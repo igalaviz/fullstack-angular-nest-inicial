@@ -37,6 +37,7 @@ import { AddProductoBtnComponent } from './trabajo/add-producto-btn/add-producto
 import { DialogoProductoAplicarComponent } from './trabajo/dialogo-producto-aplicar/dialogo-producto-aplicar.component';
 import { ItemFaceAreaComponent } from './trabajo/item-face-area/item-face-area.component';
 import { ListaFaceAreasComponent } from './trabajo/lista-face-areas/lista-face-areas.component';
+import { UiControlsModule } from '@fullstack-angular-nest/ui-controls';
 
 @NgModule({
   imports: [
@@ -51,7 +52,8 @@ import { ListaFaceAreasComponent } from './trabajo/lista-face-areas/lista-face-a
     NuevaConsultaDataAccessModule,
     ReactiveFormsModule,
     FormsModule,
-    FeatureConsultasRoutingModule
+    FeatureConsultasRoutingModule,
+    UiControlsModule
   ],
   declarations: [
     DiagnosticoInicialComponent,

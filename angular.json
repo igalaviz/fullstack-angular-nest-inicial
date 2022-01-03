@@ -8,16 +8,12 @@
       "architect": {
         "build": {
           "builder": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/appnest",
             "main": "apps/appnest/src/main.ts",
             "tsConfig": "apps/appnest/tsconfig.app.json",
-            "assets": [
-              "apps/appnest/src/assets"
-            ]
+            "assets": ["apps/appnest/src/assets"]
           },
           "configurations": {
             "production": {
@@ -41,20 +37,14 @@
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/appnest/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/appnest/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/appnest"
-          ],
+          "outputs": ["coverage/apps/appnest"],
           "options": {
             "jestConfig": "apps/appnest/jest.config.js",
             "passWithNoTests": true
@@ -71,9 +61,7 @@
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/kolibri",
             "index": "apps/kolibri/src/index.html",
@@ -157,9 +145,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/kolibri"
-          ],
+          "outputs": ["coverage/apps/kolibri"],
           "options": {
             "jestConfig": "apps/kolibri/jest.config.js",
             "passWithNoTests": true
@@ -188,20 +174,14 @@
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "apps/kolibri-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/kolibri-e2e/**/*.{js,ts}"]
           }
         }
       },
       "tags": [],
-      "implicitDependencies": [
-        "kolibri"
-      ]
+      "implicitDependencies": ["kolibri"]
     },
     "material": {
       "projectType": "library",
@@ -211,9 +191,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/material"
-          ],
+          "outputs": ["coverage/libs/material"],
           "options": {
             "jestConfig": "libs/material/jest.config.js",
             "passWithNoTests": true
@@ -239,9 +217,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/nueva-consulta/data-access"
-          ],
+          "outputs": ["coverage/libs/nueva-consulta/data-access"],
           "options": {
             "jestConfig": "libs/nueva-consulta/data-access/jest.config.js",
             "passWithNoTests": true
@@ -267,9 +243,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/nueva-consulta/feature"
-          ],
+          "outputs": ["coverage/libs/nueva-consulta/feature"],
           "options": {
             "jestConfig": "libs/nueva-consulta/feature/jest.config.js",
             "passWithNoTests": true
@@ -294,23 +268,43 @@
       "architect": {
         "lint": {
           "builder": "@nrwl/linter:eslint",
-          "outputs": [
-            "{options.outputFile}"
-          ],
+          "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": [
-              "libs/products/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/products/**/*.ts"]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/products"
-          ],
+          "outputs": ["coverage/libs/products"],
           "options": {
             "jestConfig": "libs/products/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "ui-controls": {
+      "projectType": "library",
+      "root": "libs/ui-controls",
+      "sourceRoot": "libs/ui-controls/src",
+      "prefix": "fullstack-angular-nest",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui-controls"],
+          "options": {
+            "jestConfig": "libs/ui-controls/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ui-controls/src/**/*.ts",
+              "libs/ui-controls/src/**/*.html"
+            ]
           }
         }
       },
@@ -324,9 +318,7 @@
       "architect": {
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/user-interfaz"
-          ],
+          "outputs": ["coverage/libs/user-interfaz"],
           "options": {
             "jestConfig": "libs/user-interfaz/jest.config.js",
             "passWithNoTests": true

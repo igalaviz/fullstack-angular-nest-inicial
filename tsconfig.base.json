@@ -23,6 +23,7 @@
         "libs/nueva-consulta/feature/src/index.ts"
       ],
       "@fullstack-angular-nest/products": ["libs/products/src/index.ts"],
+      "@fullstack-angular-nest/ui-controls": ["libs/ui-controls/src/index.ts"],
       "@fullstack-angular-nest/user-interfaz": [
         "libs/user-interfaz/src/index.ts"
       ]
