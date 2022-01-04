@@ -20,7 +20,8 @@ export class FileUploadComponent{
   @Input() fileMaxSize = 2048000;
   @Input() fileMaxCount = 5;
 
-  @Output() fileError = new EventEmitter<{error: FileUploadErrorTypes}>()
+  @Output() fileError = new EventEmitter<{error: FileUploadErrorTypes}>();
+  @Output() fileSuccess = new EventEmitter<string>();
 
   selectedFiles: KoFile[] = [];
 
@@ -47,15 +48,15 @@ export class FileUploadComponent{
     }
     
     this.doCountValidation();
+    this.doSizeValidation();
   }
-
-
 
   doCountValidation(){
     if(this.selectedFiles.length === this.fileMaxCount){
       this.reachedLimit = true;
       this.surpassedLimit = false;
       this.selectButton.disabled = true;
+      this.fileSuccess.emit('');
       
     }else if(this.selectedFiles.length > this.fileMaxCount){
       this.reachedLimit = true;
@@ -66,7 +67,18 @@ export class FileUploadComponent{
       this.reachedLimit = false;
       this.surpassedLimit = false;
       this.selectButton.disabled = false;
+      this.fileSuccess.emit('');
+    }
+  }
 
+  doSizeValidation(){
+    // try to find an item where hasSizeError is true
+    const errorIndex = this.selectedFiles.findIndex(f => f.hasSizeError);
+
+    if(errorIndex !== -1){
+      this.fileError.emit({error: FileUploadErrorTypes.MAX_COUNT_ERROR});
+    }else{
+      this.fileSuccess.emit('');
     }
   }
 
@@ -79,5 +91,6 @@ export class FileUploadComponent{
     }
 
     this.doCountValidation();
+    this.doSizeValidation();
   }
 }

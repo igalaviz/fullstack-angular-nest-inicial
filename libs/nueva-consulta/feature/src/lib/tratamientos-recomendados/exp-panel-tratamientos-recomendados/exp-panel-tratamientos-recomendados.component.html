@@ -1,19 +1,20 @@
 <mat-expansion-panel>
-    <mat-expansion-panel-header [expandedHeight]="''">
+    <mat-expansion-panel-header>
         <mat-panel-title>{{ categorizacion === 'estigmas' ? (estigma.estigma.nombre + ' - ' + estigma.percentage + '%') : tratamientosPorZona.zona }}</mat-panel-title>
     </mat-expansion-panel-header>
-    <div>
         <mat-list>
             <mat-list-item *ngFor="let diagnostico of estigma.diagnosticos">
-                <div >
+                <div style="height: fit-content;" >
                     {{ diagnostico.nombre }}
-                    <mat-list>
-                        <mat-list-item *ngFor="let tratamiento of diagnostico.tratamientos">
-                            <mat-checkbox (change)="onTratamientoChecked(tratamiento, $event.checked)" [checked]="tratamiento.selected!">{{ tratamiento.nombre }}</mat-checkbox>
-                        </mat-list-item>
-                    </mat-list>
+                    <div>
+                        <mat-list>
+                            <mat-list-item *ngFor="let tratamiento of diagnostico.tratamientos">
+                                <mat-checkbox (change)="onTratamientoChecked(tratamiento, $event.checked)" [checked]="tratamiento.selected!">{{ tratamiento.nombre }}</mat-checkbox>
+                            </mat-list-item>
+                        </mat-list>
+                    </div>
+                    
                 </div>
             </mat-list-item>
         </mat-list>
-    </div>
 </mat-expansion-panel>

@@ -17,6 +17,7 @@ export enum ConsultasActionTypes {
   UpdateDiagnosticoMedico = "[Consultas] Updated a selected diagnostico medico",
   DeleteSignosSintomas = "[Consultas] Removed a selected signo-sintoma",
   DeleteDiagnosticoMedico = "[Consultas] Removed a selected diagnostico medico",
+  SetFotos = "[Consultas] Set the pictures list",
 
   // SECOND STEP (TRATAMIENTOS RECOMENDADOS Y ESTIGMAS)
   AddTratamiento = "[Consultas] Added a tratamiento",
@@ -200,4 +201,9 @@ export const setError = createAction(
 export const setAllowNextStep = createAction(
   ConsultasActionTypes.SetAllowNextStep,
   props<{ allow: boolean }>()
+)
+
+export const setFotos = createAction(
+  ConsultasActionTypes.SetFotos,
+  props<{ fotos: File[] }>()
 )

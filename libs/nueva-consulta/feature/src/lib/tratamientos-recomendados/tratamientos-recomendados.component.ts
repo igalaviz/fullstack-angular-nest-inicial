@@ -19,13 +19,10 @@ export class TratamientosRecomendadosComponent implements OnInit {
 
       if(tratamientosSeleccionados.length === 0 && this.usarRecomendacion){
         this.enableNext = false;
-        console.log("first")
       }else if(tratamientosSeleccionados.length === 0 && !this.usarRecomendacion) {
         this.enableNext = true;
-        console.log("second")
       }else{
         this.enableNext = true;
-        console.log("third")
       }
     })).subscribe();
     

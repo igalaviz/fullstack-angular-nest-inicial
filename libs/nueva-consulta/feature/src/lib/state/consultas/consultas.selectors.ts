@@ -139,3 +139,8 @@ export const getSelectedFaceAreas = createSelector(
   getConsultasState,
   (state: ConsultasState) => state.areasSeleccionadas
 )
+
+export const getFotos = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.fotos
+)

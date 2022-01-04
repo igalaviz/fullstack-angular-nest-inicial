@@ -18,6 +18,7 @@ export interface ConsultasState extends EntityState<ConsultasEntity> {
   comentarios: string;
   diagnosticoPacienteSeleccionados: SignoSintoma[];
   diagnosticoMedicoSeleccionados: DiagnosticoMedico[];
+  fotos: File[];
 
   tratamientosSeleccionados: Tratamiento[];
   estigmas: EstigmaPerc[];
@@ -50,6 +51,7 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
   selectedId: '',
   diagnosticoPacienteSeleccionados: [],
   diagnosticoMedicoSeleccionados: [],
+  fotos: [],
   tratamientosSeleccionados: [],
   estigmas: [],
   tratamientosPorZona: [],
@@ -289,7 +291,15 @@ const consultasReducer = createReducer(
   on(ConsultasActions.setSelectedFaceAreas, (state, { areas }) => ({
     ...state,
     areasSeleccionadas: areas
-  }))
+  })),
+  on(ConsultasActions.setAllowNextStep, (state, { allow }) => ({
+    ...state,
+    allowNextStep: allow
+  })),
+  on(ConsultasActions.setFotos, (state, { fotos }) => ({
+    ...state,
+    fotos
+  })),
 );
 
 export function reducer(state: ConsultasState | undefined, action: Action) {

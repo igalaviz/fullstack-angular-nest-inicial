@@ -15,7 +15,7 @@ export class ColumnaTratamientosComponent {
   tratamientosPorZona!: OpcionesDiagnosticoMedico[];
 
   constructor(private store: Store<ConsultasState>) {
-    this.estigmas =  store.pipe(select(getEstigmas));
+    this.estigmas = store.pipe(select(getEstigmas));
 
     store.pipe(select(getTratamientosPorZona)).subscribe((value) => {
       this.tratamientosPorZona = value;

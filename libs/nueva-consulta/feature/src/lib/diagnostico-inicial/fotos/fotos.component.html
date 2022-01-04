@@ -1,3 +1,3 @@
 <h3 class="ko-column-title">Fotos</h3>
 
-<ko-file-upload></ko-file-upload>
+<ko-file-upload #fileUpload (fileError)="onFileUploadError($event.error)" (fileSuccess)="onFileUploadSuccess()"></ko-file-upload>

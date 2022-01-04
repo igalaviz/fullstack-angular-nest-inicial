@@ -3,3 +3,7 @@
   font-weight: 600;
   color: rgb(90 85 92);
 }
+
+.mat-list-base .mat-list-item {
+  height: 100%;
+}
