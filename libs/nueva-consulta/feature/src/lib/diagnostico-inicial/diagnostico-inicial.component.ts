@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ConsultasState, getAllowNextStep, getDiagnosticoMedico, getFotos, getSignosSintomas, loadEstigmas, setAllowNextStep, setFotos } from '../..';
+import { ConsultasState, getAllowNextStep, getDiagnosticoMedico, getFotos, getSignosSintomas, loadEstigmas, loadTratsByZona, setAllowNextStep, setFotos } from '../..';
 import { FotosComponent } from './fotos/fotos.component';
 
 @Component({
@@ -35,6 +35,7 @@ export class DiagnosticoInicialComponent implements OnInit{
   onNextClicked(){
     this.store.dispatch(setFotos({fotos: this.columnaFotos.fileUpload.selectedFiles.map(k => k.file)}))
     this.store.dispatch(loadEstigmas());
+    this.store.dispatch(loadTratsByZona());
     this.router.navigateByUrl('/new/tratamientos');
   }
 

@@ -24,5 +24,13 @@ export class ConsultasEffects {
     )
   )
 
+  zonas$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ConsultasActions.loadTratsByZona),
+      withLatestFrom(this.store.pipe(select(getDiagnosticoMedico)), this.store.pipe(select(getSignosSintomas))),
+      mergeMap(([action, diagnosticoMedico, signosSintomas]) => this.consultasService.calcularTratamientosPorZona(signosSintomas, diagnosticoMedico).pipe(map(res => ConsultasActions.loadTratsByZonaSuccess({ tratsByZona: res }))))
+    )
+  )
+
   constructor(private readonly actions$: Actions, private consultasService: ConsultaService, private store: Store<ConsultasState>) {}
 }
