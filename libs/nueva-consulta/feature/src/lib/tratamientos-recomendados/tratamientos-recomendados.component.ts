@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { combineLatest, Observable } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
-import { ConsultasState, getTratamientosSeleccionados, getUsarRecomendacion, updateUsarRecomendacion } from '../..';
+import { combineLatest } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { ConsultasState, getTratamientosSeleccionados, getUsarRecomendacion, setTratamientos, updateUsarRecomendacion } from '../..';
 
 @Component({
   selector: 'consultas-tratamientos-recomendados',
   templateUrl: './tratamientos-recomendados.component.html',
   styleUrls: ['./tratamientos-recomendados.component.scss']
 })
-export class TratamientosRecomendadosComponent implements OnInit {
+export class TratamientosRecomendadosComponent {
   usarRecomendacion! : boolean;
   enableNext = false;
 
@@ -28,12 +28,11 @@ export class TratamientosRecomendadosComponent implements OnInit {
     
   }
 
-  ngOnInit(): void {
-    
-  }
-
   onUsarRecomendacionChanged(checked: boolean){
     this.store.dispatch(updateUsarRecomendacion({usarRecomendacion: checked}))
+    if(!checked){
+      this.store.dispatch(setTratamientos({tratamientos: []}))
+    }
   }
 
 }

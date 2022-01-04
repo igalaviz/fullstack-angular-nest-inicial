@@ -207,12 +207,12 @@ const consultasReducer = createReducer(
   on(ConsultasActions.addTratamiento, (state, { tratamiento }) => ({
     ...state,
     tratamientosSeleccionados: addItem(state.tratamientosSeleccionados, tratamiento),
-    estigmas: updateTratamientoEstigmas(state.estigmas, tratamiento, true)
+    //estigmas: updateTratamientoEstigmas(state.estigmas, tratamiento, true)
   })),
   on(ConsultasActions.deleteTratamiento, (state, { tratamiento }) => ({
     ...state,
     tratamientosSeleccionados: deleteItem(state.tratamientosSeleccionados, tratamiento),
-    estigmas: updateTratamientoEstigmas(state.estigmas, tratamiento, false)
+    //estigmas: updateTratamientoEstigmas(state.estigmas, tratamiento, false)
   })),
   on(ConsultasActions.updateUsarRecomendacion, (state, { usarRecomendacion }) => ({
     ...state,
@@ -300,6 +300,10 @@ const consultasReducer = createReducer(
     ...state,
     fotos
   })),
+  on(ConsultasActions.setTratamientos, (state, { tratamientos }) => ({
+    ...state,
+    tratamientosSeleccionados: tratamientos
+  }))
 );
 
 export function reducer(state: ConsultasState | undefined, action: Action) {

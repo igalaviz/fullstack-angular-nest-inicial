@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { OpcionDiagnostico } from 'libs/nueva-consulta/feature/src/lib/diagnostico-inicial/diagnostico-exp-panel/diagnostico-exp-panel.component';
 import { Observable, of } from 'rxjs';
 import { Aplicador, DiagnosticoMedico, EstigmaPerc, Funcion, Laboratorio, Lote, ProductoConsulta, SignoSintoma } from '..';
 import { OpcionesDiagnosticoMedico, OpcionesSignosSintomas, Agujas, Canulas, Area } from './consulta.models';
@@ -162,6 +163,78 @@ const estigmas =  [
   }
 ]
 
+const tratamientosPorZona: OpcionesDiagnosticoMedico[] = [
+  {
+    zona: "Cara",
+    opciones: [
+      {
+        id: "a",
+        zona: "Cara",
+        nombre: "Cara larga",
+        nivel: 1,
+        tratamientos: [
+          {
+            id: "a",
+            nombre: "Contorno en F's",
+            primario: true,
+            selected: false,
+            faceAreas: [
+              {
+                id: "a",
+                nombre: "f1-d"
+              }
+            ]
+          },
+          {
+            id: "b",
+            nombre: "Hidratación",
+            primario: false,
+            selected: false,
+            faceAreas: [
+              {
+                id: "b",
+                nombre: "g2"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id: "b",
+        zona: "Cara",
+        nombre: "Cara en luna llena",
+        nivel: 1,
+        tratamientos: [
+          {
+            id: "a",
+            nombre: "Contorno en F's",
+            primario: true,
+            selected: false,
+            faceAreas: [
+              {
+                id: "a",
+                nombre: "f1-d"
+              }
+            ]
+          },
+          {
+            id: "b",
+            nombre: "Hidratación",
+            primario: false,
+            selected: false,
+            faceAreas: [
+              {
+                id: "b",
+                nombre: "g2"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+
 const aplicadores: Aplicador[] = [
   {
     categoria: "A",
@@ -248,6 +321,10 @@ export class ConsultaService {
 
   calcularEstigmas(signosSintomas: SignoSintoma[], diagnosticoMedico: DiagnosticoMedico[]): Observable<EstigmaPerc[]> {
     return of(estigmas);
+  }
+
+  calcularTratamientosPorZona(signosSintomas: SignoSintoma[], diagnosticoMedico: DiagnosticoMedico[]: DiagnosticoMedico[]): Observable<OpcionesDiagnosticoMedico[]> {
+    return of(tratamientosPorZona);
   }
 
   getProductosRecomendadosParaTratamiento(idTratamiento: string): Observable<ProductoConsulta[]>{

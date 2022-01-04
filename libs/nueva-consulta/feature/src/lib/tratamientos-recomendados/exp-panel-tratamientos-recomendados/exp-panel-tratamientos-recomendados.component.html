@@ -7,11 +7,7 @@
                 <div style="height: fit-content;" >
                     {{ diagnostico.nombre }}
                     <div>
-                        <mat-list>
-                            <mat-list-item *ngFor="let tratamiento of diagnostico.tratamientos">
-                                <mat-checkbox (change)="onTratamientoChecked(tratamiento, $event.checked)" [checked]="tratamiento.selected!">{{ tratamiento.nombre }}</mat-checkbox>
-                            </mat-list-item>
-                        </mat-list>
+                        <consultas-updated-tratamientos-list [tratamientos]="diagnostico.tratamientos!" [allowCheck]="allowCheck"  (tratamientoCheck)="onTratamientoChecked($event.tratamiento, $event.checked)"></consultas-updated-tratamientos-list>
                     </div>
                     
                 </div>

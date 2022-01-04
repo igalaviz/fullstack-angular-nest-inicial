@@ -22,6 +22,7 @@ export enum ConsultasActionTypes {
   // SECOND STEP (TRATAMIENTOS RECOMENDADOS Y ESTIGMAS)
   AddTratamiento = "[Consultas] Added a tratamiento",
   DeleteTratamiento = "[Consultas] Removed a tratamiento",
+  SetTratamientos = "[Consultas] Set the selected tratamientos list",
   UpdateUsarRecomendacion = "[Consultas] Updated the use recommendation preference",
   LoadEstigmas = "[Consultas] Fetching calculated estigmas...",
   LoadEstigmasSuccess = "[Consultas] Successfuly fethced calculated estigmas",
@@ -206,4 +207,9 @@ export const setAllowNextStep = createAction(
 export const setFotos = createAction(
   ConsultasActionTypes.SetFotos,
   props<{ fotos: File[] }>()
+)
+
+export const setTratamientos = createAction(
+  ConsultasActionTypes.SetTratamientos,
+  props<{ tratamientos: Tratamiento[] }>()
 )
