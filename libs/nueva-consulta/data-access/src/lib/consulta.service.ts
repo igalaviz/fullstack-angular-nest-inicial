@@ -323,7 +323,7 @@ export class ConsultaService {
     return of(estigmas);
   }
 
-  calcularTratamientosPorZona(signosSintomas: SignoSintoma[], diagnosticoMedico: DiagnosticoMedico[]: DiagnosticoMedico[]): Observable<OpcionesDiagnosticoMedico[]> {
+  calcularTratamientosPorZona(signosSintomas: SignoSintoma[], diagnosticoMedico: DiagnosticoMedico[]): Observable<OpcionesDiagnosticoMedico[]> {
     return of(tratamientosPorZona);
   }
 
