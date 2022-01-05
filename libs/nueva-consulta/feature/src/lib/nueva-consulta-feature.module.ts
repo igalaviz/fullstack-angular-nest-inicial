@@ -40,6 +40,7 @@ import { ListaFaceAreasComponent } from './trabajo/lista-face-areas/lista-face-a
 import { UiControlsModule } from '@fullstack-angular-nest/ui-controls';
 import { UpdatedTratamientosListComponent } from './updated-tratamientos-list/updated-tratamientos-list.component';
 import { ChiplistTratamientosProductoComponent } from './seleccion-productos/chiplist-tratamientos-producto/chiplist-tratamientos-producto.component';
+import { MatoptionsTratamientosProductoComponent } from './seleccion-productos/matoptions-tratamientos-producto/matoptions-tratamientos-producto.component';
 
 @NgModule({
   imports: [
@@ -88,6 +89,7 @@ import { ChiplistTratamientosProductoComponent } from './seleccion-productos/chi
     ListaFaceAreasComponent,
     UpdatedTratamientosListComponent,
     ChiplistTratamientosProductoComponent,
+    MatoptionsTratamientosProductoComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
