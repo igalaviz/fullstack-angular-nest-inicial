@@ -150,16 +150,20 @@ const updateProducto = (productos: ProductoConsulta[], producto: ProductoConsult
 }
 
 const addAplicacionProducto = (aplicacion: AplicacionProducto, producto: ProductoConsulta, productos: ProductoConsulta[]) => {
-  return updateProducto(productos, Object.assign({}, {...producto, aplicaciones: [...producto.aplicaciones, aplicacion]}))
+  return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, aplicaciones: [...p.aplicaciones, aplicacion]}) : p);
 }
 
 
-const removeAplicacionProducto = (aplicacion: AplicacionProducto, producto: ProductoConsulta, productos: ProductoConsulta[]) => {
-  return updateProducto(productos, Object.assign({}, {...producto, aplicaciones: producto.aplicaciones.filter(a => a.area.id !== aplicacion.area.id) }) )
+const removeAplicacionProducto = (area: Area, producto: ProductoConsulta, productos: ProductoConsulta[]) => {
+  return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, aplicaciones: p.aplicaciones.filter(a => a.area.id !== area.id)}) : p);
 }
 
 const updateAplicacionProducto = (aplicacion: AplicacionProducto, producto: ProductoConsulta, productos: ProductoConsulta[]) => {
-  return updateProducto(productos, Object.assign({}, {...producto, aplicacion: producto.aplicaciones.map(a => a.area.id === aplicacion.area.id ? aplicacion : a)}))
+  return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, aplicaciones: p.aplicaciones.map(a => a.area.id === aplicacion.area.id ? aplicacion : a)}) : p);
+}
+
+const setProductoAsAplicado = (productos: ProductoConsulta[], producto: ProductoConsulta) => {
+  return productos.map(p => p.producto.id === producto.producto.id ? {...p, aplicado: true} : p);
 }
 
 const consultasReducer = createReducer(
@@ -272,9 +276,9 @@ const consultasReducer = createReducer(
     ...state,
     productosSeleccionados: addAplicacionProducto(aplicacion, producto, state.productosSeleccionados)
   })),
-  on(ConsultasActions.removeAplicacionProducto, (state, { aplicacion, producto }) => ({
+  on(ConsultasActions.removeAplicacionProducto, (state, { area, producto }) => ({
     ...state,
-    productosSeleccionados: removeAplicacionProducto(aplicacion, producto, state.productosSeleccionados)
+    productosSeleccionados: removeAplicacionProducto(area, producto, state.productosSeleccionados)
   })),
   on(ConsultasActions.updateAplicacionProducto, (state, { aplicacion, producto }) => ({
     ...state,
@@ -303,6 +307,10 @@ const consultasReducer = createReducer(
   on(ConsultasActions.setTratamientos, (state, { tratamientos }) => ({
     ...state,
     tratamientosSeleccionados: tratamientos
+  })),
+  on(ConsultasActions.setProductoAsAplicado, (state, { producto }) => ({
+    ...state,
+    productosSeleccionados: setProductoAsAplicado(state.productosSeleccionados, producto)
   }))
 );
 

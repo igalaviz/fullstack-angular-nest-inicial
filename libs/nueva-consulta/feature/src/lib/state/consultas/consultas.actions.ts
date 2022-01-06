@@ -40,6 +40,7 @@ export enum ConsultasActionTypes {
 
   //FOURTH STEP (PANTALLA DE TRABAJO)
   SetProductoSiendoAplicado = "[Consultas] Set the product being currently applied",
+  SetProductoAsAplicado = "[Consultas] Set a product as already applied",
   AddAplicacionProducto = "[Consultas] Added a specific application of a selected product",
   RemoveAplicacionProducto = "[Consultas] Removed a specific applicaction of a selected product",
   UpdateAplicacionProducto = "[Consultas] Updated the data of a specific product application",
@@ -161,7 +162,7 @@ export const setFiltrosProductos = createAction(
 
 export const setProductoSiendoAplicado = createAction(
   ConsultasActionTypes.SetProductoSiendoAplicado,
-  props<{ producto: ProductoConsulta }>()
+  props<{ producto?: ProductoConsulta }>()
 )
 
 export const addAplicacionProducto = createAction(
@@ -171,7 +172,7 @@ export const addAplicacionProducto = createAction(
 
 export const removeAplicacionProducto = createAction(
   ConsultasActionTypes.RemoveAplicacionProducto,
-  props<{ aplicacion: AplicacionProducto, producto: ProductoConsulta }>()
+  props<{ area: Area, producto: ProductoConsulta }>()
 )
 
 export const updateAplicacionProducto = createAction(
@@ -212,4 +213,9 @@ export const setFotos = createAction(
 export const setTratamientos = createAction(
   ConsultasActionTypes.SetTratamientos,
   props<{ tratamientos: Tratamiento[] }>()
+)
+
+export const setProductoAsAplicado = createAction(
+  ConsultasActionTypes.SetProductoAsAplicado,
+  props<{ producto: ProductoConsulta }>()
 )

@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SelectableFaceArea, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
-import { addAplicacionProducto, addSelectedFaceArea, deleteSelectedFaceArea } from '../../state/consultas/consultas.actions';
+import { addAplicacionProducto, addSelectedFaceArea, deleteSelectedFaceArea, removeAplicacionProducto, updateAplicacionProducto } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
-import { getProductoSiendoAplicado, getSelectedFaceAreas } from '../../state/consultas/consultas.selectors';
+import { getProductoSiendoAplicado, getProductosSeleccionados, getSelectedFaceAreas } from '../../state/consultas/consultas.selectors';
 
 @Component({
   selector: 'consultas-lista-face-areas',
@@ -49,6 +49,10 @@ export class ListaFaceAreasComponent implements OnInit {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.productoEnUso = producto!;
     })
+
+    this.store.pipe(select(getProductosSeleccionados)).subscribe((productos) => {
+      console.log(productos);
+    })
   }
 
   onAreaSelected(area: SelectableFaceArea, cantidad: number){
@@ -58,6 +62,15 @@ export class ListaFaceAreasComponent implements OnInit {
 
   onAreaUnselected(area: SelectableFaceArea){
     this.store.dispatch(deleteSelectedFaceArea({area: area.area}));
+    this.store.dispatch(removeAplicacionProducto({area: area.area, producto: this.productoEnUso}))
+  }
+
+  onAreaQtyChanged(area: SelectableFaceArea, newQty: number){
+    this.store.dispatch(updateAplicacionProducto({aplicacion: {idProducto: this.productoEnUso.producto.id, area: area.area, cantidad: newQty}, producto: this.productoEnUso}));
+  }
+
+  onShowAllChanged(checked: boolean){
+    this.showAll = checked;
   }
 
 }

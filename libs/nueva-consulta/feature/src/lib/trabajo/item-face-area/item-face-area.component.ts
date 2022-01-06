@@ -14,7 +14,7 @@ export class ItemFaceAreaComponent implements OnInit {
 
   @Output() areaSelect = new EventEmitter<{area: SelectableFaceArea, cantidad: number}>();
   @Output() areaUnselect = new EventEmitter<SelectableFaceArea>();
-  @Output() areaQtyChange = new EventEmitter<number>();
+  @Output() areaQtyChange = new EventEmitter<{area: SelectableFaceArea, cantidad: number}>();
 
   @Input() selected = false;
 
@@ -22,7 +22,7 @@ export class ItemFaceAreaComponent implements OnInit {
 
   ngOnInit(): void {
     this.cantidadControl.valueChanges.subscribe((cantidad) => {
-      this.areaQtyChange.emit(cantidad);
+      this.areaQtyChange.emit({area: this.area, cantidad});
     })
   }
 

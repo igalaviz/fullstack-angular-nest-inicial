@@ -1,7 +1,12 @@
+
+
 <div>
-    <mat-button-toggle-group [(value)]="showAll">
-        <mat-button-toggle [value]="true">{{areasType === "MUSCULOS" ? "Todos los músculos" : "Todos las zonas"}}</mat-button-toggle>
-        <mat-button-toggle [value]="false">{{ areasType === "MUSCULOS" ? "Músculos seleccionados" : "Zonas seleccionadas" }}</mat-button-toggle>
-    </mat-button-toggle-group>
-    <consultas-item-face-area *ngFor="let area of areas" [area]="area" unidad="ML" [showAll]="showAll" (areaSelect)="onAreaSelected($event.area, $event.cantidad)" (areaUnselect)="onAreaUnselected($event)"></consultas-item-face-area>
+    <div style="margin-bottom: 8px;">
+        <mat-button-toggle-group [(ngModel)]="showAll" [value]="true">
+            <mat-button-toggle [value]="true">{{areasType === "MUSCULOS" ? "Todos los músculos" : "Todos las zonas"}}</mat-button-toggle>
+            <mat-button-toggle [value]="false">{{ areasType === "MUSCULOS" ? "Músculos seleccionados" : "Zonas seleccionadas" }}</mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    
+    <consultas-item-face-area *ngFor="let area of areas" [area]="area" unidad="ML" [showAll]="showAll" (areaSelect)="onAreaSelected($event.area, $event.cantidad)" (areaUnselect)="onAreaUnselected($event)" (areaQtyChange)="onAreaQtyChanged($event.area, $event.cantidad)"></consultas-item-face-area>
 </div>
