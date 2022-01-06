@@ -1,21 +1,26 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { FormArray } from '@angular/forms';
 import { SelectableFaceArea, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
 import { addAplicacionProducto, addSelectedFaceArea, deleteSelectedFaceArea, removeAplicacionProducto, updateAplicacionProducto } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getProductoSiendoAplicado, getProductosSeleccionados, getSelectedFaceAreas } from '../../state/consultas/consultas.selectors';
+import { ItemFaceAreaComponent } from '../item-face-area/item-face-area.component';
 
 @Component({
   selector: 'consultas-lista-face-areas',
   templateUrl: './lista-face-areas.component.html',
   styleUrls: ['./lista-face-areas.component.scss']
 })
-export class ListaFaceAreasComponent implements OnInit {
+export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
   @Input() areasType: "MUSCULOS" | "ZONAS" =  "ZONAS";
 
   productoEnUso!: ProductoConsulta;
   showAll = true;
   areas: SelectableFaceArea[] = [];
+
+  @ViewChildren(ItemFaceAreaComponent) items!: QueryList<ItemFaceAreaComponent>;
+  formArray = new FormArray([]);
 
   constructor(private consultasService: ConsultaService, private store: Store<ConsultasState>) { }
 
@@ -53,6 +58,12 @@ export class ListaFaceAreasComponent implements OnInit {
     this.store.pipe(select(getProductosSeleccionados)).subscribe((productos) => {
       console.log(productos);
     })
+  }
+
+  ngAfterViewInit(): void {
+      for(const el of this.items){
+        this.formArray.push(el.cantidadControl)
+      }
   }
 
   onAreaSelected(area: SelectableFaceArea, cantidad: number){

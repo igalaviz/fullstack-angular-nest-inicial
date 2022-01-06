@@ -7,7 +7,7 @@
         </div>
         <div class="ko-work-sidebar-content">
             <div *ngIf="productoEnUso; else productos">
-                <consultas-lista-face-areas></consultas-lista-face-areas>
+                <consultas-lista-face-areas #listaFaceAreas></consultas-lista-face-areas>
             </div>
             <ng-template #productos>
                 <div>

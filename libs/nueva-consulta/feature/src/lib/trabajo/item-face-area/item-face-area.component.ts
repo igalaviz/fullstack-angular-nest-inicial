@@ -30,6 +30,8 @@ export class ItemFaceAreaComponent implements OnInit {
     if(checked){
       this.areaSelect.emit({area: this.area, cantidad: this.cantidadControl.value});
     }else{
+      // just so this isn't marked as invalid when it's not selected anymore
+      this.cantidadControl.setValue(1);
       this.areaUnselect.emit(this.area);
     }
   }

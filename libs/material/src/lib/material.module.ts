@@ -17,6 +17,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSnackBarModule } from '@angular/material/snack-bar'
  
 const modules = [
   MatExpansionModule,
@@ -37,6 +38,7 @@ const modules = [
   MatDialogModule,
   MatRadioModule,
   MatPaginatorModule,
+  MatSnackBarModule,
 ]
 
 @NgModule({
