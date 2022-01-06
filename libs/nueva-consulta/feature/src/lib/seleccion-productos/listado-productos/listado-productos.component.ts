@@ -46,6 +46,9 @@ export class ListadoProductosComponent implements OnInit, AfterViewInit {
     .subscribe((productos) => {
       this.productos = productos;
       this.updateProductosToShow();
+      if(this.paginator){
+        this.paginator.firstPage();
+      }
     });
 
     this.store.pipe(select(getProductosSeleccionados)).subscribe((productosSeleccionados) => {
@@ -59,7 +62,6 @@ export class ListadoProductosComponent implements OnInit, AfterViewInit {
           }
       })
       this.updateProductosToShow();
-      
     })
 
     this.store.pipe(select(getTratamientosSeleccionados)).subscribe((value) => {
@@ -75,6 +77,10 @@ export class ListadoProductosComponent implements OnInit, AfterViewInit {
     this.productosToShow = this.productos.slice(from, to);
     }
     
+  }
+
+  updatePaginator(){
+    this.paginator.length = this.productos.length;
   }
 
   onProductoSelected(producto: ProductoConsulta, tratamiento?: Tratamiento) {
