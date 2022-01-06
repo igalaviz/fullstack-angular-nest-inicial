@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChildren } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { SelectableFaceArea } from '@fullstack-angular-nest/nueva-consulta/data-access';
 
 @Component({
@@ -18,7 +18,7 @@ export class ItemFaceAreaComponent implements OnInit {
 
   @Input() selected = false;
 
-  cantidadControl = new FormControl(0);
+  cantidadControl = new FormControl(1, [Validators.min(1)]);
 
   ngOnInit(): void {
     this.cantidadControl.valueChanges.subscribe((cantidad) => {

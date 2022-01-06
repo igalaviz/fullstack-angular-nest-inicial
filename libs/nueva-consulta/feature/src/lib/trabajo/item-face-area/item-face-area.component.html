@@ -4,7 +4,7 @@
     </div>
     <div *ngIf="area.selected">
         <mat-form-field appearance="outline">
-            <input matInput type="number" placeholder="0"
+            <input matInput type="number" min="1"
             [formControl]="cantidadControl">
             <span matSuffix>{{ unidad === "ML" ? "ml" : ""}}</span>
           </mat-form-field>
