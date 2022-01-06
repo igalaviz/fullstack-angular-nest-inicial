@@ -16,6 +16,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatPaginatorModule } from '@angular/material/paginator';
  
 const modules = [
   MatExpansionModule,
@@ -35,6 +36,7 @@ const modules = [
   MatMenuModule,
   MatDialogModule,
   MatRadioModule,
+  MatPaginatorModule,
 ]
 
 @NgModule({

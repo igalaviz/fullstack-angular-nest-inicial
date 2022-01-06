@@ -1,6 +1,6 @@
-<div *ngIf="productos$ | async; let productos">
+
     <div *ngIf="productos.length > 0; else noProducts">
-        <consultas-item-producto *ngFor="let producto of productos"
+        <consultas-item-producto *ngFor="let producto of productosToShow"
             [producto]="producto"
             [tratamientos]="producto.tratamientos"
             [opcionesTratamientos]="tratamientosSeleccionados"
@@ -12,8 +12,15 @@
             (productoUnselect)="onProductoRemoved($event)"
             >
         </consultas-item-producto>
+
+        <mat-paginator #thePaginator
+[length]="productos.length"
+              [pageSize]="10"
+              [pageSizeOptions]="[5, 10, 25]"
+              aria-label="Select page">
+        </mat-paginator>
+        
     </div>
     <ng-template #noProducts>
         <span>No se encontraron productos.</span>
     </ng-template>
-</div>

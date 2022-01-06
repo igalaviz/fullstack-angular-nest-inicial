@@ -59,6 +59,198 @@ const productos: ProductoConsulta[] = [
     aplicador: undefined,
     lote: undefined,
     aplicado: false
+  },
+  {
+    producto: {
+      id: "x",
+      nombre: "XEOMEEN",
+      laboratorio: {
+        id: "m",
+        nombre: "Merz",
+        funcionesDisponibles: []
+      },
+      funcion: {
+        id: "t",
+        nombre: "Toxina",
+        laboratoriosDisponibles: []
+      },
+    },
+    selected: false,
+    disponibleEnInventario: true,
+    tratamientos: [],  // it has to be empty so later on it gets filled with whatever the user chooses,
+    aplicaciones: [],
+    proximaAplicacion: "",
+    aplicador: undefined,
+    lote: undefined,
+    aplicado: false
+  },
+  {
+    producto: {
+      id: "x",
+      nombre: "XEOMEEN",
+      laboratorio: {
+        id: "m",
+        nombre: "Merz",
+        funcionesDisponibles: []
+      },
+      funcion: {
+        id: "t",
+        nombre: "Toxina",
+        laboratoriosDisponibles: []
+      },
+    },
+    selected: false,
+    disponibleEnInventario: true,
+    tratamientos: [],  // it has to be empty so later on it gets filled with whatever the user chooses,
+    aplicaciones: [],
+    proximaAplicacion: "",
+    aplicador: undefined,
+    lote: undefined,
+    aplicado: false
+  },
+  {
+    producto: {
+      id: "x",
+      nombre: "XEOMEEN",
+      laboratorio: {
+        id: "m",
+        nombre: "Merz",
+        funcionesDisponibles: []
+      },
+      funcion: {
+        id: "t",
+        nombre: "Toxina",
+        laboratoriosDisponibles: []
+      },
+    },
+    selected: false,
+    disponibleEnInventario: true,
+    tratamientos: [],  // it has to be empty so later on it gets filled with whatever the user chooses,
+    aplicaciones: [],
+    proximaAplicacion: "",
+    aplicador: undefined,
+    lote: undefined,
+    aplicado: false
+  },
+  {
+    producto: {
+      id: "x",
+      nombre: "XEOMEEN",
+      laboratorio: {
+        id: "m",
+        nombre: "Merz",
+        funcionesDisponibles: []
+      },
+      funcion: {
+        id: "t",
+        nombre: "Toxina",
+        laboratoriosDisponibles: []
+      },
+    },
+    selected: false,
+    disponibleEnInventario: true,
+    tratamientos: [],  // it has to be empty so later on it gets filled with whatever the user chooses,
+    aplicaciones: [],
+    proximaAplicacion: "",
+    aplicador: undefined,
+    lote: undefined,
+    aplicado: false
+  },
+  {
+    producto: {
+      id: "x",
+      nombre: "XEOMEEN",
+      laboratorio: {
+        id: "m",
+        nombre: "Merz",
+        funcionesDisponibles: []
+      },
+      funcion: {
+        id: "t",
+        nombre: "Toxina",
+        laboratoriosDisponibles: []
+      },
+    },
+    selected: false,
+    disponibleEnInventario: true,
+    tratamientos: [],  // it has to be empty so later on it gets filled with whatever the user chooses,
+    aplicaciones: [],
+    proximaAplicacion: "",
+    aplicador: undefined,
+    lote: undefined,
+    aplicado: false
+  },
+  {
+    producto: {
+      id: "x",
+      nombre: "XEOMEEN",
+      laboratorio: {
+        id: "m",
+        nombre: "Merz",
+        funcionesDisponibles: []
+      },
+      funcion: {
+        id: "t",
+        nombre: "Toxina",
+        laboratoriosDisponibles: []
+      },
+    },
+    selected: false,
+    disponibleEnInventario: true,
+    tratamientos: [],  // it has to be empty so later on it gets filled with whatever the user chooses,
+    aplicaciones: [],
+    proximaAplicacion: "",
+    aplicador: undefined,
+    lote: undefined,
+    aplicado: false
+  },
+  {
+    producto: {
+      id: "x",
+      nombre: "XEOMEEN",
+      laboratorio: {
+        id: "m",
+        nombre: "Merz",
+        funcionesDisponibles: []
+      },
+      funcion: {
+        id: "t",
+        nombre: "Toxina",
+        laboratoriosDisponibles: []
+      },
+    },
+    selected: false,
+    disponibleEnInventario: true,
+    tratamientos: [],  // it has to be empty so later on it gets filled with whatever the user chooses,
+    aplicaciones: [],
+    proximaAplicacion: "",
+    aplicador: undefined,
+    lote: undefined,
+    aplicado: false
+  },
+  {
+    producto: {
+      id: "x",
+      nombre: "XEOMEEN",
+      laboratorio: {
+        id: "m",
+        nombre: "Merz",
+        funcionesDisponibles: []
+      },
+      funcion: {
+        id: "t",
+        nombre: "Toxina",
+        laboratoriosDisponibles: []
+      },
+    },
+    selected: false,
+    disponibleEnInventario: true,
+    tratamientos: [],  // it has to be empty so later on it gets filled with whatever the user chooses,
+    aplicaciones: [],
+    proximaAplicacion: "",
+    aplicador: undefined,
+    lote: undefined,
+    aplicado: false
   }
 ] 
 
@@ -340,7 +532,19 @@ export class ConsultaService {
   }
 
   getProductosByLabAndFuncion(idLaboratorio: string, idFuncion: string) {
-    return of(productos);
+    if(idLaboratorio === '' && idFuncion === ''){
+      // return ALL the products
+      return of(productos);
+    }else if(idLaboratorio === '' && idFuncion !== ''){
+      // return the products with the specified function
+      return of(productos.filter(producto => producto.producto.funcion.id === idFuncion))
+    }else if(idLaboratorio !== '' && idFuncion === ''){
+      return of(productos.filter(producto => producto.producto.laboratorio.id === idLaboratorio))
+    }else{
+      return of(productos.filter(producto => producto.producto.funcion.id === idFuncion && producto.producto.laboratorio.id === idLaboratorio))
+    }
+    
+    
   }
 
   getAllProducts(): Observable<ProductoConsulta[]>{
