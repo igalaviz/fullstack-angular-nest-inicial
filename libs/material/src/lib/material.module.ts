@@ -17,7 +17,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
  
 const modules = [
   MatExpansionModule,
@@ -39,6 +41,8 @@ const modules = [
   MatRadioModule,
   MatPaginatorModule,
   MatSnackBarModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
 ]
 
 @NgModule({

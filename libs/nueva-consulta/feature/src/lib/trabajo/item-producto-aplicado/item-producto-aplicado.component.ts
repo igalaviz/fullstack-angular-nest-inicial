@@ -9,6 +9,8 @@ import { ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-ac
 export class ItemProductoAplicadoComponent implements OnInit {
   @Input() producto!: ProductoConsulta;
 
+  specifyProximaAplicacion = false;
+
   constructor() { }
 
   ngOnInit(): void {

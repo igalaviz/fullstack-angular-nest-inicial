@@ -1,10 +1,18 @@
 <div>
     <h3>Productos por aplicar</h3>
-    <consultas-item-producto-por-aplicar
-        *ngFor="let producto of productos$ | async"
-        [producto]="producto"
-        (productAplicar)="onProductoAplicar($event)"
-        (productDiscard)="onProductoDiscard($event)"
-    >
-    </consultas-item-producto-por-aplicar>
+    <div *ngIf="productos.length > 0; else noProducts">
+        <consultas-item-producto-por-aplicar
+            *ngFor="let producto of productos"
+            [producto]="producto"
+            (productAplicar)="onProductoAplicar($event)"
+            (productDiscard)="onProductoDiscard($event)"
+        >
+        </consultas-item-producto-por-aplicar>
+    </div>
+    <ng-template #noProducts>
+        <div style="font-style: italic; color: gray;">
+            No faltan productos por aplicar.
+        </div>        
+    </ng-template>
+    
 </div>

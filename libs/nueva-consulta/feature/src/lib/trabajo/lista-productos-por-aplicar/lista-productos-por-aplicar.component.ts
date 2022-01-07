@@ -14,12 +14,14 @@ import { DialogoProductoAplicarComponent } from '../dialogo-producto-aplicar/dia
   styleUrls: ['./lista-productos-por-aplicar.component.scss']
 })
 export class ListaProductosPorAplicarComponent implements OnInit {
-  productos$: Observable<ProductoConsulta[]> = new Observable();
+  productos: ProductoConsulta[] = []
 
   constructor(private store: Store<ConsultasState>, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.productos$ = this.store.pipe(select(getProductosPorAplicar))
+    this.store.pipe(select(getProductosPorAplicar)).subscribe((productosPorAplicar) => {
+      this.productos = productosPorAplicar;
+    })
   }
 
   onProductoDiscard(producto: ProductoConsulta){
