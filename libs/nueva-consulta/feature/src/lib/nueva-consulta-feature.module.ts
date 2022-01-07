@@ -41,7 +41,8 @@ import { UiControlsModule } from '@fullstack-angular-nest/ui-controls';
 import { UpdatedTratamientosListComponent } from './updated-tratamientos-list/updated-tratamientos-list.component';
 import { ChiplistTratamientosProductoComponent } from './seleccion-productos/chiplist-tratamientos-producto/chiplist-tratamientos-producto.component';
 import { MatoptionsTratamientosProductoComponent } from './seleccion-productos/matoptions-tratamientos-producto/matoptions-tratamientos-producto.component';
-import { ItemProductoAplicadoComponent } from './item-producto-aplicado/item-producto-aplicado.component';
+import { ItemProductoAplicadoComponent } from './trabajo/item-producto-aplicado/item-producto-aplicado.component';
+import { ListaProductosAplicadosComponent } from './trabajo/lista-productos-aplicados/lista-productos-aplicados.component';
 
 @NgModule({
   imports: [
@@ -92,6 +93,7 @@ import { ItemProductoAplicadoComponent } from './item-producto-aplicado/item-pro
     ChiplistTratamientosProductoComponent,
     MatoptionsTratamientosProductoComponent,
     ItemProductoAplicadoComponent,
+    ListaProductosAplicadosComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
