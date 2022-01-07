@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { deleteProductoSeleccionado, setProductoSiendoAplicado, updateProductoSeleccionado } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
-import { getProductosSeleccionados } from '../../state/consultas/consultas.selectors';
+import { getProductosPorAplicar, getProductosSeleccionados } from '../../state/consultas/consultas.selectors';
 import { DialogoProductoAplicarComponent } from '../dialogo-producto-aplicar/dialogo-producto-aplicar.component';
 
 @Component({
@@ -20,7 +20,7 @@ export class ListaProductosPorAplicarComponent implements OnInit {
   constructor(private store: Store<ConsultasState>, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.productos$ = this.store.pipe(select(getProductosSeleccionados), tap((productos) => {return productos.filter(p => p.aplicado === false)}))
+    this.productos$ = this.store.pipe(select(getProductosPorAplicar))
   }
 
   onProductoDiscard(producto: ProductoConsulta){

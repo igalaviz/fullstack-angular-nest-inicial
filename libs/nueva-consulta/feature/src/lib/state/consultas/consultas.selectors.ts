@@ -101,6 +101,16 @@ export const getProductosSeleccionados = createSelector(
   (state: ConsultasState) => state.productosSeleccionados
 )
 
+export const getProductosPorAplicar = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.productosSeleccionados.filter(producto => !producto.aplicado)
+)
+
+export const getProductosAplicados = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.productosSeleccionados.filter(producto => producto.aplicado)
+)
+
 export const getTratamientosConProductosSeleccionados = createSelector(
   getProductosSeleccionados,
   getTratamientosSeleccionados,
