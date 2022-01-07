@@ -1,5 +1,4 @@
-import { state } from '@angular/animations';
-import { EstigmaPerc, ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { TratamientoConProductos } from './consultas.models';
 import {

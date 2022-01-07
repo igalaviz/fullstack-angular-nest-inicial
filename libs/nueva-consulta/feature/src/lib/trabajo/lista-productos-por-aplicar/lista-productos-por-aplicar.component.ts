@@ -3,10 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { deleteProductoSeleccionado, setProductoSiendoAplicado, updateProductoSeleccionado } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
-import { getProductosPorAplicar, getProductosSeleccionados } from '../../state/consultas/consultas.selectors';
+import { getProductosPorAplicar } from '../../state/consultas/consultas.selectors';
 import { DialogoProductoAplicarComponent } from '../dialogo-producto-aplicar/dialogo-producto-aplicar.component';
 
 @Component({
