@@ -43,6 +43,7 @@ import { ChiplistTratamientosProductoComponent } from './seleccion-productos/chi
 import { MatoptionsTratamientosProductoComponent } from './seleccion-productos/matoptions-tratamientos-producto/matoptions-tratamientos-producto.component';
 import { ItemProductoAplicadoComponent } from './trabajo/item-producto-aplicado/item-producto-aplicado.component';
 import { ListaProductosAplicadosComponent } from './trabajo/lista-productos-aplicados/lista-productos-aplicados.component';
+import { MasterToolbarComponent } from './trabajo/master-toolbar/master-toolbar.component';
 
 @NgModule({
   imports: [
@@ -94,6 +95,7 @@ import { ListaProductosAplicadosComponent } from './trabajo/lista-productos-apli
     MatoptionsTratamientosProductoComponent,
     ItemProductoAplicadoComponent,
     ListaProductosAplicadosComponent,
+    MasterToolbarComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
