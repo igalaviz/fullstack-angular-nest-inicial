@@ -1,4 +1,4 @@
-<div>
+<form [formGroup]="formGroup">
     <h2>{{ data.product.producto.nombre }}</h2>
 
     <span>Aplicar con...</span>
@@ -10,7 +10,7 @@
     </div>
     
 
-    <mat-chip-list [multiple]="false" [selectable]="true">
+    <mat-chip-list [multiple]="false" [selectable]="true" formControlName="aplicador">
         <mat-chip class="selectable-chip" *ngFor="let aplicador of opcionesAplicadores$ | async" [selectable]="true" [value]="aplicador" [selected]="aplicadorSeleccionado === aplicador" (click)="onAplicadorChange(aplicador)">
             <mat-icon [style.color]="aplicador.color">circle</mat-icon>
             {{aplicador.nombre}}
@@ -19,7 +19,7 @@
 
     <span style="margin-top: 16px;">Lote</span>
     <mat-form-field appearance="outline">
-        <mat-select (selectionChange)="onLoteChange($event.value)" placeholder="Seleccione un lote">
+        <mat-select (selectionChange)="onLoteChange($event.value)" placeholder="Seleccione un lote" formControlName="lote">
           <mat-option *ngFor="let lote of lotesDisponibles" [value]="lote">
             {{lote.numeroDeLote}}
           </mat-option>
@@ -28,6 +28,6 @@
 
     <div style="display: flex; flex-direction: row; justify-content: end; column-gap: 16px;">
         <button mat-stroked-button class="ko-cancel-stroked-button" (click)="onCancelarClicked()">Cancelar</button>
-        <button mat-flat-button color="primary" [mat-dialog-close]="{aplicador: aplicadorSeleccionado, lote: loteSeleccionado}">Aceptar</button>
+        <button type="submit" [disabled]="!formGroup.valid" mat-flat-button color="primary" [mat-dialog-close]="{aplicador: aplicadorSeleccionado, lote: loteSeleccionado}">Aceptar</button>
     </div>
-</div>
+</form>

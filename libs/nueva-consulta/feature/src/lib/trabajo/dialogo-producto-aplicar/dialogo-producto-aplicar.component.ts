@@ -3,7 +3,7 @@ import { Aplicador, ConsultaService, Lote, ProductoConsulta } from '@fullstack-a
 import { Store } from '@ngrx/store';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'consultas-dialogo-producto-aplicar',
@@ -26,6 +26,8 @@ export class DialogoProductoAplicarComponent implements OnInit {
     this.consultasService.getLotesDisponiblesParaProducto(this.data.product.producto.id).subscribe((value) => {
       this.lotesDisponibles = value;
     })
+
+    this.buildFormGroup();
   }
 
   onTipoAplicadorChange(tipo: "A" | "C") {
@@ -35,10 +37,12 @@ export class DialogoProductoAplicarComponent implements OnInit {
 
   onAplicadorChange(aplicador: Aplicador) {
     this.aplicadorSeleccionado = aplicador;
+    this.formGroup.get('aplicador')?.setValue(aplicador);
   }
 
   onLoteChange(lote: Lote) {
     this.loteSeleccionado = lote;
+    this.formGroup.get('lote')?.setValue(lote);
   }
 
   onCancelarClicked(){
@@ -47,9 +51,10 @@ export class DialogoProductoAplicarComponent implements OnInit {
 
   buildFormGroup(){
     this.formGroup = this.formBuilder.group(
-      [
-        {}
-      ]
+      {
+        aplicador: [undefined, Validators.required],
+        lote: [undefined, Validators.required]
+      }
     )
   }
 }
