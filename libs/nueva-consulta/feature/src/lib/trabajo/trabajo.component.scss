@@ -18,3 +18,7 @@
   padding: 8px;
   border-bottom: lightgray solid 1px;
 }
+
+::ng-deep .parent {
+  width: 60% !important;
+}
