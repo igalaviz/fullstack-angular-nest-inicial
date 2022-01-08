@@ -45,6 +45,7 @@ import { ItemProductoAplicadoComponent } from './trabajo/item-producto-aplicado/
 import { ListaProductosAplicadosComponent } from './trabajo/lista-productos-aplicados/lista-productos-aplicados.component';
 import { MasterToolbarComponent } from './trabajo/master-toolbar/master-toolbar.component';
 import { ListaTratamientosSeleccionadosTrbComponent } from './trabajo/lista-tratamientos-seleccionados-trb/lista-tratamientos-seleccionados-trb.component';
+import { MusclesDiagramComponent } from './face-interactive-diagram/muscles-diagram/muscles-diagram.component';
 
 @NgModule({
   imports: [
@@ -98,6 +99,7 @@ import { ListaTratamientosSeleccionadosTrbComponent } from './trabajo/lista-trat
     ListaProductosAplicadosComponent,
     MasterToolbarComponent,
     ListaTratamientosSeleccionadosTrbComponent,
+    MusclesDiagramComponent,
   ],
   exports: [
     DiagnosticoInicialComponent

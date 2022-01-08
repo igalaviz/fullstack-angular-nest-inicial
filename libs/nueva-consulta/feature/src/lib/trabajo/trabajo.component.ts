@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class TrabajoComponent implements OnInit {
   productoEnUso?: ProductoConsulta;
   allowFaceAreasSelection = false;
+  diagramType: 'musculos' | 'zonas' = 'zonas';
 
   isListaFaceAreasValid = false;
 
@@ -27,6 +28,11 @@ export class TrabajoComponent implements OnInit {
       if(this.productoEnUso !== undefined){
         console.log("should be true");
         this.allowFaceAreasSelection = true;
+        if(this.productoEnUso .producto.funcion.id === 't'){
+          this.diagramType = 'musculos';
+        }else {
+          this.diagramType = 'zonas';
+        }
       }else {
         console.log("should be false")
         this.allowFaceAreasSelection = false;
