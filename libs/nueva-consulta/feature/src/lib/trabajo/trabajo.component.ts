@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class TrabajoComponent implements OnInit {
   productoEnUso?: ProductoConsulta;
+  allowFaceAreasSelection = false;
 
   isListaFaceAreasValid = false;
 
@@ -21,7 +22,16 @@ export class TrabajoComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.pipe(select(getProductoSiendoAplicado)).subscribe((value) => {
+      console.log("should be changing")
       this.productoEnUso = value;
+      if(this.productoEnUso !== undefined){
+        console.log("should be true");
+        this.allowFaceAreasSelection = true;
+      }else {
+        console.log("should be false")
+        this.allowFaceAreasSelection = false;
+      }
+
     })
   }
 

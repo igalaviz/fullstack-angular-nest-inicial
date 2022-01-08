@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Area } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
@@ -9,7 +9,7 @@ import { addAplicacionProducto, addSelectedFaceArea, ConsultasState, deleteSelec
   templateUrl: './face-interactive-diagram.component.html',
   styleUrls: ['./face-interactive-diagram.component.css']
 })
-export class FaceInteractiveDiagramComponent implements OnInit {
+export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
   @Input() diagram: 'musculos' | 'zonas' = 'zonas';
   @Input() angle: 'front' | 'right' = 'front'; 
   @Input() allowSelection = false;
@@ -45,6 +45,16 @@ export class FaceInteractiveDiagramComponent implements OnInit {
 
   ngOnInit(): void {
     if(this.allowSelection){
+      this.makeAllItemsSelectable();
+      this.store.pipe(select(getSelectedFaceAreas)).subscribe((areas) =>{
+        this.selections = areas;
+        this.highlightAllSelections();
+      })
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.allowSelection.currentValue){
       this.makeAllItemsSelectable();
       this.store.pipe(select(getSelectedFaceAreas)).subscribe((areas) =>{
         this.selections = areas;

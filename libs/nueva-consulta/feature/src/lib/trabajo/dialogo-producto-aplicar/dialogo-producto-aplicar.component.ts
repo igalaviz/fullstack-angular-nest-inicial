@@ -3,6 +3,7 @@ import { Aplicador, ConsultaService, Lote, ProductoConsulta } from '@fullstack-a
 import { Store } from '@ngrx/store';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'consultas-dialogo-producto-aplicar',
@@ -17,7 +18,9 @@ export class DialogoProductoAplicarComponent implements OnInit {
   aplicadorSeleccionado?: Aplicador;
   loteSeleccionado?: Lote;
 
-  constructor(public dialogRef: MatDialogRef<DialogoProductoAplicarComponent>, @Inject(MAT_DIALOG_DATA) public data: {product: ProductoConsulta}, private consultasService: ConsultaService, private store: Store<ConsultaService>) { }
+  formGroup!: FormGroup;
+
+  constructor(public dialogRef: MatDialogRef<DialogoProductoAplicarComponent>, @Inject(MAT_DIALOG_DATA) public data: {product: ProductoConsulta}, private consultasService: ConsultaService, private store: Store<ConsultaService>, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
     this.consultasService.getLotesDisponiblesParaProducto(this.data.product.producto.id).subscribe((value) => {
@@ -40,5 +43,13 @@ export class DialogoProductoAplicarComponent implements OnInit {
 
   onCancelarClicked(){
     this.dialogRef.close();
+  }
+
+  buildFormGroup(){
+    this.formGroup = this.formBuilder.group(
+      [
+        {}
+      ]
+    )
   }
 }

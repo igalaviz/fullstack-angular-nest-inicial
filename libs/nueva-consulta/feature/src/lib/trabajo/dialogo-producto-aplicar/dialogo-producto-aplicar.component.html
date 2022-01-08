@@ -11,7 +11,7 @@
     
 
     <mat-chip-list [multiple]="false" [selectable]="true">
-        <mat-chip *ngFor="let aplicador of opcionesAplicadores$ | async" [selectable]="true" [value]="aplicador" [selected]="aplicadorSeleccionado === aplicador" (click)="onAplicadorChange(aplicador)">
+        <mat-chip class="selectable-chip" *ngFor="let aplicador of opcionesAplicadores$ | async" [selectable]="true" [value]="aplicador" [selected]="aplicadorSeleccionado === aplicador" (click)="onAplicadorChange(aplicador)">
             <mat-icon [style.color]="aplicador.color">circle</mat-icon>
             {{aplicador.nombre}}
         </mat-chip>

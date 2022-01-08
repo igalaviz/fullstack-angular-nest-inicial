@@ -44,6 +44,7 @@ import { MatoptionsTratamientosProductoComponent } from './seleccion-productos/m
 import { ItemProductoAplicadoComponent } from './trabajo/item-producto-aplicado/item-producto-aplicado.component';
 import { ListaProductosAplicadosComponent } from './trabajo/lista-productos-aplicados/lista-productos-aplicados.component';
 import { MasterToolbarComponent } from './trabajo/master-toolbar/master-toolbar.component';
+import { ListaTratamientosSeleccionadosTrbComponent } from './trabajo/lista-tratamientos-seleccionados-trb/lista-tratamientos-seleccionados-trb.component';
 
 @NgModule({
   imports: [
@@ -96,6 +97,7 @@ import { MasterToolbarComponent } from './trabajo/master-toolbar/master-toolbar.
     ItemProductoAplicadoComponent,
     ListaProductosAplicadosComponent,
     MasterToolbarComponent,
+    ListaTratamientosSeleccionadosTrbComponent,
   ],
   exports: [
     DiagnosticoInicialComponent
