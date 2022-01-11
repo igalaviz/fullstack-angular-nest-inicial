@@ -109,4 +109,14 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
     
   }
 
+  onCancelarClicked(){
+    for(const area of this.areas.filter(a => a.selected)){
+      this.store.dispatch(deleteSelectedFaceArea({area: area.area}));
+      this.store.dispatch(removeAplicacionProducto({area: area.area, producto: this.productoEnUso}))
+    }
+    this.store.dispatch(setProductoSiendoAplicado({producto: undefined}))
+    // the currently selected areas also have to be resetted
+    this.store.dispatch(setSelectedFaceAreas({areas: []}))
+  }
+
 }
