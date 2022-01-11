@@ -1,4 +1,9 @@
-<div>
+<div class="ko-sidebar-topbar">
+    <span>Aplicando {{productoEnUso?.producto?.nombre}}</span>
+    <button #submitBtn mat-flat-button color="primary" (click)="onTerminarAplicandoProductoClicked()">Listo</button>
+</div>
+
+<div class="ko-work-sidebar-content">
     <div style="margin-bottom: 8px;">
         <mat-button-toggle-group [value]="true" (change)="onShowAllChanged($event.value)">
             <mat-button-toggle [value]="true">{{areasType === "musculos" ? "Todos los músculos" : "Todos las zonas"}}</mat-button-toggle>

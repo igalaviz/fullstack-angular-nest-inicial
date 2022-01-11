@@ -1,15 +1,10 @@
 <div style="display: flex; flex-direction: row;">
     <div class="ko-work-sidebar mat-elevation-z4">
-        <div class="ko-sidebar-topbar" *ngIf="productoEnUso">
-            <span>Aplicando {{productoEnUso?.producto?.nombre}}</span>
-            <button mat-flat-button color="primary" (click)="onTerminarAplicandoProductoClicked()">Listo</button>
-            
+        <div *ngIf="productoEnUso; else productos;">
+            <consultas-lista-face-areas #listaFaceAreas [areasType]="diagramType"></consultas-lista-face-areas>
         </div>
-        <div class="ko-work-sidebar-content">
-            <div *ngIf="productoEnUso; else productos">
-                <consultas-lista-face-areas #listaFaceAreas [areasType]="diagramType"></consultas-lista-face-areas>
-            </div>
-            <ng-template #productos>
+        <ng-template #productos>
+            <div class="ko-work-sidebar-content">
                 <div>
                     <consultas-lista-productos-por-aplicar></consultas-lista-productos-por-aplicar>
                     <div style="margin-top: 16px;">
@@ -17,8 +12,8 @@
                     </div>
                     
                 </div>
-            </ng-template>
-        </div>
+            </div>
+        </ng-template>
     </div>
     <div class="ko-work-content">
         <consultas-master-toolbar></consultas-master-toolbar>

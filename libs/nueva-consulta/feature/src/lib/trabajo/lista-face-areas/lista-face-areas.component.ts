@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectableFaceArea, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
-import { addAplicacionProducto, addSelectedFaceArea, deleteSelectedFaceArea, removeAplicacionProducto, updateAplicacionProducto } from '../../state/consultas/consultas.actions';
+import { addAplicacionProducto, addSelectedFaceArea, deleteSelectedFaceArea, removeAplicacionProducto, setProductoAsAplicado, setProductoSiendoAplicado, setSelectedFaceAreas, updateAplicacionProducto } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getProductoSiendoAplicado, getProductosSeleccionados, getSelectedFaceAreas } from '../../state/consultas/consultas.selectors';
 import { ItemFaceAreaComponent } from '../item-face-area/item-face-area.component';
@@ -20,9 +21,10 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
   areas: SelectableFaceArea[] = [];
 
   @ViewChildren(ItemFaceAreaComponent) items!: QueryList<ItemFaceAreaComponent>;
+  @ViewChild('submitBtn') submitBtn!: HTMLButtonElement;
   formArray = new FormArray([]);
 
-  constructor(private consultasService: ConsultaService, private store: Store<ConsultasState>) { }
+  constructor(private consultasService: ConsultaService, private store: Store<ConsultasState>, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if(this.areasType === "zonas"){
@@ -35,20 +37,7 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
       })
     }
 
-    this.store.pipe(select(getSelectedFaceAreas)).subscribe((selectedAreas) => {
-      if(selectedAreas.length > 0){
-        for(let i = 0; i < this.areas.length; i++){
-          const foundIndex = selectedAreas.findIndex(a => a.id === this.areas[i].area.id)
-          if(foundIndex !== -1){
-            this.areas[i].selected = true;
-          }else{
-            this.areas[i].selected = false;
-          }
-        }
-      }else{
-        this.areas = this.areas.map(a => Object.assign({}, {...a, selected: false}))
-      }
-    })
+    // was right here
 
     this.store.pipe(select(getProductoSiendoAplicado)).subscribe((producto) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -64,6 +53,24 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
       for(const el of this.items){
         this.formArray.push(el.cantidadControl)
       }
+
+      this.store.pipe(select(getSelectedFaceAreas)).subscribe((selectedAreas) => {
+        if(selectedAreas.length > 0){
+          this.submitBtn.disabled = false;
+          for(let i = 0; i < this.areas.length; i++){
+            const foundIndex = selectedAreas.findIndex(a => a.id === this.areas[i].area.id)
+            if(foundIndex !== -1){
+              this.areas[i].selected = true;
+            }else{
+              this.areas[i].selected = false;
+            }
+          }
+        }else{
+          this.submitBtn.disabled = true;
+          this.areas = this.areas.map(a => Object.assign({}, {...a, selected: false}))
+        }
+      })
+  
   }
 
   onAreaSelected(area: SelectableFaceArea, cantidad: number){
@@ -82,6 +89,24 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
 
   onShowAllChanged(checked: boolean){
     this.showAll = checked;
+  }
+
+  onTerminarAplicandoProductoClicked(){
+    if(this.formArray.valid){
+      if(this.productoEnUso){
+        this.store.dispatch(setProductoAsAplicado({producto: this.productoEnUso}));
+      }
+      this.store.dispatch(setProductoSiendoAplicado({producto: undefined}))
+      // the currently selected areas also have to be resetted
+      this.store.dispatch(setSelectedFaceAreas({areas: []}))
+    }else {
+      this._snackBar.open('Algunos campos contienen valores inválidos.', undefined, {
+        verticalPosition: 'top',
+        horizontalPosition: 'center',
+        duration: 2000
+      })
+    }
+    
   }
 
 }
