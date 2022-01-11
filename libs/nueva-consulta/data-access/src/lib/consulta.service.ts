@@ -86,16 +86,16 @@ const productos: ProductoConsulta[] = [
   },
   {
     producto: {
-      id: "x",
-      nombre: "XEOMEEN",
+      id: "bi",
+      nombre: "BELOTERO Intense",
       laboratorio: {
         id: "m",
         nombre: "Merz",
         funcionesDisponibles: []
       },
       funcion: {
-        id: "t",
-        nombre: "Toxina",
+        id: "r",
+        nombre: "Relleno",
         laboratoriosDisponibles: []
       },
     },
@@ -490,12 +490,16 @@ const zonas: Area[] = [
 
 const musculos: Area[] = [
   {
-    id: "corrugador_d",
-    nombre: "Corrugador Derecho"
+    id: "depresor_superciliar_d",
+    nombre: "Depresor Superciliar Derecho"
   },
   {
-    id: "corrugador_i",
-    nombre: "Corrugador Izquierdo"
+    id: "depresor_superciliar_i",
+    nombre: "Depresor Superciliar Izquierdo"
+  },
+  {
+    id: "proserus",
+    nombre: "Proserus"
   }
 ]
 

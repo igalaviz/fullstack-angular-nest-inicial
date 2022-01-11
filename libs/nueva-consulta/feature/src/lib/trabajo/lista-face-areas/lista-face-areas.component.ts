@@ -13,7 +13,7 @@ import { ItemFaceAreaComponent } from '../item-face-area/item-face-area.componen
   styleUrls: ['./lista-face-areas.component.scss']
 })
 export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
-  @Input() areasType: "MUSCULOS" | "ZONAS" =  "ZONAS";
+  @Input() areasType: "musculos" | "zonas" =  "zonas";
 
   productoEnUso!: ProductoConsulta;
   showAll = true;
@@ -25,7 +25,7 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
   constructor(private consultasService: ConsultaService, private store: Store<ConsultasState>) { }
 
   ngOnInit(): void {
-    if(this.areasType === "ZONAS"){
+    if(this.areasType === "zonas"){
       this.consultasService.getAllZonas().subscribe((zonas) => {
         this.areas = zonas.map(z => Object.assign({}, {area: z, selected: false}));
       })

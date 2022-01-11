@@ -1,0 +1,45 @@
+#parent {
+  enable-background: new 0 0 1390 1700;
+
+  flex: 0 0 calc(calc(11 / var(--ion-grid-columns, 12)) * 100%);
+  width: calc(calc(11 / var(--ion-grid-columns, 12)) * 100%);
+  max-width: calc(calc(11 / var(--ion-grid-columns, 12)) * 100%);
+}
+
+.baseImage {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.st0 {
+  fill: transparent;
+  cursor: pointer;
+  stroke: #4d2c91;
+}
+
+.selected {
+  fill: #7e57c235;
+  filter: opacity(90%);
+}
+
+.st0:hover {
+  -webkit-filter: opacity(90%);
+  filter: opacity(90%);
+}
+
+.st0:hover {
+  -webkit-filter: opacity(80%);
+  filter: opacity(80%);
+}
+
+.st3 {
+  fill: #4d2c91;
+}
+
+.st4 {
+  fill: #4d2c91;
+  stroke: #4d2c91;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+}

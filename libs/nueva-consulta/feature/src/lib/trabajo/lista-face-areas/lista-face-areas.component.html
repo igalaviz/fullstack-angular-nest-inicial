@@ -1,10 +1,8 @@
-
-
 <div>
     <div style="margin-bottom: 8px;">
-        <mat-button-toggle-group [(ngModel)]="showAll" [value]="true">
-            <mat-button-toggle [value]="true">{{areasType === "MUSCULOS" ? "Todos los músculos" : "Todos las zonas"}}</mat-button-toggle>
-            <mat-button-toggle [value]="false">{{ areasType === "MUSCULOS" ? "Músculos seleccionados" : "Zonas seleccionadas" }}</mat-button-toggle>
+        <mat-button-toggle-group [value]="true" (change)="onShowAllChanged($event.value)">
+            <mat-button-toggle [value]="true">{{areasType === "musculos" ? "Todos los músculos" : "Todos las zonas"}}</mat-button-toggle>
+            <mat-button-toggle [value]="false">{{ areasType === "musculos" ? "Músculos seleccionados" : "Zonas seleccionadas" }}</mat-button-toggle>
         </mat-button-toggle-group>
     </div>
     

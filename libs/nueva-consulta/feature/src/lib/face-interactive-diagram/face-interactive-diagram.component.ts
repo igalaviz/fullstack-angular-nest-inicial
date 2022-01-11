@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Area } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Area, ConsultaService } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
 import { addAplicacionProducto, addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getSelectedFaceAreas } from '../..';
@@ -16,12 +16,12 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
 
   allMusculos: Area[] = [
     {
-      id: "",
-      nombre: ""
+      id: "depresor_superciliar_d",
+      nombre: "Depresor Superciliar Derecho"
     },
     {
-      id: "",
-      nombre: ""
+      id: "depresor_superciliar_i",
+      nombre: "Depresor Superciliar Izquierdo"
     }
   ];
   allZones: Area[] = [
@@ -41,9 +41,50 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
 
   //TODO: an event must be emitted every time an area is selected or unselected, so that the saving-in-the-store logic gets abstracted away from this component
 
-  constructor(private store: Store<ConsultasState>) { }
+  constructor(private store: Store<ConsultasState>, private consultasService: ConsultaService) { }
 
   ngOnInit(): void {
+    /*if(this.diagram === 'zonas'){
+      this.consultasService.getAllZonas().subscribe((value) => {
+        this.allZones = value;
+        this.doInitialSetup();
+      })
+    }else if(this.diagram === 'musculos'){
+      this.consultasService.getAllMusculos().subscribe((value) => {
+        this.allMusculos = value;
+        this.doInitialSetup();
+      })
+    }*/
+
+    this.doInitialSetup();
+    
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    
+    /*if(changes.diagram.currentValue === 'zonas'){
+      this.consultasService.getAllZonas().subscribe((value) => {
+        this.allZones = value;
+        this.doInitialSetup();
+      })
+    }else if(changes.diagram.currentValue === 'musculos'){
+      this.consultasService.getAllMusculos().subscribe((value) => {
+        this.allMusculos = value;
+        this.doInitialSetup();
+      })
+    }*/
+
+    if(changes.allowSelection.currentValue){
+      this.makeAllItemsSelectable();
+      this.store.pipe(select(getSelectedFaceAreas)).subscribe((areas) =>{
+        this.selections = areas;
+        this.highlightAllSelections();
+      })
+    }
+  }
+
+
+  doInitialSetup(){
     if(this.allowSelection){
       this.makeAllItemsSelectable();
       this.store.pipe(select(getSelectedFaceAreas)).subscribe((areas) =>{
@@ -75,26 +116,33 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
     })
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if(changes.allowSelection.currentValue){
-      this.makeAllItemsSelectable();
-      this.store.pipe(select(getSelectedFaceAreas)).subscribe((areas) =>{
-        this.selections = areas;
-        this.highlightAllSelections();
-      })
-    }
-  }
-
   makeAllItemsSelectable(){
     if(this.diagram === "zonas"){
-      for(const area of this.allZones){
-        const el = document.getElementById(area.id);
-        if(el){
-          el.addEventListener('click', () => {
-            this.onSelectableItemClicked(area);
-          });
+      setTimeout(() => {
+        for(const area of this.allZones){
+          const el = document.getElementById(area.id);
+          if(el){
+            console.log("pesky zone")
+            el.addEventListener('click', () => {
+              this.onSelectableItemClicked(area);
+            });
+          }
         }
-      }
+      }, 0)
+      
+    }else if (this.diagram === "musculos"){
+      setTimeout(() => {
+        for(const area of this.allMusculos){
+          console.log("at least passing through the loop!")
+          const el = document.getElementById(area.id);
+          if(el){
+            console.log("el!")
+            el.addEventListener('click', () => {
+              this.onSelectableItemClicked(area);
+            });
+          }
+        }
+      }, 0)
     }
     
   }
@@ -117,21 +165,49 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
   }
 
   highlightAllSelections(){
-    if(this.diagram === "zonas"){
-      for(const area of this.allZones){
-        const wasSelected = this.selections.find(a => a.id === area.id);
-        const el = document.getElementById(area.id);
-        if(wasSelected){
-          if(el){
-            el.classList.add('selected')
+      if(this.diagram === "zonas"){
+        for(const area of this.allZones){
+          const wasSelected = this.selections.find(a => a.id === area.id);
+          const el = document.getElementById(area.id);
+          if(wasSelected){
+            if(el){
+              el.classList.add('selected')
+            }
+          }else{
+            if(el){
+              el.classList.remove('selected')
+            }
           }
-        }else{
-          if(el){
-            el.classList.remove('selected')
+        }
+      }else if(this.diagram === 'musculos'){
+        for(const area of this.allMusculos){
+          const wasSelected = this.selections.find(a => a.id === area.id);
+          const el = document.getElementById(area.id);
+          if(wasSelected){
+            if(el){
+              el.classList.add('selected');
+            }
+          }else{
+            if(el){
+              el.classList.remove('selected');
+            }
           }
         }
       }
-    }
   }
+
+  /*loadAreas(){
+    if(this.diagram === 'zonas'){
+      this.consultasService.getAllZonas().subscribe((value) => {
+        this.allZones = value;
+        this.doInitialSetup();
+      })
+    }else if(this.diagram === 'musculos'){
+      this.consultasService.getAllMusculos().subscribe((value) => {
+        this.allMusculos = value;
+        this.doInitialSetup();
+      })
+    }
+  }*/
 
 }

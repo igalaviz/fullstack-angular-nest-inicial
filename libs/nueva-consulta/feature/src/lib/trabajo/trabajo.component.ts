@@ -23,10 +23,8 @@ export class TrabajoComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.pipe(select(getProductoSiendoAplicado)).subscribe((value) => {
-      console.log("should be changing")
       this.productoEnUso = value;
       if(this.productoEnUso !== undefined){
-        console.log("should be true");
         this.allowFaceAreasSelection = true;
         if(this.productoEnUso .producto.funcion.id === 't'){
           this.diagramType = 'musculos';
@@ -34,7 +32,6 @@ export class TrabajoComponent implements OnInit {
           this.diagramType = 'zonas';
         }
       }else {
-        console.log("should be false")
         this.allowFaceAreasSelection = false;
       }
 
