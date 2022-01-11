@@ -1,4 +1,6 @@
-<svg #parent version='1.1' id='parent' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
+<div [ngSwitch]="angle">
+    <div *ngSwitchCase="'front'">
+        <svg #parent version='1.1' id='parent' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
      viewBox='0 0 1390 1700' style='enable-background:new 0 0 1390 1700;width: 556px; height: 680px;' xml:space='preserve'>
 
 <g id='Capa_1_3_'>
@@ -177,3 +179,28 @@
 </g>
 
 </svg>
+
+    </div>
+
+    <div *ngSwitchCase="'right'">
+        <svg #parent version='1.1' id='parent' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
+        viewBox='0 0 1390 1700' style='enable-background:new 0 0 1390 1700;width: 556px; height: 680px;' xml:space='preserve'>
+            <g id='Capa_1_3_'>
+                <g>
+                    <image href="../../assets/rightprofilemuscles.png" style="width: 100%;"></image>
+                </g>
+            </g>
+        </svg>
+    </div>
+
+    <div *ngSwitchCase="'left'">
+        <svg #parent version='1.1' id='parent' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
+        viewBox='0 0 1390 1700' style='enable-background:new 0 0 1390 1700;width: 556px; height: 680px;' xml:space='preserve'>
+            <g id='Capa_1_3_'>
+                <g>
+                    <image href="../../assets/leftprofilemuscles.png" style="width: 100%;"></image>
+                </g>
+            </g>
+        </svg>
+    </div>
+</div>

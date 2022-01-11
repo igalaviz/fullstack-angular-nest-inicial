@@ -1,20 +1,10 @@
-import { AfterViewInit, Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'consultas-muscles-diagram',
   templateUrl: './muscles-diagram.component.html',
   styleUrls: ['./muscles-diagram.component.scss']
 })
-export class MusclesDiagramComponent implements AfterViewInit {
-  @Output() svgLoad = new EventEmitter<undefined>();
-
-  @ViewChild('parent') parentSvg!: SVGElement;
-
-  ngAfterViewInit(): void {
-    
-      this.parentSvg.onload = () => {
-        this.svgLoad.emit();
-      }
-  }
-
+export class MusclesDiagramComponent {
+  @Input() angle: 'front' | 'right' | 'left' = 'front';
 }
