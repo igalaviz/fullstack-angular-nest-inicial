@@ -3,6 +3,7 @@ import { FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectableFaceArea, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
+import { combineLatest } from 'rxjs';
 import { addAplicacionProducto, addSelectedFaceArea, deleteSelectedFaceArea, removeAplicacionProducto, setProductoAsAplicado, setProductoSiendoAplicado, setSelectedFaceAreas, updateAplicacionProducto } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getProductoSiendoAplicado, getProductosSeleccionados, getSelectedFaceAreas } from '../../state/consultas/consultas.selectors';
@@ -20,8 +21,11 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
   showAll = true;
   areas: SelectableFaceArea[] = [];
 
+  deleteAllAplicaciones = false;
+
   @ViewChildren(ItemFaceAreaComponent) items!: QueryList<ItemFaceAreaComponent>;
   @ViewChild('submitBtn') submitBtn!: HTMLButtonElement;
+  @ViewChild('cancelBtn') cancelBtn!: HTMLButtonElement;
   formArray = new FormArray([]);
 
   constructor(private consultasService: ConsultaService, private store: Store<ConsultasState>, private _snackBar: MatSnackBar) { }
@@ -37,11 +41,14 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
       })
     }
 
-    // was right here
-
     this.store.pipe(select(getProductoSiendoAplicado)).subscribe((producto) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.productoEnUso = producto!;
+      if(producto && producto.aplicaciones.length > 0){
+        this.deleteAllAplicaciones = false;
+      }else {
+        this.deleteAllAplicaciones = true;
+      }
     })
 
     this.store.pipe(select(getProductosSeleccionados)).subscribe((productos) => {
@@ -50,26 +57,53 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-      for(const el of this.items){
-        this.formArray.push(el.cantidadControl)
-      }
+    for(const el of this.items){
+      this.formArray.push(el.cantidadControl)
+    }
 
-      this.store.pipe(select(getSelectedFaceAreas)).subscribe((selectedAreas) => {
-        if(selectedAreas.length > 0){
-          this.submitBtn.disabled = false;
-          for(let i = 0; i < this.areas.length; i++){
-            const foundIndex = selectedAreas.findIndex(a => a.id === this.areas[i].area.id)
-            if(foundIndex !== -1){
-              this.areas[i].selected = true;
-            }else{
-              this.areas[i].selected = false;
+    combineLatest(this.store.select(getSelectedFaceAreas), this.store.select(getProductosSeleccionados), (selectedAreas, productos) => {
+      console.log("fireeeeEEEEE")
+      const producto = productos.filter(p => p.producto.id === this.productoEnUso.producto.id)[0];
+
+      if(selectedAreas.length > 0){
+        this.submitBtn.disabled = false;
+        for(let i = 0; i < this.areas.length; i++){
+          const foundIndex = selectedAreas.findIndex(a => a.id === this.areas[i].area.id)
+          if(foundIndex !== -1){
+            this.areas[i].selected = true;
+            const elToModify = this.items.filter(item => item.area.area.id === this.areas[i].area.id)[0];
+            const aplicacion = producto.aplicaciones.find(apl => apl.area.id === this.areas[i].area.id);
+
+            if(aplicacion !== undefined){
+              elToModify.cantidadControl.setValue(aplicacion.cantidad);
             }
+            
+          }else{
+            this.areas[i].selected = false;
           }
-        }else{
-          this.submitBtn.disabled = true;
-          this.areas = this.areas.map(a => Object.assign({}, {...a, selected: false}))
         }
-      })
+      }else{
+        this.submitBtn.disabled = true;
+        this.areas = this.areas.map(a => Object.assign({}, {...a, selected: false}))
+      }
+    }).subscribe();
+
+    /*this.store.pipe(select(getSelectedFaceAreas)).subscribe((selectedAreas) => {
+      if(selectedAreas.length > 0){
+        this.submitBtn.disabled = false;
+        for(let i = 0; i < this.areas.length; i++){
+          const foundIndex = selectedAreas.findIndex(a => a.id === this.areas[i].area.id)
+          if(foundIndex !== -1){
+            this.areas[i].selected = true;
+          }else{
+            this.areas[i].selected = false;
+          }
+        }
+      }else{
+        this.submitBtn.disabled = true;
+        this.areas = this.areas.map(a => Object.assign({}, {...a, selected: false}))
+      }
+    })*/
   
   }
 
@@ -110,9 +144,12 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
   }
 
   onCancelarClicked(){
+    
     for(const area of this.areas.filter(a => a.selected)){
-      this.store.dispatch(deleteSelectedFaceArea({area: area.area}));
-      this.store.dispatch(removeAplicacionProducto({area: area.area, producto: this.productoEnUso}))
+      //this.store.dispatch(deleteSelectedFaceArea({area: area.area}));
+      if(this.deleteAllAplicaciones){
+        this.store.dispatch(removeAplicacionProducto({area: area.area, producto: this.productoEnUso}))
+      }
     }
     this.store.dispatch(setProductoSiendoAplicado({producto: undefined}))
     // the currently selected areas also have to be resetted

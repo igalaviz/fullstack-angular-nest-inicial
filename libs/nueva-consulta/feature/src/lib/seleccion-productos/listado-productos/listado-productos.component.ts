@@ -52,7 +52,6 @@ export class ListadoProductosComponent implements OnInit, AfterViewInit {
     });
 
     this.store.pipe(select(getProductosSeleccionados)).subscribe((productosSeleccionados) => {
-      console.log("HEY! A CHANGE IN THE SELECTED PRODUCTS!")
       this.productos = this.productos.map(producto => {
           const matchIndex = productosSeleccionados.findIndex(p => p.producto.id === producto.producto.id)
           if(matchIndex !== -1){

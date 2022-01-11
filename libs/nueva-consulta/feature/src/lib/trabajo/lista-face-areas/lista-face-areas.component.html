@@ -1,6 +1,6 @@
 <div class="ko-sidebar-topbar">
     <span>Aplicando {{productoEnUso?.producto?.nombre}}</span>
-    <button mat-flat-button (click)="onCancelarClicked()">Cancelar</button>
+    <button #cancelBtn mat-flat-button (click)="onCancelarClicked()">Cancelar</button>
     <button #submitBtn mat-flat-button color="primary" (click)="onTerminarAplicandoProductoClicked()">Listo</button>
 </div>
 
