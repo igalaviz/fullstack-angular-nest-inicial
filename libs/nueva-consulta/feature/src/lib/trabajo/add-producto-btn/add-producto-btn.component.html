@@ -4,7 +4,7 @@
 </button>
 
 <mat-menu #productMenu>
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onProductoChanged($event)">
+    <!--<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onProductoChanged($event)">
         <mat-option
           *ngFor="let option of filteredOpcionesProductos | async"
           [value]="option"
@@ -22,7 +22,22 @@
           (click)="$event.stopPropagation()"
           (focus)="$event.stopPropagation()"
         />
+    </mat-form-field>-->
+
+    <mat-form-field appearance="outline">
+      <mat-label>Producto</mat-label>
+      <mat-select [formControl]="productoControl" (selectionChange)="onProductoChanged($event)" (click)="$event.stopPropagation()">
+        <mat-option
+          (click)="$event.stopPropagation()"
+          *ngFor="let opcion of opcionesProductos"
+          [value]="opcion"
+          
+          >
+          {{ opcion.producto.nombre }}
+        </mat-option>
+      </mat-select>
     </mat-form-field>
+
     <button mat-button (click)="onAddClicked()">
         Agregar
     </button>

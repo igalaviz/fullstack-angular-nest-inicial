@@ -503,8 +503,8 @@ const zonas: Area[] = [
     nombre: "Cm2 Derecho"
   },
   {
-    id: "cm2-d",
-    nombre: "Cm2 Derecho"
+    id: "cm2-i",
+    nombre: "Cm2 Izquierdo"
   },
   {
     id: "g2",
