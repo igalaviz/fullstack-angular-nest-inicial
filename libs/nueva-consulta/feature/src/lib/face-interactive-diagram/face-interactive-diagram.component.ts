@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Area, ConsultaService } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
-import { addAplicacionProducto, addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getSelectedFaceAreas } from '../..';
+import { addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getSelectedFaceAreas } from '../..';
 
 @Component({
   selector: 'consultas-face-interactive-diagram',
@@ -61,26 +61,17 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    
-    if(changes.diagram.currentValue === 'zonas'){
+    if(changes.diagram ? changes.diagram.currentValue === 'zonas' : this.diagram === 'zonas'){
       this.consultasService.getAllZonas().subscribe((value) => {
         this.allZones = value;
         this.doInitialSetup();
       })
-    }else if(changes.diagram.currentValue === 'musculos'){
+    }else if(changes.diagram ? changes.diagram.currentValue === 'musculos' : this.diagram === 'musculos'){
       this.consultasService.getAllMusculos().subscribe((value) => {
         this.allMusculos = value;
         this.doInitialSetup();
       })
     }
-
-    /*if(changes.allowSelection.currentValue){
-      this.makeAllItemsSelectable();
-      this.store.pipe(select(getSelectedFaceAreas)).subscribe((areas) =>{
-        this.selections = areas;
-        this.highlightAllSelections();
-      })
-    }*/
   }
 
 
