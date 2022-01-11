@@ -32,6 +32,8 @@ export class DialogoProductoAplicarComponent implements OnInit {
 
   onTipoAplicadorChange(tipo: "A" | "C") {
     this.tipoAplicador = tipo;
+    this.aplicadorSeleccionado = undefined;
+    this.formGroup.get('aplicador')?.setValue(undefined);
     this.opcionesAplicadores$ = this.consultasService.getOpcionesAplicadores(this.tipoAplicador);
   }
 
