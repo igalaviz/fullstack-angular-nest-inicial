@@ -485,7 +485,139 @@ const zonas: Area[] = [
   {
     id: "f1-i",
     nombre: "F1 Izquierdo"
-  }
+  },
+  {
+    id: "f2-d",
+    nombre: "F2 Derecho"
+  },
+  {
+    id: "f2-i",
+    nombre: "F2 Izquierdo"
+  },
+  {
+    id: "f3",
+    nombre: "F3"
+  },
+  {
+    id: "cm2-d",
+    nombre: "Cm2 Derecho"
+  },
+  {
+    id: "cm2-d",
+    nombre: "Cm2 Derecho"
+  },
+  {
+    id: "g2",
+    nombre: "G2"
+  },
+  {
+    id: "l10-d",
+    nombre: "L10 Derecho"
+  },
+  {
+    id: "l10-i",
+    nombre: "L10 Izquierdo"
+  },
+  {
+    id: "l4",
+    nombre: "L4"
+  },
+  {
+    id: "l5",
+    nombre: "L5"
+  },
+  {
+    id: "m1-d",
+    nombre: "M1 Derecho"
+  },
+  {
+    id: "m1-i",
+    nombre: "M1 Izquierdo"
+  },
+  {
+    id: "m2",
+    nombre: "M2"
+  },
+  {
+    id: "m3",
+    nombre: "M3"
+  },
+  {
+    id: "mr1-d",
+    nombre: "Mr1 Derecho"
+  },
+  {
+    id: "mr1-i",
+    nombre: "Mr1 Izquierdo"
+  },
+  {
+    id: "mr2-d",
+    nombre: "Mr2 Derecho"
+  },
+  {
+    id: "mr2-i",
+    nombre: "Mr2 Izquierdo"
+  },
+  {
+    id: "mr3-d",
+    nombre: "Mr3 Derecho"
+  },
+  {
+    id: "mr3-i",
+    nombre: "Mr3 Izquierdo"
+  },
+  {
+    id: "mx1-i",
+    nombre: "Mx1 Izquierdo"
+  },
+  {
+    id: "mx1-d",
+    nombre: "Mx1 Derecho"
+  },
+  {
+    id: "mx2-d",
+    nombre: "Mx2 Derecho"
+  },
+  {
+    id: "mx2-i",
+    nombre: "Mx2 Izquierdo"
+  },
+  {
+    id: "mx3-d",
+    nombre: "Mx3 Derecho"
+  },
+  {
+    id: "mx3-i",
+    nombre: "Mx3 Izquierdo"
+  },
+  {
+    id: "n3",
+    nombre: "N3"
+  },
+  {
+    id: "n4-d",
+    nombre: "N4 Derecho"
+  },
+  {
+    id: "n4-i",
+    nombre: "N4 Izquierdo"
+  },
+  {
+    id: "n6-d",
+    nombre: "N6 Derecho"
+  },
+  {
+    id: "n6-i",
+    nombre: "N6 Izquierdo"
+  },
+  {
+    id: "ng1-d",
+    nombre: "Ng1 Derecho"
+  },
+  {
+    id: "ng1-i",
+    nombre: "Ng1 Izquierdo"
+  },
 ]
 
 const musculos: Area[] = [
@@ -500,7 +632,119 @@ const musculos: Area[] = [
   {
     id: "proserus",
     nombre: "Proserus"
-  }
+  },
+  {
+    id: "corrugador_d",
+    nombre: "Corrugador (Derecho)"
+  },
+  {
+    id: "corrugador_i",
+    nombre: "Corrugador (Izquierdo)"
+  },
+  {
+    id: "depresor_boca_d",
+    nombre: "Depresor Ángulo de la Boca (Derecho)"
+  },
+  {
+    id: "depresor_boca_i",
+    nombre: "Depresor Ángulo de la Boca (Izquierdo)"
+  },
+  {
+    id: "depresor_septum",
+    nombre: "Depresor Septum Nasal"
+  },
+  {
+    id: "frontal",
+    nombre: "Frontal"
+  },
+  {
+    id: "masetero_d",
+    nombre: "Masetero (Derecho)"
+  },
+  {
+    id: "masetero_i",
+    nombre: "Masetero (Izquierdo)"
+  },
+  {
+    id: "mentoneano_d",
+    nombre: "Mentoneano (Derecho)"
+  },
+  {
+    id: "mentoneano_i",
+    nombre: "Mentoneano (Izquierdo)"
+  },
+  {
+    id: "orbicular_labios_i",
+    nombre: "Orbicular de los Labios (Inferior)"
+  },
+  {
+    id: "orbicular_labios_s",
+    nombre: "Orbicular de los Labios (Superior)"
+  },
+  {
+    id: "orbicular_ojos_d",
+    nombre: "Orbicular de los Ojos (Derecho)"
+  },
+  {
+    id: "orbicular_ojos_i",
+    nombre: "Orbicular de los Ojos (Izquierdo)"
+  },
+  {
+    id: "piramidal",
+    nombre: "Piramidal"
+  },
+  {
+    id: "platisma_d",
+    nombre: "Platisma (Derecho)"
+  },
+  {
+    id: "platisma_i",
+    nombre: "Platisma (Izquierdo)"
+  },
+  {
+    id: "proserus",
+    nombre: "Proserus"
+  },
+  {
+    id: "risorio_d",
+    nombre: "Risorio (Derecho)"
+  },
+  {
+    id: "risorio_i",
+    nombre: "Risorio (Izquierdo)"
+  },
+  {
+    id: "t1-d",
+    nombre: "T1 Derecho"
+  },
+  {
+    id: "t1-i",
+    nombre: "T1 Izquierdo"
+  },
+  {
+    id: "temporal_d",
+    nombre: "Temporal (Derecho)"
+  },
+  {
+    id: "temporal_i",
+    nombre: "Temporal (Izquierdo)"
+  },
+  {
+    id: "transverso_nasal_d",
+    nombre: "Transverso Nasal (Derecho)"
+  },
+  {
+    id: "transverso_nasal_i",
+    nombre: "Transverso Nasal (Izquierdo)"
+  },
+  {
+    id: "zigomatico_mayor_d",
+    nombre: "Zigomatico Mayor (Derecho)"
+  },
+  {
+    id: "zigomatico_mayor_i",
+    nombre: "Zigomatico Mayor (Izquierdo)"
+  },
 ]
 
 @Injectable({
