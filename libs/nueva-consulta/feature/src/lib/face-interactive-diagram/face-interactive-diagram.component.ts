@@ -44,7 +44,7 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
   constructor(private store: Store<ConsultasState>, private consultasService: ConsultaService) { }
 
   ngOnInit(): void {
-    /*if(this.diagram === 'zonas'){
+    if(this.diagram === 'zonas'){
       this.consultasService.getAllZonas().subscribe((value) => {
         this.allZones = value;
         this.doInitialSetup();
@@ -54,15 +54,15 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
         this.allMusculos = value;
         this.doInitialSetup();
       })
-    }*/
+    }
 
-    this.doInitialSetup();
+    //this.doInitialSetup();
     
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     
-    /*if(changes.diagram.currentValue === 'zonas'){
+    if(changes.diagram.currentValue === 'zonas'){
       this.consultasService.getAllZonas().subscribe((value) => {
         this.allZones = value;
         this.doInitialSetup();
@@ -72,15 +72,15 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
         this.allMusculos = value;
         this.doInitialSetup();
       })
-    }*/
+    }
 
-    if(changes.allowSelection.currentValue){
+    /*if(changes.allowSelection.currentValue){
       this.makeAllItemsSelectable();
       this.store.pipe(select(getSelectedFaceAreas)).subscribe((areas) =>{
         this.selections = areas;
         this.highlightAllSelections();
       })
-    }
+    }*/
   }
 
 
