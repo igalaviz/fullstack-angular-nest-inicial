@@ -1,6 +1,6 @@
-
-
-    <svg version='1.1' id='parent' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
+<div [ngSwitch]="angle">
+    <div *ngSwitchCase="'front'">
+        <svg version='1.1' id='parent' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
     viewBox='0 0 1390 1700' xml:space='preserve'>
 
 <g id='Capa_1'>
@@ -159,3 +159,29 @@
    </g>
 </g>
 </svg>
+    </div>
+
+    <div *ngSwitchCase="'right'">
+        <svg version='1.1' id='parent' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
+        viewBox='0 0 1390 1700' xml:space='preserve'>
+    
+            <g id='Capa_1'>
+                <g>
+                    <image href="../../assets/profilecut.png" style="height: 100%;"></image>
+                </g>
+            </g>
+        </svg>
+    </div>
+
+    <div *ngSwitchCase="'left'">
+        <svg version='1.1' id='parent' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
+        viewBox='0 0 1390 1700' xml:space='preserve'>
+    
+            <g id='Capa_1'>
+                <g>
+                    <image href="../../assets/profileleftcut.png" style="height: 100%;"></image>
+                </g>
+            </g>
+        </svg>
+    </div>
+</div>

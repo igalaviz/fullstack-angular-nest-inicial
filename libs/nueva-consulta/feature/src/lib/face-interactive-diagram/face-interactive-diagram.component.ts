@@ -11,7 +11,7 @@ import { addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getSelecte
 })
 export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
   @Input() diagram: 'musculos' | 'zonas' = 'zonas';
-  @Input() angle: 'front' | 'right' = 'front'; 
+  @Input() angle: 'front' | 'right' | 'left' = 'front'; 
   @Input() allowSelection = false;
 
   allMusculos: Area[] = [
@@ -185,6 +185,10 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
           }
         }
       }
+  }
+
+  onAngleChange(angle: 'front' | 'right' | 'left'){
+    this.angle = angle;
   }
 
   /*loadAreas(){
