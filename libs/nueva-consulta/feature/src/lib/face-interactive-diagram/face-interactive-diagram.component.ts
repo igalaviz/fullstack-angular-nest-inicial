@@ -12,7 +12,15 @@ import { addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getSelecte
 export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
   @Input() diagram: 'musculos' | 'zonas' = 'zonas';
   @Input() angle: 'front' | 'right' | 'left' = 'front'; 
-  @Input() allowSelection = false;
+  _allowSelection = false;
+
+  get allowSelection(): boolean {
+    return this._allowSelection;
+  }
+  @Input() set allowSelection (newValue: boolean) {
+    this._allowSelection = newValue;
+    this.doInitialSetup();
+  };
 
   allMusculos: Area[] = [
     {
@@ -84,7 +92,8 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
       })
     }
 
-    if(!this.allowSelection)
+    if(!this.allowSelection){
+      this.makeAllItemsNOTSelectable();
     this.highlights.subscribe((highlights) => {
       //Primero, deseleccionar cualquier zona actualmente seleccionada
       //Después, si el array contiene elementos, seleccionar esos elementos
@@ -105,18 +114,19 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
         }
       }
     })
+    }
   }
 
   makeAllItemsSelectable(){
+    console.log("make em selectable")
     if(this.diagram === "zonas"){
       setTimeout(() => {
         for(const area of this.allZones){
           const el = document.getElementById(area.id);
           if(el){
-            console.log("pesky zone")
-            el.addEventListener('click', () => {
+            el.onclick =  () => {
               this.onSelectableItemClicked(area);
-            });
+            }
           }
         }
       }, 0)
@@ -124,13 +134,40 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
     }else if (this.diagram === "musculos"){
       setTimeout(() => {
         for(const area of this.allMusculos){
-          console.log("at least passing through the loop!")
           const el = document.getElementById(area.id);
           if(el){
-            console.log("el!")
-            el.addEventListener('click', () => {
+            el.onclick = () => {
               this.onSelectableItemClicked(area);
-            });
+            }
+          }
+        }
+      }, 0)
+    }
+    
+  }
+
+  makeAllItemsNOTSelectable(){
+    console.log("make em NOT selectable")
+    if(this.diagram === "zonas"){
+      setTimeout(() => {
+        for(const area of this.allZones){
+          const el = document.getElementById(area.id);
+          if(el){
+            el.onclick = () => {
+              //
+            }
+          }
+        }
+      }, 0)
+      
+    }else if (this.diagram === "musculos"){
+      setTimeout(() => {
+        for(const area of this.allMusculos){
+          const el = document.getElementById(area.id);
+          if(el){
+            el.onclick = () => {
+              //
+            }
           }
         }
       }, 0)
@@ -145,11 +182,13 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
 
     if(foundIndex !== -1 && el){
       el.classList.remove('selected')
+      console.log("Gotta delete it")
       this.store.dispatch(deleteSelectedFaceArea({area}))
     }
     // if it wasn't already selected, select it
     else if(foundIndex === -1 && el){
       el.classList.add('selected')
+      console.log("Gotta select it")
       this.store.dispatch(addSelectedFaceArea({area}))
 
     }
