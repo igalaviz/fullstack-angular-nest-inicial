@@ -28,7 +28,7 @@ export interface ConsultasState extends EntityState<ConsultasEntity> {
   loadedTratsByZona: boolean;
 
   productosSeleccionados: ProductoConsulta[];
-  tratamientoDeInteres?: Tratamiento;
+  tratamientoDeInteres?: Tratamiento;  // el tratamiento para el cuál el usuario quiere ver los productos recomendados
   filtros: FiltrosProductosConsulta;
 
   productoSiendoAplicado?: ProductoConsulta;
