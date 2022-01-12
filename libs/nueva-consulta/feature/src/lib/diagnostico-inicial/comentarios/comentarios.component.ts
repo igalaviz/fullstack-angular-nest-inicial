@@ -1,18 +1,21 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { setComentarios } from '../../state/consultas/consultas.actions';
+import { ConsultasState } from '../../state/consultas/consultas.reducer';
 
 @Component({
   selector: 'consultas-comentarios',
   templateUrl: './comentarios.component.html',
   styleUrls: ['./comentarios.component.css']
 })
-export class ComentariosComponent {
-  formControl!: FormControl;
+export class ComentariosComponent implements OnInit{
+  formControl: FormControl = new FormControl('');
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private store: Store<ConsultasState>) { }
 
-  buildFormControl(){
-    this.formControl = this.formBuilder.control({formState: ''});
+  ngOnInit(): void {
+      this.formControl.valueChanges.subscribe((comentarios) => this.store.dispatch(setComentarios({comentarios})))
   }
 
 }
