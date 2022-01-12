@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Area, ConsultaService } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
@@ -21,6 +21,9 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
     this._allowSelection = newValue;
     this.doInitialSetup();
   };
+
+  @Output() selected = new EventEmitter<{selectedArea: Area}>();
+  @Output() unselected = new EventEmitter<{unselectedArea: Area}>();
 
   allMusculos: Area[] = [
     {
@@ -46,8 +49,6 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
   // The names of the face areas to be highlighted
   @Input() highlights!: BehaviorSubject<string[]>;
   selections: Area[] = [];
-
-  //TODO: an event must be emitted every time an area is selected or unselected, so that the saving-in-the-store logic gets abstracted away from this component
 
   constructor(private store: Store<ConsultasState>, private consultasService: ConsultaService) { }
 
@@ -182,15 +183,12 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
 
     if(foundIndex !== -1 && el){
       el.classList.remove('selected')
-      console.log("Gotta delete it")
-      this.store.dispatch(deleteSelectedFaceArea({area}))
+      this.unselected.emit({unselectedArea: area});
     }
     // if it wasn't already selected, select it
     else if(foundIndex === -1 && el){
       el.classList.add('selected')
-      console.log("Gotta select it")
-      this.store.dispatch(addSelectedFaceArea({area}))
-
+      this.selected.emit({selectedArea: area});
     }
   }
 

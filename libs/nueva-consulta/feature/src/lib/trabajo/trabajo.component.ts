@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Consulta, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
-import { ConsultasState, getComentarios, getDiagnosticoMedico, getFotos, getProductoSiendoAplicado, getProductosSeleccionados, getSignosSintomas, getTratamientosSeleccionados, getUsarRecomendacion, setProductoAsAplicado, setProductoSiendoAplicado, setSelectedFaceAreas } from '../..';
+import { Area, Consulta, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { addAplicacionProducto, addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getComentarios, getDiagnosticoMedico, getFotos, getProductoSiendoAplicado, getProductosSeleccionados, getSignosSintomas, getTratamientosSeleccionados, getUsarRecomendacion, removeAplicacionProducto, setProductoAsAplicado, setProductoSiendoAplicado, setSelectedFaceAreas } from '../..';
 import { ListaFaceAreasComponent } from './lista-face-areas/lista-face-areas.component';
 import { switchMap, take, tap } from 'rxjs/operators';
 
@@ -60,6 +60,20 @@ export class TrabajoComponent implements OnInit {
 
   onGuardarConsultaClicked(){
     this.consultaService.guardarDatosConsulta(this.consulta);
+  }
+
+  onAreaSelected(selectedArea: Area){
+    this.store.dispatch(addSelectedFaceArea({area: selectedArea}));
+    if(this.productoEnUso){
+      this.store.dispatch(addAplicacionProducto({aplicacion: {idProducto: this.productoEnUso.producto.id, area: selectedArea, cantidad: 1}, producto: this.productoEnUso}))
+    }
+  }
+
+  onAreaUnselected(unselectedArea: Area){
+    this.store.dispatch(deleteSelectedFaceArea({area: unselectedArea}));
+    if(this.productoEnUso){
+      this.store.dispatch(removeAplicacionProducto({area: unselectedArea, producto: this.productoEnUso}))
+    }
   }
 
 }
