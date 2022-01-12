@@ -47,6 +47,7 @@ export enum ConsultasActionTypes {
   SetAreasSeleccionadas = "[Consultas] Set the selected face areas list",
   AddAreaSeleccionada = "[Consultas] Added a selected face area",
   DeleteAreaSeleccionada = "[Consultas] Removed a selected face area",
+  SetProximaAplicacionProducto = "[Consultas] Set the next application date of a product"
 }
 
 export const init = createAction('[Consultas Page] Init');
@@ -218,4 +219,9 @@ export const setTratamientos = createAction(
 export const setProductoAsAplicado = createAction(
   ConsultasActionTypes.SetProductoAsAplicado,
   props<{ producto: ProductoConsulta }>()
+)
+
+export const setProximaAplicacionProducto = createAction(
+  ConsultasActionTypes.SetProximaAplicacionProducto,
+  props<{ proximaAplicacion: string, producto: ProductoConsulta }>()
 )

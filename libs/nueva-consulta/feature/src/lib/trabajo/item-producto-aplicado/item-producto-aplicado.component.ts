@@ -10,7 +10,7 @@ import { AplicacionProducto, ProductoConsulta } from '@fullstack-angular-nest/nu
 export class ItemProductoAplicadoComponent implements OnInit {
   @Input() producto!: ProductoConsulta;
 
-  @Output() proximaAplicacionChange = new EventEmitter<string>();
+  @Output() proximaAplicacionChange = new EventEmitter<{proximaAplicacion: string, producto: ProductoConsulta}>();
   @Output() editarAplicacionesClick = new EventEmitter<{producto: ProductoConsulta}>();
   @Output() aplicacionDiscard = new EventEmitter<{aplicacion: AplicacionProducto, producto: ProductoConsulta}>();
 
@@ -19,22 +19,26 @@ export class ItemProductoAplicadoComponent implements OnInit {
 
   proximaAplicacionControl = new FormControl('');
 
-  constructor() { }
-
   ngOnInit(): void {
+    if(this.producto.proximaAplicacion && this.producto.proximaAplicacion !== ''){
+      this.specifyProximaAplicacion = true;
+      this.proximaAplicacionControl.setValue(this.producto.proximaAplicacion);
+    }else{
+      this.specifyProximaAplicacion = false;
+    }
     this.proximaAplicacionControl.valueChanges.subscribe((value) => {
-      this.proximaAplicacionChange.emit(value);
+      this.proximaAplicacionChange.emit({proximaAplicacion: value, producto: this.producto});
     })
   }
 
   onEspecificarProximaAplicacionClicked(){
     this.specifyProximaAplicacion = true;
-    this.proximaAplicacionChange.emit('');
+    this.proximaAplicacionChange.emit({proximaAplicacion: new Date().toString(), producto: this.producto});
   }
 
   onEliminarProximaAplicacionClicked(){
     this.specifyProximaAplicacion = false;
-    this.proximaAplicacionChange.emit(undefined);
+    this.proximaAplicacionChange.emit({proximaAplicacion: '', producto: this.producto});
   }
 
   onDiscardAplicacionClicked(aplicacion: AplicacionProducto) {

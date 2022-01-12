@@ -149,6 +149,10 @@ const updateProducto = (productos: ProductoConsulta[], producto: ProductoConsult
   return productos.map(p => p.producto.id === producto.producto.id ? producto : p);
 }
 
+const setProximaAplicacionProducto = (productos: ProductoConsulta[], producto: ProductoConsulta, proximaAplicacion: string) => {
+  return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, proximaAplicacion: proximaAplicacion}) : p)
+}
+
 const addAplicacionProducto = (aplicacion: AplicacionProducto, producto: ProductoConsulta, productos: ProductoConsulta[]) => {
   return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, aplicaciones: [...p.aplicaciones, aplicacion]}) : p);
 }
@@ -311,6 +315,10 @@ const consultasReducer = createReducer(
   on(ConsultasActions.setProductoAsAplicado, (state, { producto }) => ({
     ...state,
     productosSeleccionados: setProductoAsAplicado(state.productosSeleccionados, producto)
+  })),
+  on(ConsultasActions.setProximaAplicacionProducto, (state, {proximaAplicacion, producto}) => ({
+    ...state,
+    productosSeleccionados: setProximaAplicacionProducto(state.productosSeleccionados, producto, proximaAplicacion)
   }))
 );
 

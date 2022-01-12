@@ -5,6 +5,7 @@
         [producto]="producto"
         (aplicacionDiscard)="onDiscardAplicacionClicked($event.aplicacion, $event.producto)"
         (editarAplicacionesClick)="onEditarAplicacionesClicked($event.producto)"
+        (proximaAplicacionChange)="onProximaAplicacionChanged($event.proximaAplicacion, $event.producto)"
         >
     </consultas-item-producto-aplicado>
 </div>
