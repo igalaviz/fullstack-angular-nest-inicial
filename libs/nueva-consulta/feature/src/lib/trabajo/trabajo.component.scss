@@ -2,23 +2,23 @@
   width: 25%;
 }
 
-.ko-work-sidebar-content {
-  padding: 8px;
-}
-
 .ko-work-content {
   width: 75%;
 }
 
-.ko-sidebar-topbar {
+::ng-deep #parent {
+  width: 60% !important;
+}
+
+::ng-deep.ko-work-sidebar-content {
+  padding: 8px;
+}
+
+::ng-deep.ko-sidebar-topbar {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 8px;
   border-bottom: lightgray solid 1px;
-}
-
-::ng-deep #parent {
-  width: 60% !important;
 }

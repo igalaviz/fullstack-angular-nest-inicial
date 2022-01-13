@@ -11,6 +11,10 @@ body {
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
 
+h4 {
+  margin: 0px;
+}
+
 .mat-tooltip {
   font-size: 0.7em;
 }
@@ -91,6 +95,14 @@ body {
 .ko-highlightable-button:hover {
   color: mat.get-color-from-palette($kolibri-accent, 'default');
   font-weight: 600;
+}
+
+.ko-small-button {
+  font-size: 0.8em;
+  padding: 4px;
+  height: 32px;
+  display: flex;
+  align-items: center;
 }
 
 .ko-selected-btn-toggle-item {
