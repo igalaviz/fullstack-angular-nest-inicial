@@ -6,6 +6,12 @@
   max-width: calc(calc(11 / var(--ion-grid-columns, 12)) * 100%);
 }
 
+.selectable-area:hover {
+  cursor: pointer;
+  -webkit-filter: opacity(80%);
+  filter: opacity(80%);
+}
+
 .baseImage {
   position: absolute;
   left: 0;
@@ -14,7 +20,6 @@
 
 .st0 {
   fill: transparent;
-  cursor: pointer;
   stroke: #4d2c91;
 }
 

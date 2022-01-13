@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { Area, ConsultaService } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
 import { BehaviorSubject } from 'rxjs';
-import { addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getSelectedFaceAreas } from '../..';
+import { ConsultasState, getSelectedFaceAreas } from '../..';
 
 @Component({
   selector: 'consultas-face-interactive-diagram',
@@ -125,6 +125,7 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
         for(const area of this.allZones){
           const el = document.getElementById(area.id);
           if(el){
+            el.classList.add('selectable-area');
             el.onclick =  () => {
               this.onSelectableItemClicked(area);
             }
@@ -137,6 +138,7 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
         for(const area of this.allMusculos){
           const el = document.getElementById(area.id);
           if(el){
+            el.classList.add('selectable-area');
             el.onclick = () => {
               this.onSelectableItemClicked(area);
             }
@@ -154,6 +156,7 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
         for(const area of this.allZones){
           const el = document.getElementById(area.id);
           if(el){
+            el.classList.remove('selectable-area');
             el.onclick = () => {
               //
             }
@@ -166,6 +169,7 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
         for(const area of this.allMusculos){
           const el = document.getElementById(area.id);
           if(el){
+            el.classList.remove('selectable-area');
             el.onclick = () => {
               //
             }
