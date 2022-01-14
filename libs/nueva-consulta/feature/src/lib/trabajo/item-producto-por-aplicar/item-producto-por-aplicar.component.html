@@ -1,8 +1,9 @@
-<mat-card>
+<mat-card style="margin-bottom: 8px;">
     <span class="label">{{ producto.producto.nombre }}</span>
     <div *ngIf="producto.tratamientos && producto.tratamientos.length > 0">
         <span>Para <span *ngFor="let tratamiento of producto.tratamientos; let i = index">{{tratamiento.nombre}}{{i === producto.tratamientos!.length - 1 ? '' : ','}}</span></span>
     </div>
+    
     <button mat-flat-button color="primary" (click)="onProductoAplicarClick()">Aplicar</button>
     <button mat-stroked-button class="ko-cancel-stroked-button" style="margin-left: 8px;" (click)="onProductoDiscardClick()">
         <mat-icon>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ConsultasState, getTratamientosSeleccionados, getUsarRecomendacion, setTratamientos, updateUsarRecomendacion } from '../..';
+import { ConsultasState, getTratamientosSeleccionados, getUsarRecomendacion, setAllowNextStep, setTratamientos, updateUsarRecomendacion } from '../..';
 
 @Component({
   selector: 'consultas-tratamientos-recomendados',
@@ -18,10 +18,13 @@ export class TratamientosRecomendadosComponent {
       this.usarRecomendacion = usarRecomendacion;
 
       if(tratamientosSeleccionados.length === 0 && this.usarRecomendacion){
+        this.store.dispatch(setAllowNextStep({allow: false}))
         this.enableNext = false;
       }else if(tratamientosSeleccionados.length === 0 && !this.usarRecomendacion) {
+        this.store.dispatch(setAllowNextStep({allow: true}))
         this.enableNext = true;
       }else{
+        this.store.dispatch(setAllowNextStep({allow: true}))
         this.enableNext = true;
       }
     })).subscribe();

@@ -16,7 +16,6 @@
         </ng-template>
     </div>
     <div class="ko-work-content">
-        <consultas-master-toolbar (guardar)="onGuardarConsultaClicked()" ></consultas-master-toolbar>
         <consultas-face-interactive-diagram [diagram]="diagramType" [allowSelection]="allowFaceAreasSelection" (selected)="onAreaSelected($event.selectedArea)" (unselected)="onAreaUnselected($event.unselectedArea)"></consultas-face-interactive-diagram>
     </div>
 </div>

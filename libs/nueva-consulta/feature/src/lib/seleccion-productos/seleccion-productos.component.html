@@ -1,17 +1,3 @@
-<div class="ko-toolbar">
-    <button mat-stroked-button koBackButton>
-        <mat-icon>arrow_back</mat-icon>
-        Back
-    </button>
-    <div>
-        <div class="ko-toolbar-title">
-            <h5 style="margin: 0;">Nueva Consulta</h5>
-            <h2 style="margin: 8px;">Selección de Productos</h2>
-        </div>
-    </div>
-    <button mat-flat-button color="primary" routerLink="/new/trabajo">Siguiente</button>
-</div>
-
 <div>
     <div *ngIf="usarRecomendaciones; else noRecomendaciones" style="display: flex; flex-direction: row; column-gap: 16px;"class="ko-screen-content">
         <div style="width: 30%;">

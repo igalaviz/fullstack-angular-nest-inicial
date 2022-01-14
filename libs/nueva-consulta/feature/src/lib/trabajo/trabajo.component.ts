@@ -15,19 +15,6 @@ export class TrabajoComponent implements OnInit {
   allowFaceAreasSelection = false;
   diagramType: 'musculos' | 'zonas' = 'zonas';
 
-  consulta: Consulta = {
-    id: '',
-    idPaciente: '',
-    fecha: new Date().toString(),
-    comentarios: '',
-    diagnosticoPacienteSeleccionados: [],
-    diagnosticoMedicoSeleccionados: [],
-    fotos: [],
-    productosSeleccionados: [],
-    tratamientosSeleccionados: [],
-    usarRecomendacion: false
-  };;
-
   isListaFaceAreasValid = false;
 
   @ViewChild('listaFaceAreas') listaFaceAreas!: ListaFaceAreasComponent;
@@ -48,18 +35,6 @@ export class TrabajoComponent implements OnInit {
         this.allowFaceAreasSelection = false;
       }
     })
-
-    this.store.select(getComentarios).subscribe((comentarios) => this.consulta.comentarios = comentarios);
-    this.store.select(getSignosSintomas).subscribe(signosSintomas => this.consulta.diagnosticoPacienteSeleccionados = signosSintomas);
-    this.store.select(getDiagnosticoMedico).subscribe(diagnosticoMedico => this.consulta.diagnosticoMedicoSeleccionados = diagnosticoMedico);
-    this.store.select(getFotos).subscribe(fotos => this.consulta.fotos = fotos);
-    this.store.select(getProductosSeleccionados).subscribe(productos => this.consulta.productosSeleccionados = productos);
-    this.store.select(getTratamientosSeleccionados).subscribe(tratamientos => this.consulta.tratamientosSeleccionados = tratamientos);
-    this.store.select(getUsarRecomendacion).subscribe(usarRecomendacion => this.consulta.usarRecomendacion = usarRecomendacion);
-  }
-
-  onGuardarConsultaClicked(){
-    this.consultaService.guardarDatosConsulta(this.consulta);
   }
 
   onAreaSelected(selectedArea: Area){

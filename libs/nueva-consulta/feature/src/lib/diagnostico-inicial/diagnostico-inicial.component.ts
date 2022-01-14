@@ -36,7 +36,6 @@ export class DiagnosticoInicialComponent implements OnInit{
     this.store.dispatch(setFotos({fotos: this.columnaFotos.fileUpload.selectedFiles.map(k => k.file)}))
     this.store.dispatch(loadEstigmas());
     this.store.dispatch(loadTratsByZona());
-    this.router.navigateByUrl('/new/tratamientos');
   }
 
 
