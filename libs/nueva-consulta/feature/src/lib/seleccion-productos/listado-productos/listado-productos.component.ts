@@ -2,7 +2,6 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { addProductoSeleccionado, ConsultasState, deleteProductoSeleccionado, getFiltrosProductos, getProductosSeleccionados, getTratamientosSeleccionados, getUsarRecomendacion } from '../../..';
 import { ConsultaService, FiltrosProductosConsulta, Tratamiento, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
-import { merge, Observable } from 'rxjs';
 import { map, mergeMap, startWith, switchMap, tap } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
 
@@ -14,23 +13,17 @@ import { MatPaginator } from '@angular/material/paginator';
 export class ListadoProductosComponent implements OnInit, AfterViewInit {
   usarRecomendacion = false;
   filtros: FiltrosProductosConsulta = {idLaboratorio: '', idFuncion: ''};
-  tratamientosSeleccionados!: Tratamiento[];
+  tratamientosSeleccionados: Tratamiento[] = [];
 
+  // esta es la lista de TODOS los productos que coinciden con los filtros que el usuario eligió
   productos: ProductoConsulta[] = [];
+  // esta es la lista de los productos que se muestran en pantalla actualmente,
+  // dependiendo de las opciones del paginator que el usuario haya elegido
   productosToShow: ProductoConsulta[] = [];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private store: Store<ConsultasState>, private consultasService: ConsultaService) { }
-
-  ngAfterViewInit(): void {
-    this.updateProductosToShow();
-    this.paginator.page.subscribe((value) => {
-      const from = value.pageIndex * value.pageSize;
-      const to = from + value.pageSize;
-      this.productosToShow = this.productos.slice(from, to);
-    })
-  }
 
   ngOnInit(): void {
 
@@ -39,16 +32,26 @@ export class ListadoProductosComponent implements OnInit, AfterViewInit {
     })
 
     this.store.pipe(select(getFiltrosProductos), tap((filtros) => {
+      // cada vez que el usuario escoga un filtro (laboratorio/funcion) diferente...
       this.filtros = filtros;
     }), switchMap((filtros) => {
+      // ... debo obtener los productos que correspondan a esos filtros
       return this.consultasService.getProductosByLabAndFuncion(this.filtros.idLaboratorio, this.filtros.idFuncion);
     }))
     .subscribe((productos) => {
+      // actualizar mi lista de productos con los productos que obtuve del servicio
       this.productos = productos;
-      this.updateProductosToShow();
-      if(this.paginator){
-        this.paginator.firstPage();
-      }
+
+      // this setTimeout of 0sec is necessary so the code inside runs only when the Paginator component is not undefined
+      setTimeout(() => {
+        // ahora que tengo una lista nueva, debo actualizar también los productos que se le muestran al usuario...
+        this.updateProductosToShow();
+        if(this.paginator){
+          //...y llevarlo a la primera página para que pueda ver todos los productos
+          this.paginator.firstPage();
+        }
+      }, 0)
+      
     });
 
     this.store.pipe(select(getProductosSeleccionados)).subscribe((productosSeleccionados) => {
@@ -69,11 +72,32 @@ export class ListadoProductosComponent implements OnInit, AfterViewInit {
 
   }
 
+  ngAfterViewInit(): void {
+    this.updateProductosToShow();
+    this.paginator.page.subscribe((value) => {
+      if(value.pageSize >= this.productos.length){
+        // si el número total de productos que coinciden con los filtros
+        // es mayor o igual al número de productos que se deben mostrar por página, no es necesario recortar el array
+        this.productosToShow = this.productos;
+      }else{
+        const from = value.pageIndex * value.pageSize;
+        const to = from + value.pageSize;
+        this.productosToShow = this.productos.slice(from, to);
+      }  
+    })
+  }
+
   updateProductosToShow(){
     if(this.paginator){
-      const from = this.paginator.pageIndex * this.paginator.pageSize;
-    const to = from + this.paginator.pageSize;
-    this.productosToShow = this.productos.slice(from, to);
+      if(this.paginator.pageSize >= this.productos.length){
+        // si el número total de productos que coinciden con los filtros
+        // es mayor o igual al número de productos que se deben mostrar por página, no es necesario recortar el array
+        this.productosToShow = this.productos;
+      }else{
+        const from = this.paginator.pageIndex * this.paginator.pageSize;
+        const to = from + this.paginator.pageSize;
+        this.productosToShow = this.productos.slice(from, to);
+      }
     }
     
   }
