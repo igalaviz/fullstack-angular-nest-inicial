@@ -3,6 +3,7 @@ import { ConsultaService, Funcion, Laboratorio } from '@fullstack-angular-nest/n
 import { Store } from '@ngrx/store';
 import { setFiltrosProductos } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
+import { getFiltrosProductos } from '../../state/consultas/consultas.selectors';
 
 @Component({
   selector: 'consultas-filtros-productos',
@@ -25,6 +26,23 @@ export class FiltrosProductosComponent implements OnInit {
 
     this.consultasService.getFunciones().subscribe((funciones) => {
       this.funciones = funciones;
+    })
+
+    this.store.select(getFiltrosProductos).subscribe(filtros => {
+      const idLab = filtros.idLaboratorio;
+      const idFuncion = filtros.idFuncion;
+
+      if(idLab !== ''){
+        this.laboratorioSeleccionado = this.laboratorios.find(l => l.id === idLab);
+      }else{
+        this.laboratorioSeleccionado = undefined; 
+      }
+
+      if(idFuncion !== ''){
+        this.funcionSeleccionada = this.funciones.find(f => f.id === idFuncion);
+      }else{
+        this.funcionSeleccionada = undefined;
+      }
     })
   }
 
