@@ -1,19 +1,28 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FileUploadErrorTypes } from '@fullstack-angular-nest/ui-controls';
 import { Store } from '@ngrx/store';
 import { FileUploadComponent } from '@fullstack-angular-nest/ui-controls';
 import { setAllowNextStep, setError } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
+import { getFotos } from '../../state/consultas/consultas.selectors';
 
 @Component({
   selector: 'consultas-fotos',
   templateUrl: './fotos.component.html',
   styleUrls: ['./fotos.component.css']
 })
-export class FotosComponent {
+export class FotosComponent implements AfterViewInit{
   @ViewChild('fileUpload') fileUpload!: FileUploadComponent;
 
   constructor(private store: Store<ConsultasState>){}
+
+  ngAfterViewInit(): void {
+    this.store.select(getFotos).subscribe(fotos => {
+      this.fileUpload.selectedFiles = fotos.map(f => Object.assign({}, {file: f, hasSizeError: false}));
+      this.fileUpload.doCountValidation();
+      this.fileUpload.doSizeValidation();
+    })
+  }
 
   onFileUploadError(errorType: FileUploadErrorTypes){
     this.store.dispatch(setAllowNextStep({allow: false}))
