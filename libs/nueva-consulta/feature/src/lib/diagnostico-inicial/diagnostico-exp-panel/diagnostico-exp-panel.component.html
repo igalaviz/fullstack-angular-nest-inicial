@@ -1,8 +1,8 @@
 <mat-expansion-panel>
     <mat-expansion-panel-header>
-        <mat-panel-title>{{this.zonaOpciones.zona}}<span class="check-count">({{ this.count }})</span></mat-panel-title>
+        <mat-panel-title>{{this.zonaOpciones.zona}}<span class="check-count">({{ this.zonaOpciones.count }})</span></mat-panel-title>
     </mat-expansion-panel-header>
-    <mat-list>
+    <!--<mat-list>
         <mat-list-item *ngFor="let opcion of this.zonaOpciones.opciones; let i = index;" fxLayout="row" width="100%">
             <div fxFlex="50%">
                 <mat-checkbox [checked]="opcion.selected" (change)="onCheckChanged(i, $event.checked)">{{opcion.diagnostico.nombre}}</mat-checkbox>
@@ -15,5 +15,6 @@
                 </mat-button-toggle-group>
             </div>
         </mat-list-item>
-    </mat-list>
+    </mat-list>-->
+    <consultas-list-diagnosticos [opciones]="this.zonaOpciones.opciones" [type]="enableLevels ? 'MEDICO' : 'PACIENTE'" [enableLevels]="enableLevels"></consultas-list-diagnosticos>
 </mat-expansion-panel>

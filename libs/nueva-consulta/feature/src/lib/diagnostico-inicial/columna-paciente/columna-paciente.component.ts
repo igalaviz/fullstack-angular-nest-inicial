@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ConsultaService, OpcionesSignosSintomas } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { Store } from '@ngrx/store';
-import { SignoSintoma } from '@fullstack-angular-nest/nueva-consulta/data-access'
 import { Observable } from 'rxjs';
-import { addSignoSintoma, ConsultasState, deleteSignoSintoma, updateSignoSintoma } from '../../..';
-import { OpcionDiagnostico, ZonaOpciones } from '../diagnostico-exp-panel/diagnostico-exp-panel.component';
+import { addSignoSintoma, ConsultasState, deleteSignoSintoma, getSignosSintomas, updateSignoSintoma } from '../../..';
+import { ZonaOpciones } from '../diagnostico-exp-panel/diagnostico-exp-panel.component';
+import { OpcionDiagnostico } from '../list-diagnosticos/list-diagnosticos.component';
 
 @Component({
   selector: 'consultas-columna-paciente',
@@ -24,17 +24,20 @@ export class ColumnaPacienteComponent implements OnInit {
     this.signosSintomas$.subscribe(value => {
       this.opciones = value.map(s => Object.assign({}, {
         zona: s.zona, 
-        opciones: s.opciones.map(o => Object.assign({}, {diagnostico: o, selected: false}))
+        opciones: s.opciones.map(o => Object.assign({}, {diagnostico: o, selected: false})),
+        count: 0
       }))
     })
-  }
 
-  onCheckChanged(opcion: OpcionDiagnostico){
-    if(opcion.selected){
-      this.store.dispatch(addSignoSintoma({signoSintoma: opcion.diagnostico}))
-    }else{
-      this.store.dispatch(deleteSignoSintoma({signoSintoma: opcion.diagnostico}))
-    }
+    this.store.select(getSignosSintomas).subscribe((signosSintomas) => {
+      // get the ones that belong to each zone
+
+      for(const [i, zona] of this.opciones.entries()){
+        const found = signosSintomas.filter(s => s.zona === zona.zona);
+
+        this.opciones[i].count = found.length;
+      }
+    })
   }
 
 }

@@ -4,9 +4,7 @@
         <consultas-diagnostico-exp-panel
             *ngFor="let opcion of opciones"
             [zonaOpciones]="opcion"
-            [enableLevels]="true"
-            (checkChange)="onCheckChanged($event)"
-            (levelChange)="onLevelChanged($event)">
+            [enableLevels]="true">
         </consultas-diagnostico-exp-panel>
     </mat-accordion>
     

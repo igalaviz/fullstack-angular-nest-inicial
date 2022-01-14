@@ -47,6 +47,7 @@ import { MasterToolbarComponent } from './trabajo/master-toolbar/master-toolbar.
 import { ListaTratamientosSeleccionadosTrbComponent } from './trabajo/lista-tratamientos-seleccionados-trb/lista-tratamientos-seleccionados-trb.component';
 import { MusclesDiagramComponent } from './face-interactive-diagram/muscles-diagram/muscles-diagram.component';
 import { NuevaConsultaComponent } from './nueva-consulta/nueva-consulta.component';
+import { ListDiagnosticosComponent } from './diagnostico-inicial/list-diagnosticos/list-diagnosticos.component';
 
 @NgModule({
   imports: [
@@ -102,6 +103,7 @@ import { NuevaConsultaComponent } from './nueva-consulta/nueva-consulta.componen
     ListaTratamientosSeleccionadosTrbComponent,
     MusclesDiagramComponent,
     NuevaConsultaComponent,
+    ListDiagnosticosComponent,
   ],
   exports: [
     DiagnosticoInicialComponent

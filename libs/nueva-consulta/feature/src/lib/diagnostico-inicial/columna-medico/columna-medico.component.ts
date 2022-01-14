@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ConsultaService, OpcionesDiagnosticoMedico } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { addDiagnosticoMedico, ConsultasState, deleteDiagnosticoMedico, updateDiagnosticoMedico } from '../../..';
-import { OpcionDiagnostico, ZonaOpciones } from '../diagnostico-exp-panel/diagnostico-exp-panel.component';
+import { addDiagnosticoMedico, ConsultasState, deleteDiagnosticoMedico, getDiagnosticoMedico, updateDiagnosticoMedico } from '../../..';
+import { ZonaOpciones } from '../diagnostico-exp-panel/diagnostico-exp-panel.component';
+import { OpcionDiagnostico } from '../list-diagnosticos/list-diagnosticos.component';
 
 @Component({
   selector: 'consultas-columna-medico',
@@ -21,20 +22,20 @@ export class ColumnaMedicoComponent implements OnInit {
     this.diagnosticos$.subscribe(value => {
       this.opciones = value.map(s => Object.assign({}, {
         zona: s.zona, 
-        opciones: s.opciones.map(o => Object.assign({}, {diagnostico: o, selected: false}))
+        opciones: s.opciones.map(o => Object.assign({}, {diagnostico: o, selected: false})),
+        count: 0
       }))
+    })
+
+    this.store.select(getDiagnosticoMedico).subscribe((diagnosticoMedico) => {
+      // get the ones that belong to each zone
+
+      for(const [i, zona] of this.opciones.entries()){
+        const found = diagnosticoMedico.filter(s => s.zona === zona.zona);
+
+        this.opciones[i].count = found.length;
+      }
     })
   }
 
-  onCheckChanged(opcion: OpcionDiagnostico){
-    if(opcion.selected){
-      this.store.dispatch(addDiagnosticoMedico({diagnosticoMedico: opcion.diagnostico}));
-    }else {
-      this.store.dispatch(deleteDiagnosticoMedico({diagnosticoMedico: opcion.diagnostico}))
-    }
-  }
-
-  onLevelChanged(opcion: OpcionDiagnostico){
-    this.store.dispatch(updateDiagnosticoMedico({diagnosticoMedico: opcion.diagnostico}))
-  }
 }

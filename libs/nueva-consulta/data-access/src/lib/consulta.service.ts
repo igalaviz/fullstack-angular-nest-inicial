@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { OpcionDiagnostico } from 'libs/nueva-consulta/feature/src/lib/diagnostico-inicial/diagnostico-exp-panel/diagnostico-exp-panel.component';
 import { Observable, of } from 'rxjs';
 import { Aplicador, Consulta, DiagnosticoMedico, EstigmaPerc, Funcion, Laboratorio, Lote, ProductoConsulta, SignoSintoma } from '..';
 import { OpcionesDiagnosticoMedico, OpcionesSignosSintomas, Agujas, Canulas, Area } from './consulta.models';
