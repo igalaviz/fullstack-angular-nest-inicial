@@ -124,10 +124,10 @@ export const getTratamientosConProductosSeleccionados = createSelector(
       const tratConProd: TratamientoConProductos = {
         tratamiento: tratamientos[i],
         productos: [],
-        chosen: tratamientos[i].id === tratamientoInteres?.id
+        chosen: tratamientos[i].clave === tratamientoInteres?.clave
       }
       for(let b = 0; b < productos.length; b++){
-        const foundTrat = productos[b].tratamientos?.find(t => t.id === tratamientos[i].id);
+        const foundTrat = productos[b].tratamientos?.find(t => t.clave === tratamientos[i].clave);
         if(foundTrat){
           tratConProd.productos.push(productos[b]);
         }

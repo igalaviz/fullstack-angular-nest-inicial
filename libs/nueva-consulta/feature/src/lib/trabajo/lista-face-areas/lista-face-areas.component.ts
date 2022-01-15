@@ -68,11 +68,11 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
       if(selectedAreas.length > 0){
         this.submitBtn.disabled = false;
         for(let i = 0; i < this.areas.length; i++){
-          const foundIndex = selectedAreas.findIndex(a => a.id === this.areas[i].area.id)
+          const foundIndex = selectedAreas.findIndex(a => a.pathId === this.areas[i].area.pathId)
           if(foundIndex !== -1){
             this.areas[i].selected = true;
-            const elToModify = this.items.filter(item => item.area.area.id === this.areas[i].area.id)[0];
-            const aplicacion = producto.aplicaciones.find(apl => apl.area.id === this.areas[i].area.id);
+            const elToModify = this.items.filter(item => item.area.area.pathId === this.areas[i].area.pathId)[0];
+            const aplicacion = producto.aplicaciones.find(apl => apl.area.pathId === this.areas[i].area.pathId);
 
             if(aplicacion !== undefined){
               elToModify.cantidadControl.setValue(aplicacion.cantidad);

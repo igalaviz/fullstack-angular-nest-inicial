@@ -25,7 +25,7 @@ export class ItemProductoPorAplicarComponent {
     disponibleEnInventario: true,
     tratamientos: [
       {
-        id: "wow",
+        clave: "wow",
         nombre: "Contorno en F's",
         primario: true,
         faceAreas: []

@@ -74,13 +74,13 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
 const addSignoSintoma = (signosSintomas: SignoSintoma[], signoSintoma: SignoSintoma) => [...signosSintomas, signoSintoma];
 const addDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnosticoMedico: DiagnosticoMedico) => [...diagnosticos, diagnosticoMedico];  
 const updateSignoSintoma = (signosSintomas: SignoSintoma[], signoSintoma: SignoSintoma) => signosSintomas.map(s => {
-  return s.id === signoSintoma.id ? Object.assign({}, signoSintoma) : s;  
+  return s.clave === signoSintoma.clave ? Object.assign({}, signoSintoma) : s;  
 });
 const updateDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnosticoMedico: DiagnosticoMedico) => diagnosticos.map(d => {
-  return d.id === diagnosticoMedico.id ? Object.assign({}, diagnosticoMedico) : d; 
+  return d.clave === diagnosticoMedico.clave ? Object.assign({}, diagnosticoMedico) : d; 
 });
-const deleteSignoSintoma = (signosSintomas: SignoSintoma[], signoSintoma: SignoSintoma) => signosSintomas.filter(w => signoSintoma.id !== w.id); 
-const deleteDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnostico: DiagnosticoMedico) => diagnosticos.filter(w => diagnostico.id !== w.id);  
+const deleteSignoSintoma = (signosSintomas: SignoSintoma[], signoSintoma: SignoSintoma) => signosSintomas.filter(w => signoSintoma.clave !== w.clave); 
+const deleteDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnostico: DiagnosticoMedico) => diagnosticos.filter(w => diagnostico.clave !== w.clave);  
 
 const addItem = (items: any[], item: any) => [...items, item];
 const deleteItem = (items: any[], item: any) => items.filter(i => item.id !== i.id);
@@ -92,11 +92,11 @@ const updateTratamientoEstigmas = (estigmas: EstigmaPerc[], tratamiento: Tratami
   for(let i = 0; i < newArray.length; i++){
     for(let f = 0; f < newArray[i].diagnosticos.length; f++){
       // I'm looping through the diagnosticos
-      if(newArray[i].diagnosticos[f].tratamientos?.findIndex(o => o.id === tratamiento.id) !== -1){
+      if(newArray[i].diagnosticos[f].tratamientos?.findIndex(o => o.clave === tratamiento.clave) !== -1){
         // encontré el tratamiento
-        newArray = newArray.map(e => e.estigma.id == newArray[i].estigma.id ? Object.assign({}, {...e,
-              diagnosticos: e.diagnosticos.map(d => d.id === newArray[i].diagnosticos[f].id ? Object.assign({}, {...d,
-                tratamientos: d.tratamientos?.map(t => t.id === tratamiento.id ? Object.assign({}, {...t, selected: check}) : t)}) : d)}) : e)
+        newArray = newArray.map(e => e.estigma.clave == newArray[i].estigma.clave ? Object.assign({}, {...e,
+              diagnosticos: e.diagnosticos.map(d => d.clave === newArray[i].diagnosticos[f].clave ? Object.assign({}, {...d,
+                tratamientos: d.tratamientos?.map(t => t.clave === tratamiento.clave ? Object.assign({}, {...t, selected: check}) : t)}) : d)}) : e)
       }
     }
   }
@@ -136,7 +136,7 @@ const removeProducto = (productos: ProductoConsulta[], producto: ProductoConsult
       return productos.filter(p => p.producto.id !== producto.producto.id);
     }else {
       // Si tiene más de un tratamiento, simplemente quitar el tratamiento de la lista del producto
-      return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, tratamientos: p.tratamientos?.filter(t => t.id !== tratamiento?.id) }) : p)
+      return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, tratamientos: p.tratamientos?.filter(t => t.clave !== tratamiento?.clave) }) : p)
     }
   }else{
     // Si no se encontró el producto en la lista, simplemente regresar la lista como estaba
@@ -159,11 +159,11 @@ const addAplicacionProducto = (aplicacion: AplicacionProducto, producto: Product
 
 
 const removeAplicacionProducto = (area: Area, producto: ProductoConsulta, productos: ProductoConsulta[]) => {
-  return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, aplicaciones: p.aplicaciones.filter(a => a.area.id !== area.id)}) : p);
+  return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, aplicaciones: p.aplicaciones.filter(a => a.area.pathId !== area.pathId)}) : p);
 }
 
 const updateAplicacionProducto = (aplicacion: AplicacionProducto, producto: ProductoConsulta, productos: ProductoConsulta[]) => {
-  return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, aplicaciones: p.aplicaciones.map(a => a.area.id === aplicacion.area.id ? aplicacion : a)}) : p);
+  return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, aplicaciones: p.aplicaciones.map(a => a.area.pathId === aplicacion.area.pathId ? aplicacion : a)}) : p);
 }
 
 const setProductoAsAplicado = (productos: ProductoConsulta[], producto: ProductoConsulta) => {
@@ -254,7 +254,7 @@ const consultasReducer = createReducer(
   })),
   on(ConsultasActions.setTratamientoInteres, (state, { tratamientoInteres }) => ({
     ...state,
-    tratamientoDeInteres: tratamientoInteres.id === state.tratamientoDeInteres?.id ? undefined : tratamientoInteres
+    tratamientoDeInteres: tratamientoInteres.clave === state.tratamientoDeInteres?.clave ? undefined : tratamientoInteres
   })),
   on(ConsultasActions.setFiltrosProductos, (state, { filtros }) => ({
     ...state,

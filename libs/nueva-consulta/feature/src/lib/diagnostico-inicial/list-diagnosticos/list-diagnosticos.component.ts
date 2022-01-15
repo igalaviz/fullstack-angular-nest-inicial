@@ -31,14 +31,14 @@ export class ListDiagnosticosComponent implements OnInit {
       this.store.select(getDiagnosticoMedico).subscribe(diagnosticoMedico => {
         // check if any of the options we have is in the selecteds list
       for(const diagnostico of this.opciones){
-        const foundIndex = diagnosticoMedico.findIndex(d => d.id === diagnostico.diagnostico.id);
+        const foundIndex = diagnosticoMedico.findIndex(d => d.clave === diagnostico.diagnostico.clave);
 
         if(foundIndex !== -1){
           // this option IS selected
-          this.opciones = this.opciones.map(d => d.diagnostico.id === diagnostico.diagnostico.id ? {...d, selected: true} : d)
+          this.opciones = this.opciones.map(d => d.diagnostico.clave === diagnostico.diagnostico.clave ? {...d, selected: true} : d)
         } else{
           // this option is NOT selected
-          this.opciones = this.opciones.map(d => d.diagnostico.id === diagnostico.diagnostico.id ? {...d, selected: false} : d)
+          this.opciones = this.opciones.map(d => d.diagnostico.clave === diagnostico.diagnostico.clave ? {...d, selected: false} : d)
         }
       }
       })
@@ -46,14 +46,14 @@ export class ListDiagnosticosComponent implements OnInit {
       this.store.select(getSignosSintomas).subscribe(signosSintomas => {
           // check if any of the options we have is in the selecteds list
         for(const signoSintoma of this.opciones){
-          const foundIndex = signosSintomas.findIndex(d => d.id === signoSintoma.diagnostico.id);
+          const foundIndex = signosSintomas.findIndex(d => d.clave === signoSintoma.diagnostico.clave);
 
           if(foundIndex !== -1){
             // this option IS selected
-            this.opciones = this.opciones.map(d => d.diagnostico.id === signoSintoma.diagnostico.id ? {...d, selected: true} : d)
+            this.opciones = this.opciones.map(d => d.diagnostico.clave === signoSintoma.diagnostico.clave ? {...d, selected: true} : d)
           } else{
             // this option is NOT selected
-            this.opciones = this.opciones.map(d => d.diagnostico.id === signoSintoma.diagnostico.id ? {...d, selected: false} : d)
+            this.opciones = this.opciones.map(d => d.diagnostico.clave === signoSintoma.diagnostico.clave ? {...d, selected: false} : d)
           }
         }
       })

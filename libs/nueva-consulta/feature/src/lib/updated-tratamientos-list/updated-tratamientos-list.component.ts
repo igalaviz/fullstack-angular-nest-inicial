@@ -20,14 +20,14 @@ export class UpdatedTratamientosListComponent implements OnInit {
     this.store.pipe(select(getTratamientosSeleccionados)).subscribe((tratamientosSeleccionados) => {
       // check if any of the treatments we have is in the selecteds list
       for(const [t, tratamiento] of this.tratamientos.entries()){
-        const foundIndex = tratamientosSeleccionados.findIndex(tr => tr.id === tratamiento.id);
+        const foundIndex = tratamientosSeleccionados.findIndex(tr => tr.clave === tratamiento.clave);
 
         if(foundIndex !== -1){
           // this tratamiento IS selected
-          this.tratamientos = this.tratamientos.map(tr => tr.id === tratamiento.id ? {...tr, selected: true} : tr)
+          this.tratamientos = this.tratamientos.map(tr => tr.clave === tratamiento.clave ? {...tr, selected: true} : tr)
         } else{
           // this tratamiento is NOT selected
-          this.tratamientos = this.tratamientos.map(tr => tr.id === tratamiento.id ? {...tr, selected: false} : tr)
+          this.tratamientos = this.tratamientos.map(tr => tr.clave === tratamiento.clave ? {...tr, selected: false} : tr)
         }
       }
     })

@@ -1,6 +1,6 @@
 // area de la cara (músculo/zona)
 export interface Area {
-  id: string;
+  pathId: string;  // id del SVG path
   nombre: string;
 }
 
@@ -10,7 +10,7 @@ export interface SelectableFaceArea {
 }
 
 export interface Estigma {
-  id: string;
+  clave: string;
   nombre: string;
   puntosTotales: number;
 }
@@ -22,7 +22,7 @@ export interface EstigmaPerc {
 }
 
 export interface Tratamiento {
-  id: string;
+  clave: string;
   nombre: string;
   primario: boolean;
   faceAreas: Area[];
@@ -30,7 +30,7 @@ export interface Tratamiento {
 }
 
 export interface SignoSintoma {
-  id: string;
+  clave: string;
   zona: string;
   nombre: string;
   nivel: number;
@@ -39,7 +39,7 @@ export interface SignoSintoma {
 }
 
 export interface DiagnosticoMedico {
-  id: string;
+  clave: string;
   zona: string;
   nombre: string;
   nivel: number;

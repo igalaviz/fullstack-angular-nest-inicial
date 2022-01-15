@@ -19,7 +19,7 @@ export class DiagnosticoExpPanelComponent{
     opciones: [
       {
         diagnostico: {
-          id: "a",
+          clave: "a",
           zona: "Cara",
           nombre: "Asimetría facial",
           nivel: 3,

@@ -34,13 +34,13 @@ export class ItemProductoComponent implements OnInit {
   @Input() activarRecomendaciones = true;
   @Input() opcionesTratamientos: Tratamiento[] = [
     {
-      id: "a",
+      clave: "a",
       nombre: "Contorno en F's",
       primario: true,
       selected: false,
       faceAreas: [
         {
-          id: "a",
+          pathId: "a",
           nombre: "f1-d"
         }
       ]
@@ -80,7 +80,7 @@ export class ItemProductoComponent implements OnInit {
 
   onTratamientoRemoved(tratamiento: Tratamiento){
     let tratamientos = this.tratamientosControl.value as Tratamiento[];
-    tratamientos = tratamientos.filter(t => t.id !== tratamiento.id);
+    tratamientos = tratamientos.filter(t => t.clave !== tratamiento.clave);
     
     this.tratamientosControl.setValue(tratamientos); // To trigger change detection
     console.log("THE VALUE ", this.tratamientosControl.value);

@@ -42,7 +42,7 @@ export class MatoptionsTratamientosProductoComponent implements OnInit {
 
   onTratamientoRemoved(tratamiento: Tratamiento){
     let tratamientos = this.tratamientosControl.value as Tratamiento[];
-    tratamientos = tratamientos.filter(t => t.id !== tratamiento.id);
+    tratamientos = tratamientos.filter(t => t.clave !== tratamiento.clave);
     
     this.tratamientosControl.setValue(tratamientos); // To trigger change detection
     this.store.dispatch(deleteProductoSeleccionado({producto: this.producto, tratamiento}))
@@ -64,7 +64,7 @@ export class MatoptionsTratamientosProductoComponent implements OnInit {
       }else{
         let equal = true;
         for(const tratamiento of this.tratamientosCheck){
-          if((<Tratamiento[]>this.tratamientosControl.value).findIndex(t => t.id === tratamiento.id) === -1){
+          if((<Tratamiento[]>this.tratamientosControl.value).findIndex(t => t.clave === tratamiento.clave) === -1){
             equal = false;
             return true
           }else{

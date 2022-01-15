@@ -27,21 +27,21 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
 
   allMusculos: Area[] = [
     {
-      id: "depresor_superciliar_d",
+      pathId: "depresor_superciliar_d",
       nombre: "Depresor Superciliar Derecho"
     },
     {
-      id: "depresor_superciliar_i",
+      pathId: "depresor_superciliar_i",
       nombre: "Depresor Superciliar Izquierdo"
     }
   ];
   allZones: Area[] = [
     {
-      id: "f1-d",
+      pathId: "f1-d",
       nombre: "F1 Derecho"
     },
     {
-      id: "f1-i",
+      pathId: "f1-i",
       nombre: "F1 Izquierdo"
     }
   ]
@@ -123,7 +123,7 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
     if(this.diagram === "zonas"){
       setTimeout(() => {
         for(const area of this.allZones){
-          const el = document.getElementById(area.id);
+          const el = document.getElementById(area.pathId);
           if(el){
             el.classList.add('selectable-area');
             el.onclick =  () => {
@@ -136,7 +136,7 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
     }else if (this.diagram === "musculos"){
       setTimeout(() => {
         for(const area of this.allMusculos){
-          const el = document.getElementById(area.id);
+          const el = document.getElementById(area.pathId);
           if(el){
             el.classList.add('selectable-area');
             el.onclick = () => {
@@ -154,7 +154,7 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
     if(this.diagram === "zonas"){
       setTimeout(() => {
         for(const area of this.allZones){
-          const el = document.getElementById(area.id);
+          const el = document.getElementById(area.pathId);
           if(el){
             el.classList.remove('selectable-area');
             el.onclick = () => {
@@ -167,7 +167,7 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
     }else if (this.diagram === "musculos"){
       setTimeout(() => {
         for(const area of this.allMusculos){
-          const el = document.getElementById(area.id);
+          const el = document.getElementById(area.pathId);
           if(el){
             el.classList.remove('selectable-area');
             el.onclick = () => {
@@ -182,8 +182,8 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
 
   onSelectableItemClicked(area: Area){
     // if the element was already selected, unselect it
-    const foundIndex = this.selections.findIndex(a => a.id === area.id);
-    const el = document.getElementById(area.id);
+    const foundIndex = this.selections.findIndex(a => a.pathId === area.pathId);
+    const el = document.getElementById(area.pathId);
 
     if(foundIndex !== -1 && el){
       el.classList.remove('selected')
@@ -199,8 +199,8 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
   highlightAllSelections(){
       if(this.diagram === "zonas"){
         for(const area of this.allZones){
-          const wasSelected = this.selections.find(a => a.id === area.id);
-          const el = document.getElementById(area.id);
+          const wasSelected = this.selections.find(a => a.pathId === area.pathId);
+          const el = document.getElementById(area.pathId);
           if(wasSelected){
             if(el){
               el.classList.add('selected')
@@ -213,8 +213,8 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
         }
       }else if(this.diagram === 'musculos'){
         for(const area of this.allMusculos){
-          const wasSelected = this.selections.find(a => a.id === area.id);
-          const el = document.getElementById(area.id);
+          const wasSelected = this.selections.find(a => a.pathId === area.pathId);
+          const el = document.getElementById(area.pathId);
           if(wasSelected){
             if(el){
               el.classList.add('selected');

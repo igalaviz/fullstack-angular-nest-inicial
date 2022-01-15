@@ -8,13 +8,13 @@ import { ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-con
 })
 export class ItemTratamientoComponent {
   @Input() tratamiento: Tratamiento = {
-    id: "a",
+    clave: "a",
     nombre: "Contorno en F's",
     primario: true,
     selected: false,
     faceAreas: [
       {
-        id: "a",
+        pathId: "a",
         nombre: "f1-d"
       }
     ]

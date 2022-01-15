@@ -24,7 +24,7 @@ export class ProductosRecomendadosComponent implements OnInit {
     this.store.pipe(select(getTratamientoDeInteres)).subscribe((value) => {
       this.tratamientoInteres = value;
       if(this.tratamientoInteres){
-        this.productos$ = this.consultasService.getProductosRecomendadosParaTratamiento(this.tratamientoInteres.id)
+        this.productos$ = this.consultasService.getProductosRecomendadosParaTratamiento(this.tratamientoInteres.clave)
       }else {
         this.productos$ = new Observable<[]>();
       }
