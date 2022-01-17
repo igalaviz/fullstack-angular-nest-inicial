@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Area, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
-import { addAplicacionProducto, addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getComentarios, getDiagnosticoMedico, getFotos, getProductoSiendoAplicado, getProductosSeleccionados, getSignosSintomas, getTratamientosSeleccionados, getUsarRecomendacion, removeAplicacionProducto, setProductoAsAplicado, setProductoSiendoAplicado, setSelectedFaceAreas } from '../..';
+import { addAplicacionProducto, addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getComentarios, getDiagnosticoMedico, getFotos, getProductoSiendoAplicado, getProductosPorAplicar, getProductosSeleccionados, getSignosSintomas, getTratamientosSeleccionados, getUsarRecomendacion, removeAplicacionProducto, setAllowNextStep, setError, setProductoAsAplicado, setProductoSiendoAplicado, setSelectedFaceAreas } from '../..';
 import { ListaFaceAreasComponent } from './lista-face-areas/lista-face-areas.component';
 
 @Component({
@@ -35,6 +35,7 @@ export class TrabajoComponent implements OnInit {
         this.allowFaceAreasSelection = false;
       }
     })
+
   }
 
   onAreaSelected(selectedArea: Area){
