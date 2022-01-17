@@ -199,7 +199,7 @@ export const deleteSelectedFaceArea = createAction(
 
 export const setError = createAction(
   ConsultasActionTypes.SetError,
-  props<{ error: string | null }>()
+  props<{ error: string | null | undefined }>()
 )
 
 export const setAllowNextStep = createAction(

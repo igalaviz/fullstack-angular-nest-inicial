@@ -37,9 +37,9 @@
         <mat-list>
             <mat-list-item *ngFor="let aplicacion of producto.aplicaciones" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
                     <span>{{aplicacion.area.nombre}} - {{aplicacion.cantidad}}ml</span>
-                    <button mat-icon-button (click)="onDiscardAplicacionClicked(aplicacion)">
+                    <!--<button mat-icon-button (click)="onDiscardAplicacionClicked(aplicacion)">
                         <mat-icon style="font-size: 16px;">close</mat-icon>
-                    </button>
+                    </button>-->
             </mat-list-item>
         </mat-list>
         <button mat-flat-button (click)="onEditarAplicacionesClicked()">

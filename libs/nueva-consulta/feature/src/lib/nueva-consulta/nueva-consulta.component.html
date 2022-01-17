@@ -14,7 +14,10 @@
                     {{step === 1 ? 'Diagnóstico' : step === 2 ? 'Tratamientos recomendados' : step ===  3 ? 'Selección de Productos' : step === 4 ? 'Aplicación de productos' : ''}}
                 </h2>
             </div>
-            <button mat-flat-button color="primary" [disabled]="!allowNextStep" (click)="onNextClicked()">{{step === 4 ? 'Guardar Consulta' : 'Siguiente'}}</button>
+            <div [matTooltip]="whyUserCantMoveToNext" [matTooltipDisabled]="allowNextStep">
+                <button  mat-flat-button color="primary" [disabled]="!allowNextStep" (click)="onNextClicked()">{{step === 4 ? 'Guardar Consulta' : 'Siguiente'}}</button>
+            </div>
+            
         </div>
         <div [ngSwitch]="step">
             <consultas-diagnostico-inicial *ngSwitchCase="1" #diagnosticoInicial></consultas-diagnostico-inicial>

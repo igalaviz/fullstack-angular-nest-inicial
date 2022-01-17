@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { ConsultasState, getProductosSeleccionados, getTratamientosConProductosSeleccionados, getUsarRecomendacion, setAllowNextStep } from '../..';
+import { ConsultasState, getProductosSeleccionados, getTratamientosConProductosSeleccionados, getUsarRecomendacion, setAllowNextStep, setError } from '../..';
 
 @Component({
   selector: 'consultas-seleccion-productos',
@@ -33,10 +33,16 @@ export class SeleccionProductosComponent implements OnInit, OnDestroy {
         if(foundWithoutProduct){
           //... no dejar al usuario continuar al siguiente paso
           this.store.dispatch(setAllowNextStep({allow: false}));
+
+          // let the user know why they can't advance to the next step
+          this.store.dispatch(setError({error: "Por favor seleccione al menos un producto para cada tratamiento"}));
         }else{
           // no había ningún tratamiento sin al menos 1 producto asignado,
           // así que el usuario puede pasar al siguiente paso
           this.store.dispatch(setAllowNextStep({allow: true}));
+
+          // there are no errors that stop the user from advancing to the next step
+          this.store.dispatch(setError({error: undefined}))
         }
         
       }
@@ -52,10 +58,16 @@ export class SeleccionProductosComponent implements OnInit, OnDestroy {
           // la lista de productos seleccionados está vacía,
           // así que el usuario no puede pasar al siguiente paso
           this.store.dispatch(setAllowNextStep({allow: false}));
+
+          // let the user know why they can't advance to the next step
+          this.store.dispatch(setError({error: "Por favor seleccione al menos un producto"}));
         }else{
           // la lista de productos seleccionados incluye al menos un elemento,
           // así que el usuario sí puede pasar al siguiente paso 
           this.store.dispatch(setAllowNextStep({allow: true}));
+
+          // there are no errors that stop the user from advancing to the next step
+          this.store.dispatch(setError({error: undefined}))
         }
       }
     })

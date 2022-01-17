@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ConsultasState, getTratamientosSeleccionados, getUsarRecomendacion, removeAllProductosSeleccionados, setAllowNextStep, setTratamientos, updateUsarRecomendacion } from '../..';
+import { ConsultasState, getTratamientosSeleccionados, getUsarRecomendacion, removeAllProductosSeleccionados, setAllowNextStep, setError, setTratamientos, updateUsarRecomendacion } from '../..';
 
 @Component({
   selector: 'consultas-tratamientos-recomendados',
@@ -19,13 +19,23 @@ export class TratamientosRecomendadosComponent {
 
       if(tratamientosSeleccionados.length === 0 && this.usarRecomendacion){
         this.store.dispatch(setAllowNextStep({allow: false}))
+        // let the user know why they can't advance to the next step
+        this.store.dispatch(setError({error: "Por favor seleccione al menos un tratamiento"}));
         this.enableNext = false;
       }else if(tratamientosSeleccionados.length === 0 && !this.usarRecomendacion) {
         this.store.dispatch(setAllowNextStep({allow: true}))
         this.enableNext = true;
+
+        // there are no errors that stop the user from advancing to the next step
+        this.store.dispatch(setError({error: undefined}))
+        
       }else{
         this.store.dispatch(setAllowNextStep({allow: true}))
         this.enableNext = true;
+
+        // there are no errors that stop the user from advancing to the next step
+        this.store.dispatch(setError({error: undefined}))
+
       }
     })).subscribe();
     

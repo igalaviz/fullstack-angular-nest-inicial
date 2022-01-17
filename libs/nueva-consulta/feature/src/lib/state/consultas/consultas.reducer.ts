@@ -47,6 +47,7 @@ export const initialState: ConsultasState = consultasAdapter.getInitialState({
   // set initial required properties
   allowNextStep: false,
   loaded: false,
+  error: '',
   comentarios: '',
   selectedId: '',
   diagnosticoPacienteSeleccionados: [],
@@ -323,6 +324,10 @@ const consultasReducer = createReducer(
   on(ConsultasActions.removeAllProductosSeleccionados, (state) => ({
     ...state,
     productosSeleccionados: []
+  })),
+  on(ConsultasActions.setError, (state, {error}) => ({
+    ...state,
+    error
   }))
 );
 

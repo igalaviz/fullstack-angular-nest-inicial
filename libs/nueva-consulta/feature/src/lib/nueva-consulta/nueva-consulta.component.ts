@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Consulta, ConsultaService } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { Store } from '@ngrx/store';
-import { ConsultasState, getAllowNextStep, getComentarios, getDiagnosticoMedico, getFotos, getProductosSeleccionados, getSignosSintomas, getTratamientosSeleccionados, getUsarRecomendacion, loadEstigmas, loadTratsByZona, setFotos } from '../..';
+import { ConsultasState, getAllowNextStep, getComentarios, getConsultasError, getDiagnosticoMedico, getFotos, getProductosSeleccionados, getSignosSintomas, getTratamientosSeleccionados, getUsarRecomendacion, loadEstigmas, loadTratsByZona, setFotos } from '../..';
 import { DiagnosticoInicialComponent } from '../diagnostico-inicial/diagnostico-inicial.component';
 
 @Component({
@@ -9,11 +9,12 @@ import { DiagnosticoInicialComponent } from '../diagnostico-inicial/diagnostico-
   templateUrl: './nueva-consulta.component.html',
   styleUrls: ['./nueva-consulta.component.scss']
 })
-export class NuevaConsultaComponent implements OnInit {
+export class NuevaConsultaComponent implements OnInit{
 
   step: 1 | 2 | 3 | 4 = 1;
 
   allowNextStep = false;
+  whyUserCantMoveToNext = "wow";
 
   consulta: Consulta = {
     id: '',
@@ -34,7 +35,17 @@ export class NuevaConsultaComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select(getAllowNextStep).subscribe((value) => {
-      this.allowNextStep = value;
+      setTimeout(() => {
+        this.allowNextStep = value;
+      }, 0)
+
+      this.store.select(getConsultasError).subscribe((error) => {
+        //setTimeout(() => {
+          console.log(error);
+          this.whyUserCantMoveToNext = error ?? '';
+        //}, 0)
+        
+      })
     })
 
     this.store.select(getComentarios).subscribe((comentarios) => this.consulta.comentarios = comentarios);

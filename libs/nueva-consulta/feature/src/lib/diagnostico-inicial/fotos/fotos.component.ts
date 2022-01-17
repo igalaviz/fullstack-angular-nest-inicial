@@ -26,7 +26,8 @@ export class FotosComponent implements AfterViewInit{
 
   onFileUploadError(errorType: FileUploadErrorTypes){
     this.store.dispatch(setAllowNextStep({allow: false}))
-    this.store.dispatch(setError({error: errorType === FileUploadErrorTypes.MAX_COUNT_ERROR ? "Demasiados archivos han sido seleccionados. Por favor remueva 1 o más archivos." : errorType === FileUploadErrorTypes.MAX_SIZE_ERROR ? 'Uno o más archivos exceden el tamaño límite. Por favor reemplácelos o remuevalos.' : 'Un error ha ocurrido.'}))
+    // let the user know why they can't advance to the next step
+    this.store.dispatch(setError({error: errorType === FileUploadErrorTypes.MAX_COUNT_ERROR ? "Demasiados archivos han sido seleccionados. Por favor remueva 1 o más archivos." : errorType === FileUploadErrorTypes.MAX_SIZE_ERROR ? 'Uno o más archivos exceden el tamaño límite. Por favor reemplácelos o remuévalos.' : 'Un error ha ocurrido.'}))
   }
 
   onFileUploadSuccess(){

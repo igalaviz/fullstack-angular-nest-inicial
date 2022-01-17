@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Area, Consulta, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { Area, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { addAplicacionProducto, addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getComentarios, getDiagnosticoMedico, getFotos, getProductoSiendoAplicado, getProductosSeleccionados, getSignosSintomas, getTratamientosSeleccionados, getUsarRecomendacion, removeAplicacionProducto, setProductoAsAplicado, setProductoSiendoAplicado, setSelectedFaceAreas } from '../..';
 import { ListaFaceAreasComponent } from './lista-face-areas/lista-face-areas.component';
-import { switchMap, take, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'consultas-trabajo',
@@ -15,11 +14,12 @@ export class TrabajoComponent implements OnInit {
   allowFaceAreasSelection = false;
   diagramType: 'musculos' | 'zonas' = 'zonas';
 
-  isListaFaceAreasValid = false;
-
   @ViewChild('listaFaceAreas') listaFaceAreas!: ListaFaceAreasComponent;
 
-  constructor(private store: Store<ConsultasState>, private consultaService: ConsultaService) { }
+  // when a button is disabled, show a tooltip with the "latest known error"
+  // which means I should be setting the "latest known error" whenever I set "allowNextStep" to false
+
+  constructor(private store: Store<ConsultasState>) { }
 
   ngOnInit(): void {
     this.store.pipe(select(getProductoSiendoAplicado)).subscribe((value) => {
