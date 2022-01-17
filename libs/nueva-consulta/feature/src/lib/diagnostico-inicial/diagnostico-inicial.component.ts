@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ConsultasState, getAllowNextStep, getDiagnosticoMedico, getFileSelectorError, getSignosSintomas, loadEstigmas, loadTratsByZona, setAllowNextStep, setError, setFotos } from '../..';
+import { ConsultasState, getDiagnosticoMedico, getFileSelectorError, getSignosSintomas, loadEstigmas, loadTratsByZona, setAllowNextStep, setError, setFotos } from '../..';
 import { FotosComponent } from './fotos/fotos.component';
 
 @Component({
@@ -12,11 +11,10 @@ import { FotosComponent } from './fotos/fotos.component';
   styleUrls: ['./diagnostico-inicial.component.scss']
 })
 export class DiagnosticoInicialComponent implements OnInit{
-  enableNext = false;
 
   @ViewChild('columnaFotos') columnaFotos!: FotosComponent;
 
-  constructor(private router: Router, private store: Store<ConsultasState>){}
+  constructor(private store: Store<ConsultasState>){}
 
   ngOnInit(): void {
     combineLatest([this.store.pipe(select(getSignosSintomas)), this.store.pipe(select(getDiagnosticoMedico)), this.store.pipe(select(getFileSelectorError))]).pipe(tap(([signosSintomas, diagnosticoMedico, fileSelectorError]) => {
@@ -35,14 +33,13 @@ export class DiagnosticoInicialComponent implements OnInit{
         
       }
     })).subscribe();
-
-    this.store.pipe(select(getAllowNextStep)).subscribe((value) => {
-      this.enableNext = value;
-    })
   }
 
   onNextClicked(){
+    // save the files in the store for later usage
     this.store.dispatch(setFotos({fotos: this.columnaFotos.fileUpload.selectedFiles.map(k => k.file)}))
+    
+    // calcular los tratamientos recomendados por estigmas y por zonas
     this.store.dispatch(loadEstigmas());
     this.store.dispatch(loadTratsByZona());
   }
