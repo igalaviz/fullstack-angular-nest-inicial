@@ -767,7 +767,7 @@ export class ConsultaService {
   }
 
   getProductosRecomendadosParaTratamiento(idTratamiento: string): Observable<ProductoConsulta[]>{
-    return of(productos);
+    return of(productos.slice(0, 2))
   }
 
   getLaboratorios(): Observable<Laboratorio[]>{
