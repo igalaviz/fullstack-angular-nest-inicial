@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ConsultasState, getDiagnosticoMedico, getFileSelectorError, getSignosSintomas, loadEstigmas, loadTratsByZona, setAllowNextStep, setError, setFotos } from '../..';
 import { FotosComponent } from './fotos/fotos.component';
@@ -10,14 +10,17 @@ import { FotosComponent } from './fotos/fotos.component';
   templateUrl: './diagnostico-inicial.component.html',
   styleUrls: ['./diagnostico-inicial.component.scss']
 })
-export class DiagnosticoInicialComponent implements OnInit{
+export class DiagnosticoInicialComponent implements OnInit, OnDestroy{
 
   @ViewChild('columnaFotos') columnaFotos!: FotosComponent;
+
+  // keep track of subscriptions so I can unsusbscribe when the component gets destroyed
+  subscriptions: Subscription[] = [];
 
   constructor(private store: Store<ConsultasState>){}
 
   ngOnInit(): void {
-    combineLatest([this.store.pipe(select(getSignosSintomas)), this.store.pipe(select(getDiagnosticoMedico)), this.store.pipe(select(getFileSelectorError))]).pipe(tap(([signosSintomas, diagnosticoMedico, fileSelectorError]) => {
+    const validationsSub = combineLatest([this.store.pipe(select(getSignosSintomas)), this.store.pipe(select(getDiagnosticoMedico)), this.store.pipe(select(getFileSelectorError))]).pipe(tap(([signosSintomas, diagnosticoMedico, fileSelectorError]) => {
       if(signosSintomas.length > 0 && diagnosticoMedico.length > 0 && !fileSelectorError){
         this.store.dispatch(setAllowNextStep({allow: true}))
         // there are no errors that stop the user from advancing to the next step
@@ -33,6 +36,14 @@ export class DiagnosticoInicialComponent implements OnInit{
         
       }
     })).subscribe();
+
+    this.subscriptions.push(validationsSub);
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onNextClicked(){

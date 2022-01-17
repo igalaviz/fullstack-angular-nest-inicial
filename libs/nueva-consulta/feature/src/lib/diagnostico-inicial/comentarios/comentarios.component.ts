@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { setComentarios } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getComentarios } from '../../state/consultas/consultas.selectors';
@@ -10,10 +11,12 @@ import { getComentarios } from '../../state/consultas/consultas.selectors';
   templateUrl: './comentarios.component.html',
   styleUrls: ['./comentarios.component.scss']
 })
-export class ComentariosComponent implements OnInit{
+export class ComentariosComponent implements OnInit, OnDestroy{
   formControl: FormControl = new FormControl('');
 
   comentarios = '';
+
+  subscriptions: Subscription[] = [];
 
   constructor(private store: Store<ConsultasState>) { }
 
@@ -28,6 +31,12 @@ export class ComentariosComponent implements OnInit{
       this.formControl.setValue(comentarios);
     })
 
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
 }
