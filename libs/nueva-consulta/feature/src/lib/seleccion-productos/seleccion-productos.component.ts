@@ -11,6 +11,7 @@ import { ConsultasState, getProductosSeleccionados, getTratamientosConProductosS
 export class SeleccionProductosComponent implements OnInit, OnDestroy {
   usarRecomendaciones = false;
 
+  // here I'll keep track of the Observables I subscribe to, so I can unsubscribe when the component is destroyed
   subscriptions: Subscription[] = [];
 
   constructor(private store: Store<ConsultasState>) { }
