@@ -12,6 +12,7 @@ export const CONSULTAS_FEATURE_KEY = 'consultas';
 export interface ConsultasState extends EntityState<ConsultasEntity> {
   allowNextStep: boolean;
   error?: string | null; // last known error (if any)
+  fileSelectorError?: string | null;
   selectedId: string;
   loaded: boolean;
 
@@ -334,6 +335,10 @@ const consultasReducer = createReducer(
   on(ConsultasActions.setError, (state, {error}) => ({
     ...state,
     error
+  })),
+  on(ConsultasActions.setFileSelectorError, (state, {error}) => ({
+    ...state,
+    fileSelectorError: error
   }))
 );
 

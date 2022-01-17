@@ -76,7 +76,7 @@ export class FileUploadComponent{
     const errorIndex = this.selectedFiles.findIndex(f => f.hasSizeError);
 
     if(errorIndex !== -1){
-      this.fileError.emit({error: FileUploadErrorTypes.MAX_COUNT_ERROR});
+      this.fileError.emit({error: FileUploadErrorTypes.MAX_SIZE_ERROR});
     }else{
       this.fileSuccess.emit('');
     }

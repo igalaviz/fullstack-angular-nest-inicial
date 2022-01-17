@@ -153,3 +153,8 @@ export const getFotos = createSelector(
   getConsultasState,
   (state: ConsultasState) => state.fotos
 )
+
+export const getFileSelectorError = createSelector(
+  getConsultasState,
+  (state: ConsultasState) => state.fileSelectorError
+)

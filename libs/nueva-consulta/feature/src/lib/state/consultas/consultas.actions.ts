@@ -18,6 +18,7 @@ export enum ConsultasActionTypes {
   DeleteSignosSintomas = "[Consultas] Removed a selected signo-sintoma",
   DeleteDiagnosticoMedico = "[Consultas] Removed a selected diagnostico medico",
   SetFotos = "[Consultas] Set the pictures list",
+  SetFileSelectorError = "[Consultas] Set the error related to the file selector",
 
   // SECOND STEP (TRATAMIENTOS RECOMENDADOS Y ESTIGMAS)
   AddTratamiento = "[Consultas] Added a tratamiento",
@@ -230,3 +231,8 @@ export const setProximaAplicacionProducto = createAction(
 export const removeAllProductosSeleccionados = createAction(
   ConsultasActionTypes.RemoveAllProductosSeleccionados
 );
+
+export const setFileSelectorError = createAction(
+  ConsultasActionTypes.SetFileSelectorError,
+  props<{ error?: string | null }>()
+)
