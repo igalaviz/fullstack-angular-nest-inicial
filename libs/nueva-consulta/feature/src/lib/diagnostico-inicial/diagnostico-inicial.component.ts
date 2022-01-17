@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { combineLatest } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ConsultasState, getAllowNextStep, getComentarios, getDiagnosticoMedico, getFileSelectorError, getSignosSintomas, loadEstigmas, loadTratsByZona, setAllowNextStep, setError, setFotos } from '../..';
+import { ConsultasState, getAllowNextStep, getDiagnosticoMedico, getFileSelectorError, getSignosSintomas, loadEstigmas, loadTratsByZona, setAllowNextStep, setError, setFotos } from '../..';
 import { FotosComponent } from './fotos/fotos.component';
 
 @Component({

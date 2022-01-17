@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FileUploadErrorTypes } from '@fullstack-angular-nest/ui-controls';
 import { Store } from '@ngrx/store';
 import { FileUploadComponent } from '@fullstack-angular-nest/ui-controls';
@@ -9,7 +9,7 @@ import { getFotos } from '../../state/consultas/consultas.selectors';
 @Component({
   selector: 'consultas-fotos',
   templateUrl: './fotos.component.html',
-  styleUrls: ['./fotos.component.css']
+  styleUrls: ['./fotos.component.scss']
 })
 export class FotosComponent implements AfterViewInit{
   @ViewChild('fileUpload') fileUpload!: FileUploadComponent;

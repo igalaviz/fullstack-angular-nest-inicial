@@ -2,14 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ConsultaService, OpcionesDiagnosticoMedico } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { addDiagnosticoMedico, ConsultasState, deleteDiagnosticoMedico, getDiagnosticoMedico, updateDiagnosticoMedico } from '../../..';
+import { ConsultasState, getDiagnosticoMedico } from '../../..';
 import { ZonaOpciones } from '../diagnostico-exp-panel/diagnostico-exp-panel.component';
-import { OpcionDiagnostico } from '../list-diagnosticos/list-diagnosticos.component';
 
 @Component({
   selector: 'consultas-columna-medico',
   templateUrl: './columna-medico.component.html',
-  styleUrls: ['./columna-medico.component.css']
+  styleUrls: ['./columna-medico.component.scss']
 })
 export class ColumnaMedicoComponent implements OnInit {
   diagnosticos$!: Observable<OpcionesDiagnosticoMedico[]>;

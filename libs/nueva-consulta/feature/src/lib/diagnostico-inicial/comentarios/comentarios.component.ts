@@ -8,7 +8,7 @@ import { getComentarios } from '../../state/consultas/consultas.selectors';
 @Component({
   selector: 'consultas-comentarios',
   templateUrl: './comentarios.component.html',
-  styleUrls: ['./comentarios.component.css']
+  styleUrls: ['./comentarios.component.scss']
 })
 export class ComentariosComponent implements OnInit{
   formControl: FormControl = new FormControl('');
