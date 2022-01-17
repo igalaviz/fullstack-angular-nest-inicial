@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { ConsultasState, getProductosSeleccionados, getTratamientosConProductosSeleccionados, getUsarRecomendacion, setAllowNextStep } from '../..';
 
 @Component({
@@ -7,19 +8,24 @@ import { ConsultasState, getProductosSeleccionados, getTratamientosConProductosS
   templateUrl: './seleccion-productos.component.html',
   styleUrls: ['./seleccion-productos.component.css']
 })
-export class SeleccionProductosComponent implements OnInit {
+export class SeleccionProductosComponent implements OnInit, OnDestroy {
   usarRecomendaciones = false;
+
+  subscriptions: Subscription[] = [];
 
   constructor(private store: Store<ConsultasState>) { }
 
   ngOnInit(): void {
-    this.store.pipe(select(getUsarRecomendacion)).subscribe((value) => {
+    const recSub = this.store.pipe(select(getUsarRecomendacion)).subscribe((value) => {
       this.usarRecomendaciones = value;
     })
+    // keeping track of subscriptions so we unsubscribe when the component is destroyed
+    this.subscriptions.push(recSub);
 
     // si el usuario está usando recomendaciones,
     // debe escoger al menos 1 producto para cada tratamiento que haya seleccionado previamente  
-    this.store.select(getTratamientosConProductosSeleccionados).subscribe(value => {
+    const tratSub = this.store.select(getTratamientosConProductosSeleccionados).subscribe(value => {
+      console.log("Hello from the SeleccionProductos component! ^^")
       if(this.usarRecomendaciones){
         // si encuentro un tratamiento que no tiene al menos un producto asignado...
         const foundWithoutProduct = value.find(v => v.productos.length === 0);
@@ -34,10 +40,12 @@ export class SeleccionProductosComponent implements OnInit {
         
       }
     })
+    // keeping track of subscriptions so we unsubscribe when the component is destroyed
+    this.subscriptions.push(tratSub);
 
     // si el usuario NO está usando recomendaciones,
     // debe escoger al menos 1 producto
-    this.store.select(getProductosSeleccionados).subscribe(productosSeleccionados => {
+    const prodSub = this.store.select(getProductosSeleccionados).subscribe(productosSeleccionados => {
       if(!this.usarRecomendaciones){
         if(productosSeleccionados.length === 0){
           // la lista de productos seleccionados está vacía,
@@ -50,6 +58,14 @@ export class SeleccionProductosComponent implements OnInit {
         }
       }
     })
+    // keeping track of subscriptions so we unsubscribe when the component is destroyed
+    this.subscriptions.push(prodSub);
+  }
+
+  ngOnDestroy(): void {
+    for(const sub of this.subscriptions){
+      sub.unsubscribe();
+    }
   }
 
 }
