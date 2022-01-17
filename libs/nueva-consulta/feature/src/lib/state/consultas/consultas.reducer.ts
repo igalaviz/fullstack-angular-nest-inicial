@@ -132,13 +132,19 @@ const removeProducto = (productos: ProductoConsulta[], producto: ProductoConsult
   // Buscar el producto que se quiere deseleccionar
   const found = productos.find(p => p.producto.id === producto.producto.id);
   if(found) {
-    // Si solo tiene un tratamiento, quitar el producto de la lista por completo
-    if(found.tratamientos?.length === 1){
+    if(found.tratamientos && found.tratamientos.length > 0){
+      // Si solo tiene un tratamiento, quitar el producto de la lista por completo
+      if(found.tratamientos?.length === 1){
+        return productos.filter(p => p.producto.id !== producto.producto.id);
+      }else{
+        // Si tiene más de un tratamiento, simplemente quitar el tratamiento de la lista del producto
+        return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, tratamientos: p.tratamientos?.filter(t => t.clave !== tratamiento?.clave) }) : p)
+      }
+    }else{
+      // el producto se encontró en la lista, pero no hay tratamientos especificados, así que simplemente hay que quitarlo por completo
       return productos.filter(p => p.producto.id !== producto.producto.id);
-    }else {
-      // Si tiene más de un tratamiento, simplemente quitar el tratamiento de la lista del producto
-      return productos.map(p => p.producto.id === producto.producto.id ? Object.assign({}, {...p, tratamientos: p.tratamientos?.filter(t => t.clave !== tratamiento?.clave) }) : p)
     }
+    
   }else{
     // Si no se encontró el producto en la lista, simplemente regresar la lista como estaba
     return productos;
