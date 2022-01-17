@@ -37,6 +37,7 @@ export enum ConsultasActionTypes {
   DeleteProductoSeleccionado = "[Consultas] Removed a selected product",
   UpdateProductoSeleccionado ="[Consultas] Updated a selected product's data",
   SetFiltrosProductos = "[Consultas] Set the product filters",
+  RemoveAllProductosSeleccionados = "[Consultas] Removed ALL of the selected products",
 
   //FOURTH STEP (PANTALLA DE TRABAJO)
   SetProductoSiendoAplicado = "[Consultas] Set the product being currently applied",
@@ -225,3 +226,7 @@ export const setProximaAplicacionProducto = createAction(
   ConsultasActionTypes.SetProximaAplicacionProducto,
   props<{ proximaAplicacion: string, producto: ProductoConsulta }>()
 )
+
+export const removeAllProductosSeleccionados = createAction(
+  ConsultasActionTypes.RemoveAllProductosSeleccionados
+);

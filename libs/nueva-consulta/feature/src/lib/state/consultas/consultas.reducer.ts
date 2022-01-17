@@ -113,7 +113,7 @@ const addProducto = (productos: ProductoConsulta[], producto: ProductoConsulta, 
 
   }else if(!found && tratamiento){
     // Si no se encontró el producto en la lista y se especificó un tratamiento (se están usando recomendaciones)
-    const productToAdd: ProductoConsulta = Object.assign({}, {...producto});
+    const productToAdd: ProductoConsulta = Object.assign({}, {...producto, selected: true});
     productToAdd.tratamientos = productToAdd.tratamientos ? [...productToAdd.tratamientos, tratamiento] : [tratamiento];
     return [...productos, productToAdd]
   }else if(found && !tratamiento){
@@ -319,6 +319,10 @@ const consultasReducer = createReducer(
   on(ConsultasActions.setProximaAplicacionProducto, (state, {proximaAplicacion, producto}) => ({
     ...state,
     productosSeleccionados: setProximaAplicacionProducto(state.productosSeleccionados, producto, proximaAplicacion)
+  })),
+  on(ConsultasActions.removeAllProductosSeleccionados, (state) => ({
+    ...state,
+    productosSeleccionados: []
   }))
 );
 

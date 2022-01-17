@@ -83,7 +83,6 @@ export class ItemProductoComponent implements OnInit {
     tratamientos = tratamientos.filter(t => t.clave !== tratamiento.clave);
     
     this.tratamientosControl.setValue(tratamientos); // To trigger change detection
-    console.log("THE VALUE ", this.tratamientosControl.value);
     this.productoUnselectTratamiento.emit({producto: this.producto, tratamiento});
   }
 
