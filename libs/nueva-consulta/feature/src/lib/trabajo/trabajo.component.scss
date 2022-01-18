@@ -1,13 +1,7 @@
 ::ng-deep .ko-work-sidebar {
-  top: 0;
-  left: 0;
   height: 100vh;
-  z-index: 700;
-  transition: width 0.2s ease-in-out;
   display: flex;
   flex-direction: column;
-  will-change: transform, width;
-  position: relative;
   background: #fff;
   min-width: 200px;
   border-right: 1px solid #e9ebf0;
