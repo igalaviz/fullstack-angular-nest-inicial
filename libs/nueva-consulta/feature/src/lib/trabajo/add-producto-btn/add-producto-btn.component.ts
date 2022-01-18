@@ -3,11 +3,12 @@ import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatSelectChange } from '@angular/material/select';
 import { ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { addProductoSeleccionado } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
+import { getProductosSeleccionados } from '../../state/consultas/consultas.selectors';
 
 @Component({
   selector: 'consultas-add-producto-btn',
@@ -23,8 +24,20 @@ export class AddProductoBtnComponent implements OnInit {
   constructor(private consultasService: ConsultaService, private store: Store<ConsultasState>) { }
 
   ngOnInit(): void {
+    // cross the selected with all of them
     this.consultasService.getAllProducts().subscribe((value) => {
       this.opcionesProductos = value;
+    })
+
+    this.store.pipe(select(getProductosSeleccionados)).subscribe((productosSeleccionados) => {
+      this.opcionesProductos = this.opcionesProductos.map(producto => {
+          const matchIndex = productosSeleccionados.findIndex(p => p.producto.id === producto.producto.id)
+          if(matchIndex !== -1){
+            return {...producto, selected: true}
+          }else{
+            return {...producto, selected: false}
+          }
+      })
     })
 
   }

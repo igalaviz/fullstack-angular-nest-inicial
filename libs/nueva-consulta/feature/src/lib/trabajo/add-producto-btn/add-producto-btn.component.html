@@ -32,9 +32,10 @@
               (click)="$event.stopPropagation()"
               *ngFor="let opcion of opcionesProductos"
               [value]="opcion"
-              
+              [disabled]="opcion.selected"
               >
               {{ opcion.producto.nombre }}
+              {{ opcion.selected ? "(Ya seleccionado)" : "" }}
             </mat-option>
           </mat-select>
         </mat-form-field>
