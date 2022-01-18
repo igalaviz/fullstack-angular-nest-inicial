@@ -1,5 +1,5 @@
-<div style="display: flex; flex-direction: row;">
-    <div [ngClass]="productoEnUso ? ['mat-elevation-z4'] : ['mat-elevation-z4', 'ko-work-sidebar']" style="width: 25%;">
+<div style="display: flex; flex-direction: row; height: 100vh;">
+    <div class="mat-elevation-z4" style="width: 25%;">
         <consultas-lista-face-areas *ngIf="productoEnUso; else productos;" #listaFaceAreas [areasType]="diagramType"></consultas-lista-face-areas>
         <ng-template #productos>
             <div class="ko-work-sidebar-content">

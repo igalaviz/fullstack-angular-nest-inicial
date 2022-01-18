@@ -9,10 +9,12 @@
 
 .ko-work-content {
   width: 75%;
+  display: flex;
+  justify-content: center;
 }
 
 ::ng-deep #parent {
-  width: 60% !important;
+  width: 470px !important;
 }
 
 ::ng-deep.ko-work-sidebar-content {

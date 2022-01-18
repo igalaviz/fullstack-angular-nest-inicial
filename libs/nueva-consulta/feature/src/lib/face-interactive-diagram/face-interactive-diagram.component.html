@@ -1,7 +1,7 @@
 <consultas-muscles-diagram *ngIf="diagram === 'musculos'" [angle]="angle"></consultas-muscles-diagram>
 <consultas-zones-diagram *ngIf="diagram === 'zonas'" [angle]="angle"></consultas-zones-diagram>
 
-<div>
+<div style="display: flex; justify-content: center;">
     <mat-button-toggle-group [value]="'front'" (change)="onAngleChange($event.value)">
         <mat-button-toggle value="left">Perfil Izquierdo</mat-button-toggle>
         <mat-button-toggle value="front">Frente</mat-button-toggle>
