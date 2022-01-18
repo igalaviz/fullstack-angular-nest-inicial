@@ -9,10 +9,31 @@ body {
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+  overflow: hidden;
 }
 
 h4 {
   margin: 0px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .mat-tooltip {
@@ -41,8 +62,8 @@ h4 {
 
 .ko-fullscreen {
   height: 100%;
-  display: block;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
   background-color: #fafafa;
 }
 

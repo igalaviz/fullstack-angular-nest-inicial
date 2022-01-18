@@ -18,7 +18,7 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
   @Input() areasType: "musculos" | "zonas" =  "zonas";
 
   productoEnUso!: ProductoConsulta;
-  showAll = true;
+  showAll = false;
   areas: SelectableFaceArea[] = [];
 
   deleteAllAplicaciones = false;

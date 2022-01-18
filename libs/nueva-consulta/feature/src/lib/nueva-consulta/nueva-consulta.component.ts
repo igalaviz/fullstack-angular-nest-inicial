@@ -11,7 +11,7 @@ import { DiagnosticoInicialComponent } from '../diagnostico-inicial/diagnostico-
 })
 export class NuevaConsultaComponent implements OnInit{
 
-  step: 1 | 2 | 3 | 4 = 1;
+  step: 1 | 2 | 3 | 4 = 4;
 
   allowNextStep = false;
   whyUserCantMoveToNext = "wow";

@@ -48,6 +48,7 @@ import { ListaTratamientosSeleccionadosTrbComponent } from './trabajo/lista-trat
 import { MusclesDiagramComponent } from './face-interactive-diagram/muscles-diagram/muscles-diagram.component';
 import { NuevaConsultaComponent } from './nueva-consulta/nueva-consulta.component';
 import { ListDiagnosticosComponent } from './diagnostico-inicial/list-diagnosticos/list-diagnosticos.component';
+import {ScrollingModule} from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
@@ -63,7 +64,8 @@ import { ListDiagnosticosComponent } from './diagnostico-inicial/list-diagnostic
     ReactiveFormsModule,
     FormsModule,
     FeatureConsultasRoutingModule,
-    UiControlsModule
+    UiControlsModule,
+    ScrollingModule
   ],
   declarations: [
     DiagnosticoInicialComponent,

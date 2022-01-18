@@ -1,4 +1,4 @@
-<div [style.display]="area.selected || showAll ? 'flex' : 'none'" style="flex-direction: column;">
+<div [style.display]="area.selected || showAll ? 'flex' : 'none'" style="flex-direction: column;" [style.margin-bottom]="area.selected ? 'none' : '8px'">
     <div>
         <mat-checkbox [checked]="area.selected" (change)="onSelectionChange($event.checked)">{{ area.area.nombre }}</mat-checkbox>
     </div>
