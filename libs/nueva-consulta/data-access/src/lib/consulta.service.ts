@@ -31,6 +31,16 @@ const funciones: Funcion[] = [
     id: "r",
     nombre: "Relleno",
     laboratoriosDisponibles: ["a", "m", "g"]
+  },
+  {
+    id: "h",
+    nombre: "Hidratante",
+    laboratoriosDisponibles: []
+  },
+  {
+    id: "b",
+    nombre: "Bioestimulante",
+    laboratoriosDisponibles: []
   }
 ]
 
