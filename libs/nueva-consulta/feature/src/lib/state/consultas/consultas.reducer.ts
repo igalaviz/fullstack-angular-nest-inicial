@@ -85,7 +85,10 @@ const deleteSignoSintoma = (signosSintomas: SignoSintoma[], signoSintoma: SignoS
 const deleteDiagnosticoMedico = (diagnosticos: DiagnosticoMedico[], diagnostico: DiagnosticoMedico) => diagnosticos.filter(w => diagnostico.clave !== w.clave);  
 
 const addItem = (items: any[], item: any) => [...items, item];
-const deleteItem = (items: any[], item: any) => items.filter(i => item.id !== i.id);
+
+const deleteTratamiento = (tratamientos: Tratamiento[], tratamiento: Tratamiento) => tratamientos.filter(t => t.clave !== tratamiento.clave);
+
+const deleteFaceArea = (faceAreas: Area[], area: Area) => faceAreas.filter(a => a.pathId !== area.pathId);
 
 const updateTratamientoEstigmas = (estigmas: EstigmaPerc[], tratamiento: Tratamiento, check: boolean): EstigmaPerc[] => {
   let newArray = [...estigmas];
@@ -227,7 +230,7 @@ const consultasReducer = createReducer(
   })),
   on(ConsultasActions.deleteTratamiento, (state, { tratamiento }) => ({
     ...state,
-    tratamientosSeleccionados: deleteItem(state.tratamientosSeleccionados, tratamiento),
+    tratamientosSeleccionados: deleteTratamiento(state.tratamientosSeleccionados, tratamiento),
     //estigmas: updateTratamientoEstigmas(state.estigmas, tratamiento, false)
   })),
   on(ConsultasActions.updateUsarRecomendacion, (state, { usarRecomendacion }) => ({
@@ -302,7 +305,7 @@ const consultasReducer = createReducer(
   })),
   on(ConsultasActions.deleteSelectedFaceArea, (state, { area }) => ({
     ...state,
-    areasSeleccionadas: deleteItem(state.areasSeleccionadas, area)
+    areasSeleccionadas: deleteFaceArea(state.areasSeleccionadas, area)
   })),
   on(ConsultasActions.setSelectedFaceAreas, (state, { areas }) => ({
     ...state,
