@@ -3,7 +3,7 @@
 
     <span>Aplicar con...</span>
     <div style="margin-top: 8px; margin-bottom: 16px;">
-        <mat-radio-group (change)="onTipoAplicadorChange($event.value)">
+        <mat-radio-group (change)="onTipoAplicadorChange($event.value)" [value]="data.product.producto.funcion.id === 't' ? 'A' : ''">
             <mat-radio-button value="A">Aguja</mat-radio-button>
             <mat-radio-button value="C">Cánula</mat-radio-button>
         </mat-radio-group>

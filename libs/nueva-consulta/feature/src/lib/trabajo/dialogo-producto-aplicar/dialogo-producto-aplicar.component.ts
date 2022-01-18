@@ -23,6 +23,7 @@ export class DialogoProductoAplicarComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<DialogoProductoAplicarComponent>, @Inject(MAT_DIALOG_DATA) public data: {product: ProductoConsulta}, private consultasService: ConsultaService, private store: Store<ConsultaService>, private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.opcionesAplicadores$ = this.consultasService.getOpcionesAplicadores(this.tipoAplicador);
     this.consultasService.getLotesDisponiblesParaProducto(this.data.product.producto.id).subscribe((value) => {
       this.lotesDisponibles = value;
     })
