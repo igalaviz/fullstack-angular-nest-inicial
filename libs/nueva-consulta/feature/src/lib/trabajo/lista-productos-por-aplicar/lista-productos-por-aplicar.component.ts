@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { deleteProductoSeleccionado, setProductoSiendoAplicado, updateProductoSeleccionado } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getProductosPorAplicar } from '../../state/consultas/consultas.selectors';
@@ -13,15 +13,23 @@ import { DialogoProductoAplicarComponent } from '../dialogo-producto-aplicar/dia
   templateUrl: './lista-productos-por-aplicar.component.html',
   styleUrls: ['./lista-productos-por-aplicar.component.scss']
 })
-export class ListaProductosPorAplicarComponent implements OnInit {
+export class ListaProductosPorAplicarComponent implements OnInit, OnDestroy {
   productos: ProductoConsulta[] = []
+
+  subscriptions: Subscription[] = [];
 
   constructor(private store: Store<ConsultasState>, public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.store.pipe(select(getProductosPorAplicar)).subscribe((productosPorAplicar) => {
+    this.subscriptions.push(this.store.pipe(select(getProductosPorAplicar)).subscribe((productosPorAplicar) => {
       this.productos = productosPorAplicar;
-    })
+    }))
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onProductoDiscard(producto: ProductoConsulta){

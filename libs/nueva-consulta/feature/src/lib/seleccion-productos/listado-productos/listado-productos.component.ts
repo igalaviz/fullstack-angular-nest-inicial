@@ -1,16 +1,17 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { addProductoSeleccionado, ConsultasState, deleteProductoSeleccionado, getFiltrosProductos, getProductosSeleccionados, getTratamientosSeleccionados, getUsarRecomendacion } from '../../..';
 import { ConsultaService, FiltrosProductosConsulta, Tratamiento, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { map, mergeMap, startWith, switchMap, tap } from 'rxjs/operators';
 import { MatPaginator } from '@angular/material/paginator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'consultas-listado-productos',
   templateUrl: './listado-productos.component.html',
   styleUrls: ['./listado-productos.component.scss']
 })
-export class ListadoProductosComponent implements OnInit, AfterViewInit {
+export class ListadoProductosComponent implements OnInit, AfterViewInit, OnDestroy {
   usarRecomendacion = false;
   filtros: FiltrosProductosConsulta = {idLaboratorio: '', idFuncion: ''};
   tratamientosSeleccionados: Tratamiento[] = [];
@@ -23,15 +24,17 @@ export class ListadoProductosComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  subscriptions: Subscription[] = [];
+
   constructor(private store: Store<ConsultasState>, private consultasService: ConsultaService) { }
 
   ngOnInit(): void {
 
-    this.store.pipe(select(getUsarRecomendacion)).subscribe((value) => {
+    this.subscriptions.push(this.store.pipe(select(getUsarRecomendacion)).subscribe((value) => {
       this.usarRecomendacion = value;
-    })
+    }))
 
-    this.store.pipe(select(getFiltrosProductos), tap((filtros) => {
+    this.subscriptions.push(this.store.pipe(select(getFiltrosProductos), tap((filtros) => {
       // cada vez que el usuario escoga un filtro (laboratorio/funcion) diferente...
       this.filtros = filtros;
     }), switchMap((filtros) => {
@@ -52,9 +55,9 @@ export class ListadoProductosComponent implements OnInit, AfterViewInit {
         }
       }, 0)
       
-    });
+    }));
 
-    this.store.pipe(select(getProductosSeleccionados)).subscribe((productosSeleccionados) => {
+    this.subscriptions.push(this.store.pipe(select(getProductosSeleccionados)).subscribe((productosSeleccionados) => {
       this.productos = this.productos.map(producto => {
           const matchIndex = productosSeleccionados.findIndex(p => p.producto.id === producto.producto.id)
           if(matchIndex !== -1){
@@ -64,17 +67,17 @@ export class ListadoProductosComponent implements OnInit, AfterViewInit {
           }
       })
       this.updateProductosToShow();
-    })
+    }))
 
-    this.store.pipe(select(getTratamientosSeleccionados)).subscribe((value) => {
+    this.subscriptions.push(this.store.pipe(select(getTratamientosSeleccionados)).subscribe((value) => {
       this.tratamientosSeleccionados = value;
-    })
+    }))
 
   }
 
   ngAfterViewInit(): void {
     this.updateProductosToShow();
-    this.paginator.page.subscribe((value) => {
+    this.subscriptions.push(this.paginator.page.subscribe((value) => {
       if(value.pageSize >= this.productos.length){
         // si el número total de productos que coinciden con los filtros
         // es mayor o igual al número de productos que se deben mostrar por página, no es necesario recortar el array
@@ -84,7 +87,13 @@ export class ListadoProductosComponent implements OnInit, AfterViewInit {
         const to = from + value.pageSize;
         this.productosToShow = this.productos.slice(from, to);
       }  
-    })
+    }))
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   updateProductosToShow(){

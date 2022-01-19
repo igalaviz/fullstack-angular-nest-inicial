@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormArray } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SelectableFaceArea, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { addAplicacionProducto, addSelectedFaceArea, deleteSelectedFaceArea, removeAplicacionProducto, setProductoAsAplicado, setProductoSiendoAplicado, setSelectedFaceAreas, updateAplicacionProducto } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getProductoSiendoAplicado, getProductosSeleccionados, getSelectedFaceAreas } from '../../state/consultas/consultas.selectors';
@@ -14,7 +14,7 @@ import { ItemFaceAreaComponent } from '../item-face-area/item-face-area.componen
   templateUrl: './lista-face-areas.component.html',
   styleUrls: ['./lista-face-areas.component.scss']
 })
-export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
+export class ListaFaceAreasComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() areasType: "musculos" | "zonas" =  "zonas";
 
   productoEnUso!: ProductoConsulta;
@@ -28,20 +28,22 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
   @ViewChild('cancelBtn') cancelBtn!: HTMLButtonElement;
   formArray = new FormArray([]);
 
+  subscriptions: Subscription[] = [];
+
   constructor(private consultasService: ConsultaService, private store: Store<ConsultasState>, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if(this.areasType === "zonas"){
-      this.consultasService.getAllZonas().subscribe((zonas) => {
+      this.subscriptions.push(this.consultasService.getAllZonas().subscribe((zonas) => {
         this.areas = zonas.map(z => Object.assign({}, {area: z, selected: false}));
-      })
+      }))
     }else {
-      this.consultasService.getAllMusculos().subscribe((musculos) => {
+      this.subscriptions.push(this.consultasService.getAllMusculos().subscribe((musculos) => {
         this.areas = musculos.map(m => Object.assign({}, {area: m, selected: false}));
-      })
+      }))
     }
 
-    this.store.pipe(select(getProductoSiendoAplicado)).subscribe((producto) => {
+    this.subscriptions.push(this.store.pipe(select(getProductoSiendoAplicado)).subscribe((producto) => {
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
       this.productoEnUso = producto!;
       if(producto && producto.aplicaciones.length > 0){
@@ -49,11 +51,11 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
       }else {
         this.deleteAllAplicaciones = true;
       }
-    })
+    }))
 
-    this.store.pipe(select(getProductosSeleccionados)).subscribe((productos) => {
+    this.subscriptions.push(this.store.pipe(select(getProductosSeleccionados)).subscribe((productos) => {
       console.log(productos);
-    })
+    }))
   }
 
   ngAfterViewInit(): void {
@@ -61,7 +63,7 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
       this.formArray.push(el.cantidadControl)
     }
 
-    combineLatest(this.store.select(getSelectedFaceAreas), this.store.select(getProductosSeleccionados), (selectedAreas, productos) => {
+    this.subscriptions.push(combineLatest(this.store.select(getSelectedFaceAreas), this.store.select(getProductosSeleccionados), (selectedAreas, productos) => {
       console.log("fireeeeEEEEE")
       const producto = productos.filter(p => p.producto.id === this.productoEnUso.producto.id)[0];
 
@@ -86,25 +88,14 @@ export class ListaFaceAreasComponent implements OnInit, AfterViewInit {
         this.submitBtn.disabled = true;
         this.areas = this.areas.map(a => Object.assign({}, {...a, selected: false}))
       }
-    }).subscribe();
-
-    /*this.store.pipe(select(getSelectedFaceAreas)).subscribe((selectedAreas) => {
-      if(selectedAreas.length > 0){
-        this.submitBtn.disabled = false;
-        for(let i = 0; i < this.areas.length; i++){
-          const foundIndex = selectedAreas.findIndex(a => a.id === this.areas[i].area.id)
-          if(foundIndex !== -1){
-            this.areas[i].selected = true;
-          }else{
-            this.areas[i].selected = false;
-          }
-        }
-      }else{
-        this.submitBtn.disabled = true;
-        this.areas = this.areas.map(a => Object.assign({}, {...a, selected: false}))
-      }
-    })*/
+    }).subscribe());
   
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onAreaSelected(area: SelectableFaceArea, cantidad: number){

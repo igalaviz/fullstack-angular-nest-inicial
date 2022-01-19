@@ -1,28 +1,28 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Area, ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { addAplicacionProducto, addSelectedFaceArea, ConsultasState, deleteSelectedFaceArea, getComentarios, getDiagnosticoMedico, getFotos, getProductoSiendoAplicado, getProductosPorAplicar, getProductosSeleccionados, getSignosSintomas, getTratamientosSeleccionados, getUsarRecomendacion, removeAplicacionProducto, setAllowNextStep, setError, setProductoAsAplicado, setProductoSiendoAplicado, setSelectedFaceAreas } from '../..';
 import { ListaFaceAreasComponent } from './lista-face-areas/lista-face-areas.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'consultas-trabajo',
   templateUrl: './trabajo.component.html',
   styleUrls: ['./trabajo.component.scss']
 })
-export class TrabajoComponent implements OnInit {
+export class TrabajoComponent implements OnInit, OnDestroy {
   productoEnUso?: ProductoConsulta;
   allowFaceAreasSelection = false;
   diagramType: 'musculos' | 'zonas' = 'zonas';
 
   @ViewChild('listaFaceAreas') listaFaceAreas!: ListaFaceAreasComponent;
 
-  // when a button is disabled, show a tooltip with the "latest known error"
-  // which means I should be setting the "latest known error" whenever I set "allowNextStep" to false
+  subscriptions: Subscription[] = [];
 
   constructor(private store: Store<ConsultasState>) { }
 
   ngOnInit(): void {
-    this.store.pipe(select(getProductoSiendoAplicado)).subscribe((value) => {
+    this.subscriptions.push(this.store.pipe(select(getProductoSiendoAplicado)).subscribe((value) => {
       this.productoEnUso = value;
       if(this.productoEnUso !== undefined){
         this.allowFaceAreasSelection = true;
@@ -34,8 +34,14 @@ export class TrabajoComponent implements OnInit {
       }else {
         this.allowFaceAreasSelection = false;
       }
-    })
+    }))
 
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onAreaSelected(selectedArea: Area){

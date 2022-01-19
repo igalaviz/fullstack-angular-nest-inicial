@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChildren } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChildren } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { SelectableFaceArea } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'consultas-item-face-area',
   templateUrl: './item-face-area.component.html',
   styleUrls: ['./item-face-area.component.scss']
 })
-export class ItemFaceAreaComponent implements OnInit {
+export class ItemFaceAreaComponent implements OnInit, OnDestroy {
   @Input() area!: SelectableFaceArea;
   @Input() unidad: "ML" = "ML";
   @Input() showAll = true;
@@ -21,14 +22,22 @@ export class ItemFaceAreaComponent implements OnInit {
 
   cantidadControl = new FormControl(1, [Validators.min(1)]);
 
+  subscriptions: Subscription[] = [];
+
   ngOnInit(): void {
-    this.cantidadControl.valueChanges.subscribe((cantidad) => {
+    this.subscriptions.push(this.cantidadControl.valueChanges.subscribe((cantidad) => {
       if(cantidad !== this.qty){
         this.qty = cantidad;
         this.areaQtyChange.emit({area: this.area, cantidad});
       }
       
-    })
+    }))
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onSelectionChange(checked: boolean){

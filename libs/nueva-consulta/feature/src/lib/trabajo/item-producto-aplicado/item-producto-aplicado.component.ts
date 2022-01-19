@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { AplicacionProducto, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'consultas-item-producto-aplicado',
   templateUrl: './item-producto-aplicado.component.html',
   styleUrls: ['./item-producto-aplicado.component.scss']
 })
-export class ItemProductoAplicadoComponent implements OnInit {
+export class ItemProductoAplicadoComponent implements OnInit, OnDestroy {
   @Input() producto!: ProductoConsulta;
 
   @Output() proximaAplicacionChange = new EventEmitter<{proximaAplicacion: string, producto: ProductoConsulta}>();
@@ -19,6 +20,8 @@ export class ItemProductoAplicadoComponent implements OnInit {
 
   proximaAplicacionControl = new FormControl('');
 
+  subscriptions: Subscription[] = [];
+
   ngOnInit(): void {
     if(this.producto.proximaAplicacion && this.producto.proximaAplicacion !== ''){
       this.specifyProximaAplicacion = true;
@@ -26,9 +29,15 @@ export class ItemProductoAplicadoComponent implements OnInit {
     }else{
       this.specifyProximaAplicacion = false;
     }
-    this.proximaAplicacionControl.valueChanges.subscribe((value) => {
+    this.subscriptions.push(this.proximaAplicacionControl.valueChanges.subscribe((value) => {
       this.proximaAplicacionChange.emit({proximaAplicacion: value, producto: this.producto});
-    })
+    }))
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onEspecificarProximaAplicacionClicked(){

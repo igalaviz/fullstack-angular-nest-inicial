@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, OnDestroy } from '@angular/core';
 import { Area, ConsultaService } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { ConsultasState, getSelectedFaceAreas } from '../..';
 
 @Component({
@@ -9,10 +9,12 @@ import { ConsultasState, getSelectedFaceAreas } from '../..';
   templateUrl: './face-interactive-diagram.component.html',
   styleUrls: ['./face-interactive-diagram.component.css']
 })
-export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
+export class FaceInteractiveDiagramComponent implements OnInit, OnChanges, OnDestroy {
   @Input() diagram: 'musculos' | 'zonas' = 'zonas';
   @Input() angle: 'front' | 'right' | 'left' = 'front'; 
   _allowSelection = false;
+
+  subscriptions: Subscription[] = [];
 
   get allowSelection(): boolean {
     return this._allowSelection;
@@ -54,48 +56,56 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     if(this.diagram === 'zonas'){
-      this.consultasService.getAllZonas().subscribe((value) => {
+      const zonasSub = this.consultasService.getAllZonas().subscribe((value) => {
         this.allZones = value;
         this.doInitialSetup();
       })
+      this.subscriptions.push(zonasSub);
     }else if(this.diagram === 'musculos'){
-      this.consultasService.getAllMusculos().subscribe((value) => {
+      const musculosSub = this.consultasService.getAllMusculos().subscribe((value) => {
         this.allMusculos = value;
         this.doInitialSetup();
       })
+      this.subscriptions.push(musculosSub);
     }
-
-    //this.doInitialSetup();
     
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if(changes.diagram ? changes.diagram.currentValue === 'zonas' : this.diagram === 'zonas'){
-      this.consultasService.getAllZonas().subscribe((value) => {
+      const zonasSub = this.consultasService.getAllZonas().subscribe((value) => {
         this.allZones = value;
         this.doInitialSetup();
       })
+      this.subscriptions.push(zonasSub);
     }else if(changes.diagram ? changes.diagram.currentValue === 'musculos' : this.diagram === 'musculos'){
-      this.consultasService.getAllMusculos().subscribe((value) => {
+      const musculosSub = this.consultasService.getAllMusculos().subscribe((value) => {
         this.allMusculos = value;
         this.doInitialSetup();
       })
+      this.subscriptions.push(musculosSub);
     }
   }
 
+  ngOnDestroy(): void {
+    for(const sub of this.subscriptions){
+      sub.unsubscribe();
+    }
+  }
 
   doInitialSetup(){
     if(this.allowSelection){
       this.makeAllItemsSelectable();
-      this.store.pipe(select(getSelectedFaceAreas)).subscribe((areas) =>{
+      const selectedSub = this.store.pipe(select(getSelectedFaceAreas)).subscribe((areas) =>{
         this.selections = areas;
         this.highlightAllSelections();
       })
+      this.subscriptions.push(selectedSub);
     }
 
     if(!this.allowSelection){
       this.makeAllItemsNOTSelectable();
-    this.highlights.subscribe((highlights) => {
+      const highSub = this.highlights.subscribe((highlights) => {
       //Primero, deseleccionar cualquier zona actualmente seleccionada
       //Después, si el array contiene elementos, seleccionar esos elementos
       //Si el array no tenía elementos, no seleccionar nada
@@ -115,6 +125,7 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
         }
       }
     })
+    this.subscriptions.push(highSub);
     }
   }
 
@@ -231,19 +242,5 @@ export class FaceInteractiveDiagramComponent implements OnInit, OnChanges {
   onAngleChange(angle: 'front' | 'right' | 'left'){
     this.angle = angle;
   }
-
-  /*loadAreas(){
-    if(this.diagram === 'zonas'){
-      this.consultasService.getAllZonas().subscribe((value) => {
-        this.allZones = value;
-        this.doInitialSetup();
-      })
-    }else if(this.diagram === 'musculos'){
-      this.consultasService.getAllMusculos().subscribe((value) => {
-        this.allMusculos = value;
-        this.doInitialSetup();
-      })
-    }
-  }*/
 
 }

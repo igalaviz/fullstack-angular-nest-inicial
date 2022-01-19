@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { Store } from '@ngrx/store';
 import { AplicacionProducto } from 'libs/nueva-consulta/data-access/src';
+import { Subscription } from 'rxjs';
 import { removeAplicacionProducto, setProductoSiendoAplicado, setProximaAplicacionProducto, setSelectedFaceAreas } from '../../..';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getProductosAplicados } from '../../state/consultas/consultas.selectors';
@@ -11,17 +12,24 @@ import { getProductosAplicados } from '../../state/consultas/consultas.selectors
   templateUrl: './lista-productos-aplicados.component.html',
   styleUrls: ['./lista-productos-aplicados.component.scss']
 })
-export class ListaProductosAplicadosComponent implements OnInit {
+export class ListaProductosAplicadosComponent implements OnInit, OnDestroy {
   productos: ProductoConsulta[] = [];
 
-  constructor(private store: Store<ConsultasState>) {
+  subscriptions: Subscription[] = [];
 
+  constructor(private store: Store<ConsultasState>) {
   }
 
   ngOnInit(): void {
-    this.store.select(getProductosAplicados).subscribe((productosAplicados) => {
+    this.subscriptions.push(this.store.select(getProductosAplicados).subscribe((productosAplicados) => {
       this.productos = productosAplicados;
-    })
+    }))
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onDiscardAplicacionClicked(aplicacion: AplicacionProducto, producto: ProductoConsulta) {

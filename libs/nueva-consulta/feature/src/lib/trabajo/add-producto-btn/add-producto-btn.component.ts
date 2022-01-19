@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatSelectChange } from '@angular/material/select';
 import { ConsultaService, ProductoConsulta } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { addProductoSeleccionado } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
@@ -15,21 +15,23 @@ import { getProductosSeleccionados } from '../../state/consultas/consultas.selec
   templateUrl: './add-producto-btn.component.html',
   styleUrls: ['./add-producto-btn.component.scss']
 })
-export class AddProductoBtnComponent implements OnInit {
+export class AddProductoBtnComponent implements OnInit, OnDestroy {
   productoControl = new FormControl(undefined)
 
   opcionesProductos: ProductoConsulta[] = [];
   productoSeleccionado?: ProductoConsulta;
 
+  subscriptions: Subscription[] = [];
+
   constructor(private consultasService: ConsultaService, private store: Store<ConsultasState>) { }
 
   ngOnInit(): void {
     // cross the selected with all of them
-    this.consultasService.getAllProducts().subscribe((value) => {
+    this.subscriptions.push(this.consultasService.getAllProducts().subscribe((value) => {
       this.opcionesProductos = value;
-    })
+    }))
 
-    this.store.pipe(select(getProductosSeleccionados)).subscribe((productosSeleccionados) => {
+    this.subscriptions.push(this.store.pipe(select(getProductosSeleccionados)).subscribe((productosSeleccionados) => {
       this.opcionesProductos = this.opcionesProductos.map(producto => {
           const matchIndex = productosSeleccionados.findIndex(p => p.producto.id === producto.producto.id)
           if(matchIndex !== -1){
@@ -38,8 +40,14 @@ export class AddProductoBtnComponent implements OnInit {
             return {...producto, selected: false}
           }
       })
-    })
+    }))
 
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   displayFn(producto: ProductoConsulta): string {

@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatOption } from '@angular/material/core';
 import { ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { addProductoSeleccionado, deleteProductoSeleccionado } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getProductosSeleccionados, getTratamientosSeleccionados } from '../../state/consultas/consultas.selectors';
@@ -12,7 +13,7 @@ import { getProductosSeleccionados, getTratamientosSeleccionados } from '../../s
   templateUrl: './matoptions-tratamientos-producto.component.html',
   styleUrls: ['./matoptions-tratamientos-producto.component.scss']
 })
-export class MatoptionsTratamientosProductoComponent implements OnInit {
+export class MatoptionsTratamientosProductoComponent implements OnInit, OnDestroy {
   @Input() producto!: ProductoConsulta;
   @Output() selectionChange = new EventEmitter<{tratamiento: Tratamiento, checked: boolean}>();
 
@@ -21,14 +22,17 @@ export class MatoptionsTratamientosProductoComponent implements OnInit {
   tratamientosCheck?: Tratamiento[] = []
   tratamientosControl: FormControl = new FormControl([]);
 
+  subscriptions: Subscription[] = [];
+
   constructor(private store: Store<ConsultasState>) { }
 
   ngOnInit(): void {
-    this.store.select(getTratamientosSeleccionados).subscribe((tratamientosSeleccionados) => {
+    const tratSub = this.store.select(getTratamientosSeleccionados).subscribe((tratamientosSeleccionados) => {
       this.opcionesTratamientos = tratamientosSeleccionados;
     })
+    this.subscriptions.push(tratSub);
 
-    this.store.select(getProductosSeleccionados).subscribe((productosSeleccionados) => {
+    const prodSub =  this.store.select(getProductosSeleccionados).subscribe((productosSeleccionados) => {
       const foundIndex = productosSeleccionados.findIndex(p => p.producto.id === this.producto.producto.id);
       if(foundIndex === -1){
         this.tratamientosCheck = [];
@@ -38,6 +42,13 @@ export class MatoptionsTratamientosProductoComponent implements OnInit {
         this.tratamientosControl.setValue(productosSeleccionados[foundIndex].tratamientos);
       }
     })
+    this.subscriptions.push(prodSub);
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onTratamientoRemoved(tratamiento: Tratamiento){

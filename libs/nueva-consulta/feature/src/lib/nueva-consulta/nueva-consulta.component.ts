@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Consulta, ConsultaService } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { ConsultasState, getAllowNextStep, getComentarios, getConsultasError, getDiagnosticoMedico, getFotos, getProductosSeleccionados, getSignosSintomas, getTratamientosSeleccionados, getUsarRecomendacion, loadEstigmas, loadTratsByZona, setFotos } from '../..';
 import { DiagnosticoInicialComponent } from '../diagnostico-inicial/diagnostico-inicial.component';
 
@@ -9,12 +10,12 @@ import { DiagnosticoInicialComponent } from '../diagnostico-inicial/diagnostico-
   templateUrl: './nueva-consulta.component.html',
   styleUrls: ['./nueva-consulta.component.scss']
 })
-export class NuevaConsultaComponent implements OnInit{
+export class NuevaConsultaComponent implements OnInit, OnDestroy{
 
   step: 1 | 2 | 3 | 4 = 1;
 
   allowNextStep = false;
-  whyUserCantMoveToNext = "wow";
+  whyUserCantMoveToNext = "";
 
   consulta: Consulta = {
     id: '',
@@ -29,32 +30,42 @@ export class NuevaConsultaComponent implements OnInit{
     usarRecomendacion: false
   };
 
+  subscriptions: Subscription[] = [];
+
   @ViewChild('diagnosticoInicial') diagnosticoInicial!: DiagnosticoInicialComponent;
 
   constructor(private store: Store<ConsultasState>, private service: ConsultaService) { }
 
   ngOnInit(): void {
-    this.store.select(getAllowNextStep).subscribe((value) => {
+    const allowSub = this.store.select(getAllowNextStep).subscribe((value) => {
       setTimeout(() => {
         this.allowNextStep = value;
       }, 0)
-
-      this.store.select(getConsultasError).subscribe((error) => {
-        //setTimeout(() => {
-          console.log(error);
-          this.whyUserCantMoveToNext = error ?? '';
-        //}, 0)
-        
-      })
     })
+    this.subscriptions.push(allowSub);
 
-    this.store.select(getComentarios).subscribe((comentarios) => this.consulta.comentarios = comentarios);
-    this.store.select(getSignosSintomas).subscribe(signosSintomas => this.consulta.diagnosticoPacienteSeleccionados = signosSintomas);
-    this.store.select(getDiagnosticoMedico).subscribe(diagnosticoMedico => this.consulta.diagnosticoMedicoSeleccionados = diagnosticoMedico);
-    this.store.select(getFotos).subscribe(fotos => this.consulta.fotos = fotos);
-    this.store.select(getProductosSeleccionados).subscribe(productos => this.consulta.productosSeleccionados = productos);
-    this.store.select(getTratamientosSeleccionados).subscribe(tratamientos => this.consulta.tratamientosSeleccionados = tratamientos);
-    this.store.select(getUsarRecomendacion).subscribe(usarRecomendacion => this.consulta.usarRecomendacion = usarRecomendacion);
+    const cErrSub = this.store.select(getConsultasError).subscribe((error) => {
+      //setTimeout(() => {
+        console.log(error);
+        this.whyUserCantMoveToNext = error ?? '';
+      //}, 0)
+      
+    })
+    this.subscriptions.push(cErrSub);
+
+    this.subscriptions.push(this.store.select(getComentarios).subscribe((comentarios) => this.consulta.comentarios = comentarios));
+    this.subscriptions.push(this.store.select(getSignosSintomas).subscribe(signosSintomas => this.consulta.diagnosticoPacienteSeleccionados = signosSintomas));
+    this.subscriptions.push(this.store.select(getDiagnosticoMedico).subscribe(diagnosticoMedico => this.consulta.diagnosticoMedicoSeleccionados = diagnosticoMedico));
+    this.subscriptions.push(this.store.select(getFotos).subscribe(fotos => this.consulta.fotos = fotos));
+    this.subscriptions.push(this.store.select(getProductosSeleccionados).subscribe(productos => this.consulta.productosSeleccionados = productos));
+    this.subscriptions.push(this.store.select(getTratamientosSeleccionados).subscribe(tratamientos => this.consulta.tratamientosSeleccionados = tratamientos));
+    this.subscriptions.push(this.store.select(getUsarRecomendacion).subscribe(usarRecomendacion => this.consulta.usarRecomendacion = usarRecomendacion));
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onNextClicked(){

@@ -1,13 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'consultas-item-producto',
   templateUrl: './item-producto.component.html',
   styleUrls: ['./item-producto.component.scss']
 })
-export class ItemProductoComponent implements OnInit {
+export class ItemProductoComponent implements OnInit, OnDestroy {
   @Input() tratamientos?: Tratamiento[] = [];
   @Input() producto: ProductoConsulta = {
     producto: {
@@ -55,8 +56,10 @@ export class ItemProductoComponent implements OnInit {
 
   tratamientosControl: FormControl = new FormControl(this.producto.tratamientos);
 
+  subscriptions: Subscription[] = [];
+
   ngOnInit(): void {
-    this.tratamientosControl.valueChanges.subscribe((tratamientos: Tratamiento[]) => {
+    this.subscriptions.push(this.tratamientosControl.valueChanges.subscribe((tratamientos: Tratamiento[]) => {
       // asignar los tratamientos actualizados al objeto de Producto
       this.producto = Object.assign({}, {...this.producto, tratamientos});
 
@@ -66,7 +69,13 @@ export class ItemProductoComponent implements OnInit {
         this.producto.selected = true;
       }
       
-    })
+    }))
+  }
+  
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onCheckboxChange(checked: boolean){

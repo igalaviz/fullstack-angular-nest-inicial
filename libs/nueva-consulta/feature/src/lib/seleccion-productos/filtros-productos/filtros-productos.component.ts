@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConsultaService, Funcion, Laboratorio } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { setFiltrosProductos } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getFiltrosProductos } from '../../state/consultas/consultas.selectors';
@@ -10,25 +11,27 @@ import { getFiltrosProductos } from '../../state/consultas/consultas.selectors';
   templateUrl: './filtros-productos.component.html',
   styleUrls: ['./filtros-productos.component.scss']
 })
-export class FiltrosProductosComponent implements OnInit {
+export class FiltrosProductosComponent implements OnInit, OnDestroy {
   laboratorios: Laboratorio[] = [];
   funciones: Funcion[] = [];
 
   laboratorioSeleccionado?: Laboratorio;
   funcionSeleccionada?: Funcion;
 
+  subscriptions: Subscription[] = [];
+
   constructor(private consultasService: ConsultaService, private store: Store<ConsultasState>) { }
 
   ngOnInit(): void {
-    this.consultasService.getLaboratorios().subscribe((labs) => {
+    this.subscriptions.push(this.consultasService.getLaboratorios().subscribe((labs) => {
       this.laboratorios = labs;
-    })
+    }))
 
-    this.consultasService.getFunciones().subscribe((funciones) => {
+    this.subscriptions.push(this.consultasService.getFunciones().subscribe((funciones) => {
       this.funciones = funciones;
-    })
+    }))
 
-    this.store.select(getFiltrosProductos).subscribe(filtros => {
+    this.subscriptions.push(this.store.select(getFiltrosProductos).subscribe(filtros => {
       const idLab = filtros.idLaboratorio;
       const idFuncion = filtros.idFuncion;
 
@@ -43,7 +46,13 @@ export class FiltrosProductosComponent implements OnInit {
       }else{
         this.funcionSeleccionada = undefined;
       }
-    })
+    }))
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onLaboratorioChanged(laboratorio: Laboratorio) {

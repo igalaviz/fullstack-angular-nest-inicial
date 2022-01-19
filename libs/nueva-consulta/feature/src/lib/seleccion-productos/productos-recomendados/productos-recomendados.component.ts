@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ConsultaService, ProductoConsulta, Tratamiento } from '@fullstack-angular-nest/nueva-consulta/data-access';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { addProductoSeleccionado, deleteProductoSeleccionado } from '../../state/consultas/consultas.actions';
 import { ConsultasState } from '../../state/consultas/consultas.reducer';
 import { getTratamientoDeInteres, getTratamientosSeleccionados } from '../../state/consultas/consultas.selectors';
@@ -11,17 +11,19 @@ import { getTratamientoDeInteres, getTratamientosSeleccionados } from '../../sta
   templateUrl: './productos-recomendados.component.html',
   styleUrls: ['./productos-recomendados.component.css']
 })
-export class ProductosRecomendadosComponent implements OnInit {
+export class ProductosRecomendadosComponent implements OnInit, OnDestroy {
   tratamientoInteres?: Tratamiento;
   tratamientosSeleccionados!: Tratamiento[];
   productos$: Observable<ProductoConsulta[]> = new Observable<[]>();
+
+  subscriptions: Subscription[] = [];
 
   constructor(private store: Store<ConsultasState>, private consultasService: ConsultaService) {
 
   }
 
   ngOnInit(): void {
-    this.store.pipe(select(getTratamientoDeInteres)).subscribe((value) => {
+    const tratSub = this.store.pipe(select(getTratamientoDeInteres)).subscribe((value) => {
       this.tratamientoInteres = value;
       if(this.tratamientoInteres){
         this.productos$ = this.consultasService.getProductosRecomendadosParaTratamiento(this.tratamientoInteres.clave)
@@ -29,11 +31,18 @@ export class ProductosRecomendadosComponent implements OnInit {
         this.productos$ = new Observable<[]>();
       }
     })
+    this.subscriptions.push(tratSub);
 
-    this.store.pipe(select(getTratamientosSeleccionados)).subscribe((value) => {
+    const tratamientosSub = this.store.pipe(select(getTratamientosSeleccionados)).subscribe((value) => {
       this.tratamientosSeleccionados = value;
     })
+    this.subscriptions.push(tratamientosSub);
 
+  }
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onProductoSelected(producto: ProductoConsulta, tratamiento: Tratamiento) {

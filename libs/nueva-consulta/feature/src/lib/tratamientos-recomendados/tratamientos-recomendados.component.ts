@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ConsultasState, getTratamientosSeleccionados, getUsarRecomendacion, removeAllProductosSeleccionados, setAllowNextStep, setError, setTratamientos, updateUsarRecomendacion } from '../..';
 
@@ -9,12 +9,14 @@ import { ConsultasState, getTratamientosSeleccionados, getUsarRecomendacion, rem
   templateUrl: './tratamientos-recomendados.component.html',
   styleUrls: ['./tratamientos-recomendados.component.scss']
 })
-export class TratamientosRecomendadosComponent {
+export class TratamientosRecomendadosComponent implements OnDestroy{
   usarRecomendacion! : boolean;
   enableNext = false;
 
+  subscriptions: Subscription[] = [];
+
   constructor(private store: Store<ConsultasState>) {
-    combineLatest([store.pipe(select(getUsarRecomendacion)), store.pipe(select(getTratamientosSeleccionados))]).pipe(tap(([usarRecomendacion, tratamientosSeleccionados]) => {
+    this.subscriptions.push(combineLatest([store.pipe(select(getUsarRecomendacion)), store.pipe(select(getTratamientosSeleccionados))]).pipe(tap(([usarRecomendacion, tratamientosSeleccionados]) => {
       this.usarRecomendacion = usarRecomendacion;
 
       if(tratamientosSeleccionados.length === 0 && this.usarRecomendacion){
@@ -37,8 +39,14 @@ export class TratamientosRecomendadosComponent {
         this.store.dispatch(setError({error: undefined}))
 
       }
-    })).subscribe();
+    })).subscribe());
     
+  }
+
+  ngOnDestroy(): void {
+      for(const sub of this.subscriptions){
+        sub.unsubscribe();
+      }
   }
 
   onUsarRecomendacionChanged(checked: boolean){
