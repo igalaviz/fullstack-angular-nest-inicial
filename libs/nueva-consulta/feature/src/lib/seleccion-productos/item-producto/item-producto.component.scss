@@ -1,0 +1,23 @@
+.ko-item-producto__parent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.mat-card {
+}
+
+.ko-unavailable-product {
+}
+
+.ko-unavailable-msg {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: gray;
+  font-style: italic;
+  margin-top: 8px;
+  span {
+    margin-left: 8px;
+  }
+}

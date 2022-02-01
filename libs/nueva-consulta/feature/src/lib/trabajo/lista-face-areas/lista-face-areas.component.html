@@ -1,0 +1,24 @@
+<div class="ko-work-sidebar">
+    <div class="ko-sidebar-topbar">
+        <span>Aplicando {{productoEnUso?.producto?.nombre}}</span>
+        <div>
+            <button #submitBtn mat-flat-button color="primary" (click)="onTerminarAplicandoProductoClicked()">Listo</button>
+            <button #cancelBtn mat-flat-button (click)="onCancelarClicked()">Cancelar</button>
+        </div>
+        
+        
+    </div>
+    
+    <div class="ko-work-sidebar-content" style="margin-top: 8px;">
+        <div style="margin-bottom: 8px;">
+            <mat-button-toggle-group [value]="false" (change)="onShowAllChanged($event.value)">
+                <mat-button-toggle [value]="true">{{areasType === "musculos" ? "Todos los músculos" : "Todos las zonas"}}</mat-button-toggle>
+                <mat-button-toggle [value]="false">{{ areasType === "musculos" ? "Músculos seleccionados" : "Zonas seleccionadas" }}</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+    
+        <div>
+            <consultas-item-face-area *ngFor="let area of areas" [area]="area" unidad="ML" [showAll]="showAll" (areaSelect)="onAreaSelected($event.area, $event.cantidad)" (areaUnselect)="onAreaUnselected($event)" (areaQtyChange)="onAreaQtyChanged($event.area, $event.cantidad)"></consultas-item-face-area>
+        </div>
+    </div>
+</div>

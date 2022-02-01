@@ -1,0 +1,50 @@
+<button mat-stroked-button color="primary" [matMenuTriggerFor]="productMenu">
+    <mat-icon style="font-size: 1.3em; height: 22px;">add_circle_outline</mat-icon>
+    Añadir otro producto
+</button>
+
+<mat-menu #productMenu>
+    <!--<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onProductoChanged($event)">
+        <mat-option
+          *ngFor="let option of filteredOpcionesProductos | async"
+          [value]="option"
+        >
+          {{ option.producto.nombre }}
+        </mat-option>
+    </mat-autocomplete>
+    <mat-form-field appearance="outline">
+        <input
+          type="text"
+          placeholder="Seleccione un producto..."
+          matInput
+          [formControl]="productoControl"
+          [matAutocomplete]="auto"
+          (click)="$event.stopPropagation()"
+          (focus)="$event.stopPropagation()"
+        />
+    </mat-form-field>-->
+    <div style="padding: 8px;">
+      <div (click)="$event.stopPropagation();">
+        <mat-form-field appearance="outline">
+          <mat-label>Producto</mat-label>
+          <mat-select [formControl]="productoControl" (selectionChange)="onProductoChanged($event)" (click)="$event.stopPropagation()">
+            <mat-option
+              (click)="$event.stopPropagation()"
+              *ngFor="let opcion of opcionesProductos"
+              [value]="opcion"
+              [disabled]="opcion.selected"
+              >
+              {{ opcion.producto.nombre }}
+              {{ opcion.selected ? "(Ya seleccionado)" : "" }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+  
+      <button mat-button (click)="onAddClicked()">
+          Agregar
+      </button>
+    </div>
+    
+</mat-menu>

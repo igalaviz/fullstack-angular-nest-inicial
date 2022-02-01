@@ -1,0 +1,140 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@import 'custom-theme.scss';
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  overflow: hidden;
+}
+
+h4 {
+  margin: 0px;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.mat-tooltip {
+  font-size: 0.7em;
+}
+
+.ko-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: lightgray solid 1px;
+  padding: 4px;
+  background-color: white;
+  align-items: center;
+  .mat-stroked-button {
+    height: 100%;
+  }
+  .mat-flat-button {
+    height: 100%;
+  }
+}
+
+.ko-screen-content {
+  padding: 16px;
+}
+
+.ko-fullscreen {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #fafafa;
+}
+
+.ko-action-bar {
+  border-bottom: lightgray solid 1px;
+  padding: 4px;
+  background-color: white;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.ko-column-title {
+  font-weight: 500;
+}
+
+.ko-cancel-stroked-button {
+  color: $kolibri-cancel;
+  transition: all 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+  .mat-icon {
+    font-size: 1.3em;
+    height: 20px;
+  }
+}
+
+.ko-cancel-stroked-button:hover {
+  background-color: $kolibri-cancel;
+  color: white;
+  border-color: $kolibri-cancel;
+}
+
+.ko-error-msg {
+  color: $kolibri-cancel;
+}
+
+.ko-highlighted-product {
+  .ko-item-producto__header {
+    color: mat.get-color-from-palette($kolibri-accent, 'default');
+  }
+}
+
+.ko-highlighted-button {
+  transition: all 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+  color: white;
+  background-color: mat.get-color-from-palette($kolibri-accent, 'default');
+  border-color: mat.get-color-from-palette($kolibri-accent, 'default');
+  .mat-icon {
+    font-size: 1.5em;
+    margin-right: 8px;
+  }
+}
+
+.ko-highlightable-button {
+  transition: all 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86) 0s;
+}
+
+.ko-highlightable-button:hover {
+  color: mat.get-color-from-palette($kolibri-accent, 'default');
+  font-weight: 600;
+}
+
+.ko-small-button {
+  font-size: 0.8em;
+  padding: 4px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.ko-selected-btn-toggle-item {
+  background-color: mat.get-color-from-palette($kolibri-primary, 'lighter');
+  color: mat.get-color-from-palette($kolibri-primary, 'darker') !important;
+  font-weight: 500;
+}

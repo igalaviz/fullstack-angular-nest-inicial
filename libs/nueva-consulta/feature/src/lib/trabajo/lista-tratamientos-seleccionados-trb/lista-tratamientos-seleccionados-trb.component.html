@@ -1,0 +1,13 @@
+<div *ngIf="tratamientos.length > 0; else noTratamientos">
+    <mat-list>
+        <mat-list-item *ngFor="let tratamiento of tratamientos">
+            {{tratamiento.nombre}}
+            <mat-icon style="font-size: 16px" (click)="onTratamientoDiscardClicked(tratamiento)">close</mat-icon>
+        </mat-list-item>
+    </mat-list>
+</div>
+<ng-template #noTratamientos>
+    <div style="font-style: italic; color: gray;">
+        No se ha seleccionado ningún tratamiento.
+    </div>
+</ng-template>

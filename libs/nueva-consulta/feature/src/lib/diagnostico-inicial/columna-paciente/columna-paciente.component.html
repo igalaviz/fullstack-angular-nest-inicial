@@ -1,0 +1,12 @@
+<div fxLayout="column" fxLayoutAlign="center">
+    <h3 class="ko-column-title">Lo que refiere el paciente</h3>
+    <mat-accordion multi="true">
+        <consultas-diagnostico-exp-panel
+            *ngFor="let opcion of opciones"
+            [zonaOpciones]="opcion"
+            [enableLevels]="false"
+            >
+        </consultas-diagnostico-exp-panel>
+    </mat-accordion>
+    
+</div>

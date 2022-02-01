@@ -1,0 +1,31 @@
+<div style="display: flex; flex-direction: column; justify-content: start;">
+    <div>
+        <span class="label">Laboratorio</span>
+        <mat-button-toggle-group multiple="false">
+            <mat-button-toggle
+                *ngFor="let lab of laboratorios"
+                [value]="lab.id"
+                [checked]="laboratorioSeleccionado ? laboratorioSeleccionado.id === lab.id : false"
+                (change)="onLaboratorioChanged(lab)"
+                [ngClass]="{'ko-selected-btn-toggle-item': laboratorioSeleccionado?.id === lab.id, 'ko-item-disponible': isLabAvailable(lab.id) && (laboratorioSeleccionado?.id !== lab.id), 'ko-item-no-disponible': funcionSeleccionada && !isLabAvailable(lab.id) && (laboratorioSeleccionado?.id !== lab.id)} "
+                >
+                {{ lab.nombre }}
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    
+    <div style="margin-top: 8px;">
+        <span class="label">Función</span>
+        <mat-button-toggle-group multiple="false">
+            <mat-button-toggle
+                *ngFor="let funcion of funciones"
+                [value]="funcion.id"
+                [checked]="funcionSeleccionada ? funcionSeleccionada.id === funcion.id : false"
+                (change)="onFuncionChanged(funcion)"
+                [ngClass]="{'ko-selected-btn-toggle-item': funcionSeleccionada?.id === funcion.id, 'ko-item-disponible': isFuncionAvailable(funcion.id) && (funcionSeleccionada?.id !== funcion.id), 'ko-item-no-disponible': funcionSeleccionada && !isFuncionAvailable(funcion.id) && (funcionSeleccionada?.id !== funcion.id)} "
+                >
+                {{ funcion.nombre }}
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+</div>

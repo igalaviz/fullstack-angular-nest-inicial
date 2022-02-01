@@ -1,0 +1,16 @@
+<div class="ko-action-bar">
+    <span style="margin-right: 8px;">Usar tratamientos recomendados?</span>
+    <mat-slide-toggle [checked]="usarRecomendacion" (change)="onUsarRecomendacionChanged($event.checked)"></mat-slide-toggle>
+</div>
+
+<div class="ko-three-columns-layout">
+    <div style="width: 30%;">
+        <consultas-columna-tratamientos></consultas-columna-tratamientos>
+    </div>
+    <div style="width: 40%;">
+        <consultas-columna-cara></consultas-columna-cara>
+    </div>
+    <div style="width: 30%;">
+        <consultas-tratamientos-seleccionados></consultas-tratamientos-seleccionados>
+    </div>
+</div>

@@ -1,0 +1,5 @@
+.selectable-area:hover:active {
+  cursor: pointer;
+  -webkit-filter: opacity(80%);
+  filter: opacity(80%);
+}

@@ -1,0 +1,17 @@
+<h3>Productos aplicados</h3>
+<div *ngIf="productos.length > 0; else noProducts">
+    <consultas-item-producto-aplicado
+        *ngFor="let producto of productos"
+        [producto]="producto"
+        (aplicacionDiscard)="onDiscardAplicacionClicked($event.aplicacion, $event.producto)"
+        (editarAplicacionesClick)="onEditarAplicacionesClicked($event.producto)"
+        (proximaAplicacionChange)="onProximaAplicacionChanged($event.proximaAplicacion, $event.producto)"
+        >
+    </consultas-item-producto-aplicado>
+</div>
+<ng-template #noProducts>
+    <div style="font-style: italic; color: gray;">
+        No se ha aplicado ningún producto.
+    </div>
+</ng-template>
+

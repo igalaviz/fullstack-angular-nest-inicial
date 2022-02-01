@@ -1,0 +1,12 @@
+<h3>Tratamientos seleccionados</h3>
+<mat-chip-list *ngIf="tratamientosSeleccionados.length !== 0; else noSelection">
+    <mat-chip *ngFor="let tratamiento of tratamientosSeleccionados" [removable]="true" (removed)="onTratamientoRemoved(tratamiento)">
+        {{ tratamiento.nombre }}
+        <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+</mat-chip-list>
+<ng-template #noSelection>
+    <div>
+        No ha seleccionado ningún tratamiento.
+    </div>
+</ng-template>

@@ -1,0 +1,49 @@
+<mat-card style="margin-bottom: 8px;">
+    <div>
+        <h4 style="padding-top: none;">{{producto.producto.nombre}}</h4>
+        
+    </div>
+    <div style="display: flex; flex-direction: row; align-items: center; justify-content: space-between;">
+        <div style="display: flex; align-items: center;">
+            <mat-icon [style.color]="producto.aplicador!.color">circle</mat-icon>
+            <span style="margin-left: 8px;">{{producto.aplicador!.categoria === 'C' ? 'Cánula' : producto.aplicador!.categoria === 'A' ? 'Aguja' : ''}} {{producto.aplicador!.nombre}}</span>
+        </div>
+        <div>
+            Lote {{producto.lote!.numeroDeLote}}
+        </div>
+        
+    </div>
+    <div style="margin-top: 8px;">
+        <button mat-stroked-button  *ngIf="!specifyProximaAplicacion" (click)="onEspecificarProximaAplicacionClicked()">
+            <mat-icon>event</mat-icon>
+            Especificar próxima aplicación
+        </button>
+        <mat-form-field *ngIf="specifyProximaAplicacion">
+            <mat-label>Próxima aplicación</mat-label>
+            <input matInput [matDatepicker]="picker" [formControl]="proximaAplicacionControl">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <button mat-flat-button *ngIf="specifyProximaAplicacion" (click)="onEliminarProximaAplicacionClicked()">
+            Eliminar próxima aplicación
+        </button>
+    </div>
+
+    <button mat-flat-button class="ko-small-button" style="margin-top: 8px;" (click)="showAplicaciones = !showAplicaciones">
+        {{showAplicaciones ? 'Esconder aplicaciones' : 'Ver aplicaciones'}}
+    </button>
+
+    <div *ngIf="showAplicaciones">
+        <mat-list>
+            <mat-list-item *ngFor="let aplicacion of producto.aplicaciones" style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+                    <span>{{aplicacion.area.nombre}} - {{aplicacion.cantidad}}ml</span>
+                    <!--<button mat-icon-button (click)="onDiscardAplicacionClicked(aplicacion)">
+                        <mat-icon style="font-size: 16px;">close</mat-icon>
+                    </button>-->
+            </mat-list-item>
+        </mat-list>
+        <button mat-flat-button (click)="onEditarAplicacionesClicked()">
+            Editar aplicaciones
+        </button>
+    </div>
+</mat-card>

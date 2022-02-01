@@ -1,0 +1,33 @@
+<input type="file" [accept]="allowedExtensions.join(',')" class="file-input" [multiple]="fileMaxCount > 1" (change)="onFilesSelected($event)" #fileInput>
+
+<div class="file-upload">
+    <div *ngIf="surpassedLimit" class="ko-error-msg">
+        No se pueden seleccionar más de 5 archivos. Por favor elimine 1 o más archivos para continuar.
+    </div>
+    <mat-list *ngIf="selectedFiles.length > 0; else noSelectedFiles">
+        <mat-list-item *ngFor="let file of selectedFiles">
+            <div class="file-item">
+                <div style="width: 90%;">
+                    {{file.file.name}}
+                    <div *ngIf="file.hasSizeError" class="ko-error-msg">
+                        Este archivo es demasiado grande!
+                    </div>
+                </div>
+                <div style="width: 10%;">
+                    <button mat-icon-button (click)="onFileRemove(file.file)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+                
+            </div>
+        </mat-list-item>
+    </mat-list>
+    <ng-template #noSelectedFiles>
+        No ha seleccionado ningún archivo.
+    </ng-template>
+
+    <div matTooltip="No se pueden seleccionar más de 5 archivos" [matTooltipDisabled]="!reachedLimit">
+        <button #selectButton mat-stroked-button (click)="fileInput.click()">Seleccionar archivos</button>
+    </div>
+    
+</div>

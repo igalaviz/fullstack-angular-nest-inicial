@@ -1,0 +1,13 @@
+<mat-card>
+    <h3>Tratamientos seleccionados</h3>
+    <consultas-item-tratamiento
+        *ngFor="let item of tratamientosConProductos"
+        [tratamiento]="item.tratamiento"
+        [productos]="item.productos"
+        [chosen]="item.chosen"
+        (productoRemove)="onProductoRemoved($event.producto, $event.tratamiento)"
+        (toggle)="onTratamientoToggle($event)"
+        style="margin-bottom: 8px;"
+        >
+    </consultas-item-tratamiento>
+</mat-card>

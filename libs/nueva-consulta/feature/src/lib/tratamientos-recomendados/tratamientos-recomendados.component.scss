@@ -1,0 +1,24 @@
+.ko-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  .mat-flat-button {
+    height: 100%;
+  }
+}
+
+.ko-toolbar-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ko-three-columns-layout {
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  div {
+    width: 33.33%;
+  }
+}

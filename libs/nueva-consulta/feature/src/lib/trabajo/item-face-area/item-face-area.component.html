@@ -1,0 +1,12 @@
+<div [style.display]="area.selected || showAll ? 'flex' : 'none'" style="flex-direction: column;" [style.margin-bottom]="area.selected ? 'none' : '8px'">
+    <div>
+        <mat-checkbox [checked]="area.selected" (change)="onSelectionChange($event.checked)">{{ area.area.nombre }}</mat-checkbox>
+    </div>
+    <div *ngIf="area.selected">
+        <mat-form-field appearance="outline">
+            <input matInput type="number" min="1"
+            [formControl]="cantidadControl">
+            <span matSuffix>{{ unidad === "ML" ? "ml" : ""}}</span>
+          </mat-form-field>
+    </div>
+</div>

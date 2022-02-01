@@ -1,0 +1,26 @@
+span {
+  display: block;
+}
+
+.mat-chip {
+  background-color: transparent;
+  border: lightgray 1px solid;
+}
+
+.mat-chip-selected {
+  background-color: #efefef !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  border: lightgray 2px solid;
+}
+
+.mat-radio-button ~ .mat-radio-button {
+  margin-left: 8px;
+}
+
+.mat-icon {
+  margin-right: 8px;
+}
+
+.selectable-chip:hover {
+  cursor: pointer;
+}

@@ -1,0 +1,33 @@
+::ng-deep .ko-work-sidebar {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  min-width: 200px;
+  border-right: 1px solid #e9ebf0;
+}
+
+.ko-work-content {
+  width: 75%;
+  display: flex;
+  justify-content: center;
+}
+
+::ng-deep #parent {
+  width: 470px !important;
+}
+
+::ng-deep.ko-work-sidebar-content {
+  padding: 8px;
+  overflow-y: auto;
+  height: 90%;
+}
+
+::ng-deep.ko-sidebar-topbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  border-bottom: lightgray solid 1px;
+}

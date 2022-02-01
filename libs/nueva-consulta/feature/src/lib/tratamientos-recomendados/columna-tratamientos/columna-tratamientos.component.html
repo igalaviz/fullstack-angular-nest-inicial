@@ -1,0 +1,23 @@
+<div style="display: flex; flex-direction: row; align-items: baseline;">
+    <h3 class="ko-column-title">Tratamientos recomendados por </h3>
+<mat-form-field>
+    <mat-select [(value)]="categorizacion">
+        <mat-option value="estigmas">
+            estigmas
+        </mat-option>
+        <mat-option value="zonas">
+            zonas
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+</div>
+
+<mat-accordion *ngIf="categorizacion === 'estigmas'; else zonas" [multi]="true">
+    <consultas-exp-panel-tratamientos-recomendados *ngFor="let item of estigmas | async" categorizacion="estigmas" [estigma]="item" (tratamientoCheck)="onTratamientoChecked($event.tratamiento, $event.checked)"></consultas-exp-panel-tratamientos-recomendados>
+</mat-accordion>
+
+<ng-template #zonas>
+    <mat-accordion>
+        <consultas-exp-panel-tratamientos-recomendados *ngFor="let item of tratamientosPorZona" categorizacion="zonas" [tratamientosPorZona]="item" (tratamientoCheck)="onTratamientoChecked($event.tratamiento, $event.checked)"></consultas-exp-panel-tratamientos-recomendados>
+    </mat-accordion>
+</ng-template>

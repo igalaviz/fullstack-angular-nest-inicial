@@ -1,0 +1,28 @@
+<div class="ko-fullscreen">
+        <div class="ko-toolbar">
+            <button *ngIf="step === 1; else backButton;" mat-stroked-button koBackButton class="ko-cancel-stroked-button" (click)="onCancelClicked()">Cancelar</button>
+            <ng-template #backButton>
+                <button  mat-stroked-button (click)="onBackClicked()">
+                    <mat-icon>arrow_back</mat-icon>
+                    Back
+                </button>
+            </ng-template>
+            
+            <div class="ko-toolbar-title">
+                <h5 style="margin: 0;">Nueva Consulta</h5>
+                <h2 style="margin: 8px;">
+                    {{step === 1 ? 'Diagnóstico' : step === 2 ? 'Tratamientos recomendados' : step ===  3 ? 'Selección de Productos' : step === 4 ? 'Aplicación de productos' : ''}}
+                </h2>
+            </div>
+            <div [matTooltip]="whyUserCantMoveToNext" [matTooltipDisabled]="allowNextStep">
+                <button  mat-flat-button color="primary" [disabled]="!allowNextStep" (click)="onNextClicked()">{{step === 4 ? 'Guardar Consulta' : 'Siguiente'}}</button>
+            </div>
+            
+        </div>
+        <div [ngSwitch]="step" style="overflow-y: auto; overflow-x: hidden;">
+            <consultas-diagnostico-inicial *ngSwitchCase="1" #diagnosticoInicial></consultas-diagnostico-inicial>
+            <consultas-tratamientos-recomendados *ngSwitchCase="2"></consultas-tratamientos-recomendados>
+            <consultas-seleccion-productos *ngSwitchCase="3"></consultas-seleccion-productos>
+            <consultas-trabajo *ngSwitchCase="4"></consultas-trabajo>
+        </div>
+    </div>

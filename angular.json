@@ -70,9 +70,17 @@
             "tsConfig": "apps/kolibri/tsconfig.app.json",
             "assets": [
               "apps/kolibri/src/favicon.ico",
-              "apps/kolibri/src/assets"
+              "apps/kolibri/src/assets",
+              {
+                "input": "libs/nueva-consulta/feature/src/assets",
+                "glob": "**/*",
+                "output": "assets"
+              }
             ],
-            "styles": ["apps/kolibri/src/styles.css"],
+            "styles": [
+              "apps/kolibri/src/custom-theme.scss",
+              "apps/kolibri/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -175,6 +183,84 @@
       "tags": [],
       "implicitDependencies": ["kolibri"]
     },
+    "material": {
+      "projectType": "library",
+      "root": "libs/material",
+      "sourceRoot": "libs/material/src",
+      "prefix": "fullstack-angular-nest",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/material"],
+          "options": {
+            "jestConfig": "libs/material/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/material/src/**/*.ts",
+              "libs/material/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "nueva-consulta-data-access": {
+      "projectType": "library",
+      "root": "libs/nueva-consulta/data-access",
+      "sourceRoot": "libs/nueva-consulta/data-access/src",
+      "prefix": "fullstack-angular-nest",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/nueva-consulta/data-access"],
+          "options": {
+            "jestConfig": "libs/nueva-consulta/data-access/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/nueva-consulta/data-access/src/**/*.ts",
+              "libs/nueva-consulta/data-access/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
+    "nueva-consulta-feature": {
+      "projectType": "library",
+      "root": "libs/nueva-consulta/feature",
+      "sourceRoot": "libs/nueva-consulta/feature/src",
+      "prefix": "fullstack-angular-nest",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/nueva-consulta/feature"],
+          "options": {
+            "jestConfig": "libs/nueva-consulta/feature/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/nueva-consulta/feature/src/**/*.ts",
+              "libs/nueva-consulta/feature/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "products": {
       "root": "libs/products",
       "sourceRoot": "libs/products/src",
@@ -193,6 +279,32 @@
           "options": {
             "jestConfig": "libs/products/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "ui-controls": {
+      "projectType": "library",
+      "root": "libs/ui-controls",
+      "sourceRoot": "libs/ui-controls/src",
+      "prefix": "fullstack-angular-nest",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui-controls"],
+          "options": {
+            "jestConfig": "libs/ui-controls/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ui-controls/src/**/*.ts",
+              "libs/ui-controls/src/**/*.html"
+            ]
           }
         }
       },
